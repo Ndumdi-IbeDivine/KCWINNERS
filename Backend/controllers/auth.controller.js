@@ -3,6 +3,8 @@ import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 
 import User from '../models/user.model.js'
+import ContributionAccount from '../models/contribution.model.js'
+
 import { JWT_EXPIRES_IN, JWT_SECRET } from '../config/env.js';
 
 const signUp = async (req, res, next) => {
@@ -88,11 +90,87 @@ const login = async (req, res, next) => {
     }
 }
 
-// const activateAccount = async (req, res, next) => {
+const activateAccount = async (req, res, next) => {
+    try {
 
-// }
+        const registrationProofUrl = req.files?.registrationProof?.[0]?.path;
+        if(!registrationProofUrl) {
+            const error = new Error('Registration proof is required');
+            error.statusCode = 400;
+            throw error;
+        };
+
+        const {
+            userId,
+            sex,
+            bankName,
+            accountNumber,
+            residentialAddress,
+            nextOfKinName,
+            nextOfKinPhone,
+            nextOfKinAddress,
+        } = req.body;
+
+        if(!userId) {
+            const error = new Error('User Id is required');
+            error.statusCode = 400;
+            throw error;
+        };
+
+
+        // Update user with activation form details
+        const updatedUser = await User.findByIdAndUpdate(
+            userId,
+            {
+                sex,
+                bankName,
+                accountNumber,
+                residentialAddress,
+                registrationFeeUrl: registrationProofUrl,
+                isRegistered: false,
+                nextOfKin: {
+                    name: nextOfKinName,
+                    phone: nextOfKinPhone,
+                    address: nextOfKinAddress,
+                },
+                activatedAt: new Date()
+
+            },
+            { new: true }
+        )
+
+        if(!updatedUser) {
+            const error = new Error('User not found');
+            error.statusCode = 400;
+            throw error;
+        };
+
+        // generate primary contribution account
+        const count = await ContributionAccount.countDocuments();
+        const code = `CON${String(count + 1).padStart(4, '0')}`;
+
+        const newContribution = await ContributionAccount.create({
+            userId: updatedUser._id,
+            code,
+            isPrimary: true,
+        });
+
+        res.status(200).json({
+        success: true,
+        message: 'Account activated and primary contribution account created',
+        data: {
+            user: updatedUser,
+            contribution: newContribution,
+        },
+        });
+
+    } catch (error) {
+        next(error);
+    }
+}
 
 export {
     signUp, 
-    login
+    login,
+    activateAccount
 }

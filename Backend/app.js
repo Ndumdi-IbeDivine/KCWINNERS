@@ -4,6 +4,7 @@ import cookieParser from 'cookie-parser';
 import { PORT } from './config/env.js';
 import connectToDatabase from './database/mongodb.js';
 import errorMiddleWare from './middlewares/error.middleware.js';
+import arcjetMiddleware from './middlewares/arcjet.middleware.js';
 
 import authRouter from './routes/auth.route.js'
 import userRouter from './routes/user.route.js'
@@ -13,6 +14,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser())
+app.use(arcjetMiddleware)
 
 app.get('/', (req, res) => {
     res.send('Welcome to KCWINNERS CONTRIBUTION API')

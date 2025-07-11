@@ -1,11 +1,12 @@
 import express from 'express';
-
-import { signUp, login } from '../controllers/auth.controller.js'
+import upload from '../middlewares/upload.middleware.js'
+import authorize from '../middlewares/auth.middleware.js';
+import { signUp, login, activateAccount } from '../controllers/auth.controller.js'
 
 const router = express.Router();
 
 router.post('/sign-up', signUp);
 router.post('/login', login);
-// router.post('/activate', activateAccount);
+router.post('/activate', upload.fields([{ name: 'registrationProof', maxCount: 1 }]), authorize, activateAccount);
 
 export default router

@@ -30,6 +30,23 @@ const userSchema = new mongoose.Schema({
     referralCode: {
         type: String,
     },
+    sex: {
+        type: String
+    },
+    bankName: {
+        type: String
+    },
+    accountNumber: {
+        type: String
+    },
+    residentialAddress: {
+        type: String
+    },
+    nextOfKin: {
+        name: String,
+        phone: String,
+        address: String
+    },
     walletBalance: {
         type: Number,
         default: 0
@@ -48,7 +65,12 @@ const userSchema = new mongoose.Schema({
     createdAt: {
         type: Date,
         default: Date.now()
+    },
+    activatedAt: {
+        type: Date,
+        default: Date.now
     }
+
 });
 
 const User = mongoose.model('User', userSchema);
