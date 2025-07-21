@@ -2,6 +2,7 @@ import mongoose from 'mongoose'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 
+import generateConCode from '../config/generateConCode.js';
 import User from '../models/user.model.js'
 import ContributionAccount from '../models/contribution.model.js'
 
@@ -146,8 +147,7 @@ const activateAccount = async (req, res, next) => {
         };
 
         // generate primary contribution account
-        const count = await ContributionAccount.countDocuments();
-        const code = `CON${String(count + 1).padStart(4, '0')}`;
+        const code = await generateConCode(userId);
 
         const newContribution = await ContributionAccount.create({
             userId: updatedUser._id,
