@@ -169,6 +169,9 @@ const activateAccount = async (req, res, next) => {
     }
 }
 
+//const forgotPassword
+//const resetPassword
+
 export {
     signUp, 
     login,
