@@ -2,7 +2,6 @@ import cron from 'node-cron'
 import ContributionAccount from "../models/contribution.model.js";
 import User from "../models/user.model.js";
 import Transaction from "../models/transaction.model.js";
-import { getFirstThursdayAfter } from '../config/firstThursday.js';
 
 const WEEKLY_AMOUNT = 2000
 
