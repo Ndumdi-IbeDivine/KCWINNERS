@@ -1,0 +1,12 @@
+# KC Winners API Documentation
+
+Base URL: `https://your-domain.com/api/v1`
+
+All protected routes require an `Authorization: Bearer <token>` header.
+
+---
+
+## AUTHENTICATION
+
+### Register User
+`POST /auth/register`
