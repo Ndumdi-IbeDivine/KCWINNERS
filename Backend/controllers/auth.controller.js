@@ -6,6 +6,7 @@ import generateConCode from '../config/generateConCode.js';
 import generateReferralCode from '../config/generateReferralCode.js';
 import User from '../models/user.model.js'
 import ContributionAccount from '../models/contribution.model.js'
+import { getFirstThursdayAfter, addWeeks} from '../config/firstThursday.js'
 
 import { JWT_EXPIRES_IN, JWT_SECRET } from '../config/env.js';
 
@@ -111,7 +112,6 @@ const activateAccount = async (req, res, next) => {
             nextOfKinName,
             nextOfKinPhone,
             nextOfKinAddress,
-            referralCode
         } = req.body;
 
         if(!userId) {
@@ -119,19 +119,6 @@ const activateAccount = async (req, res, next) => {
             error.statusCode = 400;
             throw error;
         };
-
-        // validate referral code if provided
-        let referredBy = null;
-        if (referralCode) {
-        const refAcc = await ContributionAccount.findOne({ code: referralCode });
-            if (!refAcc) {
-                const error = new Error("Invalid referral code");
-                error.statusCode = 400;
-                throw error;
-            }
-            referredBy = refAcc._id;;
-        }
-
 
         // Update user with activation form details
         const updatedUser = await User.findByIdAndUpdate(
@@ -160,16 +147,34 @@ const activateAccount = async (req, res, next) => {
             throw error;
         };
 
-        // generate primary contribution account
+        // validate referral code if provided
+        let referredBy = null;
+        if (req.body.referralCode) {
+        const refAcc = await ContributionAccount.findOne({ referralCode: req.body.referralCode });
+            if (!refAcc) {
+                const error = new Error("Invalid referral code");
+                error.statusCode = 400;
+                throw error;
+            }
+            referredBy = refAcc._id;
+        }
+
+        const newReferralCode = await generateReferralCode();
         const code = await generateConCode(userId);
-        const referralCodeUnique = await generateReferralCode();
+        const firstThursday = getFirstThursdayAfter(); // finds the next Thursday from today
+        const dueDate = addWeeks(firstThursday, 30); 
+        const dueDatePlusOneWeek = addWeeks(dueDate, 1); // one week later
 
         const newContribution = await ContributionAccount.create({
             userId: updatedUser._id,
+            referralCode: newReferralCode,
             code,
-            referralCodeUnique,
             isPrimary: true,
-            referredBy
+            referredBy,
+            firstThursday,
+            dueDate,
+            dueDatePlusOneWeek,
+            status: "active"
         });
 
         res.status(200).json({

@@ -7,87 +7,101 @@ import generateReferralCode from "../config/generateReferralCode.js";
 import { getFirstThursdayAfter, addWeeks } from "../config/firstThursday.js";
 
 
-const addContributionAcount = async (req, res, next) => {
+const addContributionAccount = async (req, res, next) => {
     try {
-        
-        const { userId, count = 1 } = req.body;
-        const quantity = Number(count);
+        const { userId, referralCode } = req.body;
 
-        if (!userId || quantity < 1) {
-            const error = new Error('userId required');
+        if (!userId || !referralCode) {
+            const error = new Error("userId and referralCode are required");
             error.statusCode = 400;
             throw error;
         }
 
-        const user = await User.findById(userId);
-        const totalFee = 3000 * quantity;
-
-        if (user.walletBalance < totalFee) {
-        const err = new Error(`Insufficient wallet balance. Need ₦${totalFee}`);
-        err.statusCode = 402;
-        throw err;
+        // Verify user exists
+            const user = await User.findById(userId);
+            if (!user) {
+            const error = new Error("User not found");
+            error.statusCode = 404;
+            throw error;
         }
 
+        // Check referral code validity
+            const refAcc = await ContributionAccount.findOne({ referralCode });
+            if (!refAcc) {
+            const error = new Error("Invalid referral code");
+            error.statusCode = 400;
+            throw error;
+        }
+
+        // Check wallet balance (₦3000 required)
+            const fee = 3000;
+            if (user.walletBalance < fee) {
+            const err = new Error(`Insufficient wallet balance. Need ₦${fee}`);
+            err.statusCode = 402;
+            throw err;
+        }
+
+        // Calculate dates
         const now = new Date();
         const firstThu = getFirstThursdayAfter(now);
-        const due = addWeeks(firstThu, 29);           // 30 weeks total
+        const due = addWeeks(firstThu, 29); // 30 weeks total
+        const afterOneWeek = addWeeks(due, 1);
 
-        const newAccounts = [];
-
-        for (let i = 0; i < quantity; i++) {
+        // 5. Generate codes
         const code = await generateConCode(userId);
-        const referralCodeUnique = await generateReferralCode();  
-        newAccounts.push({
+        const referralCodeUnique = await generateReferralCode();
+
+        // 6. Create account (with referredBy linkage)
+        const newAccount = await ContributionAccount.create({
             userId,
             code,
-            referralCodeUnique,
+            referralCode: referralCodeUnique,
+            referredBy: refAcc._id,
             startDate: now,
             firstThursday: firstThu,
             dueDate: due,
+            dueDatePlusOneWeek: afterOneWeek,
             isPrimary: false,
         });
-        }
 
-        // 3. Save accounts in bulk
-        const createdAccounts = await ContributionAccount.insertMany(newAccounts);
-
-        // 4. Deduct fee & log transaction
-        user.walletBalance -= totalFee;
+        // 7. Deduct fee & log transaction
+        user.walletBalance -= fee;
         await user.save();
 
         await Transaction.create({
-        userId,
-        type: 'account_creation_fee',
-        amount: totalFee,
-        status: 'success',
-        narration: `Creation of ${quantity} contribution account${quantity > 1 ? 's' : ''}`,
+            userId,
+            type: "account_creation_fee",
+            amount: fee,
+            status: "success",
+            narration: "Creation of contribution account",
         });
 
+        // 8. Send response
         res.status(201).json({
-        success: true,
-        message: `${quantity} contribution account${quantity > 1 ? 's' : ''} created`,
-        data: createdAccounts,
-        walletBalance: user.walletBalance,
-        });
-
-  } catch (error) {
-        next(error)
-    }
-}
-
-const getUserContributions = async (req, res, next) => {
-    try {
-        const { userId } = req.params;
-
-        const list = await ContributionAccount.find({ userId }).sort({ startDate: 1 });
-
-        res.status(200).json({ 
-            success: true, 
-            data: list 
+            success: true,
+            message: "Contribution account created successfully",
+            data: newAccount,
+            walletBalance: user.walletBalance,
         });
     } catch (error) {
-        next(error)
+        next(error);
     }
+};
+
+
+    const getUserContributions = async (req, res, next) => {
+        try {
+            const { userId } = req.params;
+
+            const list = await ContributionAccount.find({ userId }).sort({ startDate: 1 });
+
+            res.status(200).json({ 
+                success: true, 
+                data: list 
+            });
+        } catch (error) {
+            next(error)
+        }
 }
 
 const getOneContribution = async (req, res, next) => {
@@ -181,7 +195,7 @@ const payClearanceFee = async (req, res, next) => {
 };
 
 export {
-    addContributionAcount,
+    addContributionAccount,
     getUserContributions,
     getOneContribution,
     clearDefaults,
