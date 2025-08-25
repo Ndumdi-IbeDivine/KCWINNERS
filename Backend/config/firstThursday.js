@@ -1,10 +1,9 @@
-const getFirstThursdayAfter = (date) => {
-  const d = new Date(date);
-  // 0 = Sun … 4 = Thu
-  const daysUntilThu = (4 - d.getDay() + 7) % 7 || 7; // never zero
-  d.setDate(d.getDate() + daysUntilThu);
-  d.setHours(0, 0, 0, 0);                 // midnight
-  return d;
+const getFirstThursdayAfter = (from = new Date()) => {
+  const date = new Date(from);
+  const day = date.getDay() // never zero
+  const diff = (4 - day + 7) % 7; // days until next Thursday
+  date.setDate(date.getDate() + (diff === 0 ? 7 : diff)); // skip today if already Thu
+  return date;
 };
 
 const addWeeks = (date, weeks) => {
