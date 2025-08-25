@@ -1,11 +1,13 @@
 import ContributionAccount from "../models/contribution.model.js";
 import User from "../models/user.model.js";
 import Transaction from "../models/transaction.model.js";
+import WalletFund from "../models/walletFunding.model.js";
 import generateConCode from "../config/generateConCode.js";
+import generateReferralCode from "../config/generateReferralCode.js";
 import { getFirstThursdayAfter, addWeeks } from "../config/firstThursday.js";
 
 
-const createContribution = async (req, res, next) => {
+const addContributionAcount = async (req, res, next) => {
     try {
         
         const { userId, count = 1 } = req.body;
@@ -33,10 +35,12 @@ const createContribution = async (req, res, next) => {
         const newAccounts = [];
 
         for (let i = 0; i < quantity; i++) {
-        const code = await generateConCode(userId);  
+        const code = await generateConCode(userId);
+        const referralCodeUnique = await generateReferralCode();  
         newAccounts.push({
             userId,
             code,
+            referralCodeUnique,
             startDate: now,
             firstThursday: firstThu,
             dueDate: due,
@@ -106,8 +110,80 @@ const getOneContribution = async (req, res, next) => {
     }
 }
 
+const clearDefaults = async (req, res, next) => {
+    try {
+        const userId = req.user.id;
+        const acc = await ContributionAccount.findOne({ userId, status: "active" });
+        if (!acc) return res.status(404).json({ success: false, message: "No active contribution account" });
+
+        if (acc.missedWeeks === 0) {
+        return res.status(400).json({ success: false, message: "No defaults to clear" });
+        }
+
+        const clearanceAmount = acc.missedWeeks * 2000 * 2;
+        const wallet = await WalletFund.findOne({ userId });
+
+        if (wallet.balance < clearanceAmount) {
+        return res.status(400).json({ success: false, message: "Insufficient wallet balance to clear defaults" });
+        }
+
+        wallet.balance -= clearanceAmount;
+        acc.missedWeeks = 0;
+        acc.clearedDefaults = true;
+
+        await wallet.save();
+        await acc.save();
+
+        await Transaction.create({
+        userId,
+        contributionAccountId: acc._id,
+        type: "default_clearance",
+        amount: clearanceAmount,
+        status: "success",
+        });
+
+        res.status(200).json({ success: true, message: "Defaults cleared successfully" });
+    } catch (err) {
+        next(err);
+    }
+};
+
+const payClearanceFee = async (req, res, next) => {
+    try {
+        const userId = req.user.id;
+        const acc = await ContributionAccount.findOne({ userId, status: "eligible_for_withdrawal" });
+        if (!acc) return res.status(404).json({ success: false, message: "Not eligible for clearance" });
+
+        const wallet = await WalletFund.findOne({ userId });
+        if (wallet.balance < 5000) {
+        return res.status(400).json({ success: false, message: "Insufficient balance to pay clearance fee" });
+        }
+
+        wallet.balance -= 5000;
+        acc.clearanceFeePaid = true;
+        acc.status = "eligible_for_payout"; // To mark as ready for payout
+
+        await wallet.save();
+        await acc.save();
+
+        await Transaction.create({
+        userId,
+        contributionAccountId: acc._id,
+        type: "clearance",
+        amount: 5000,
+        status: "success",
+        });
+
+        res.status(200).json({ success: true, message: "Clearance fee paid successfully" });
+    } catch (err) {
+        next(err);
+    }
+};
+
 export {
-    createContribution,
+    addContributionAcount,
     getUserContributions,
-    getOneContribution
+    getOneContribution,
+    clearDefaults,
+    payClearanceFee
 }

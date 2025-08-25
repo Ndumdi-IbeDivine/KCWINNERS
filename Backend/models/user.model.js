@@ -8,6 +8,11 @@ const userSchema = new mongoose.Schema({
         minLength: 2,
         maxLength: 50,
     },
+    role: {
+        type: String,
+        enum: ['user', 'admin'],
+        default: 'user',
+    },
     email: {
         type: String,
         unique: true,

@@ -3,6 +3,7 @@ import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 
 import generateConCode from '../config/generateConCode.js';
+import generateReferralCode from '../config/generateReferralCode.js';
 import User from '../models/user.model.js'
 import ContributionAccount from '../models/contribution.model.js'
 
@@ -110,6 +111,7 @@ const activateAccount = async (req, res, next) => {
             nextOfKinName,
             nextOfKinPhone,
             nextOfKinAddress,
+            referralCode
         } = req.body;
 
         if(!userId) {
@@ -117,6 +119,18 @@ const activateAccount = async (req, res, next) => {
             error.statusCode = 400;
             throw error;
         };
+
+        // validate referral code if provided
+        let referredBy = null;
+        if (referralCode) {
+        const refAcc = await ContributionAccount.findOne({ code: referralCode });
+            if (!refAcc) {
+                const error = new Error("Invalid referral code");
+                error.statusCode = 400;
+                throw error;
+            }
+            referredBy = refAcc._id;;
+        }
 
 
         // Update user with activation form details
@@ -148,11 +162,14 @@ const activateAccount = async (req, res, next) => {
 
         // generate primary contribution account
         const code = await generateConCode(userId);
+        const referralCodeUnique = await generateReferralCode();
 
         const newContribution = await ContributionAccount.create({
             userId: updatedUser._id,
             code,
+            referralCodeUnique,
             isPrimary: true,
+            referredBy
         });
 
         res.status(200).json({
