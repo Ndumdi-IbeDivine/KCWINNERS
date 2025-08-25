@@ -4,10 +4,13 @@
             <img src="/images/logo.svg" alt="">
         </div>
         <div class="flex justify-center gap-[50px]">
-            <div class="font-medium">Home</div>
-            <div>About Us</div>
-            <div>FAQ</div>
-            <div>Contact Us</div>
+            <NuxtLink
+                v-for="route in routes"
+                :to="`${route.path}`" 
+                :class="[$route.path === route.path ? 'font-bold' : '']"
+            >
+                {{ route.name }}
+            </NuxtLink>
         </div>
         <div class="flex gap-[14px] justify-end items-center">
             <button class="bg-tansparent text-[var(--kc-green)] rounded-[8px] px-[20px] py-[10px]">Login</button>
@@ -15,3 +18,12 @@
         </div>
     </div>
 </template>
+
+<script setup lang="ts">
+const routes = [
+    { name: 'Home', path: '/' },
+    { name: 'About Us', path: '/about' },
+    { name: 'FAQ', path: '/faq' },
+    { name: 'Contact Us', path: '/contact' },
+]
+</script>

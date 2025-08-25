@@ -119,45 +119,14 @@ import PrimaryBtn from '~/components/PrimaryBtn.vue';
             data-aos-anchor-placement="top-bottom" 
             class="px-[144px]"
         >
-            <div class="text-center">
-                <div class="font-semibold text-[36px]">Testimonials</div>
-                <div class="text-[#717171] mt-[8px]">Who is Nextcent suitable for?</div>
-            </div>
-
-            <div class="grid grid-cols-3 gap-[47px] mt-[35px]">
-                <div v-for="i in 3" class="bg-[#F8F8F8] p-[32px] rounded-lg">
-                    <div>
-                        <img src="/images/user-placeholder.png" class="rounded-full h-16 w-16" alt="">
-                    </div>
-                    <div class="text-20px font-bold mt-[28px]">Mon apple</div>
-                    <div class="text-[16px] mt-[11px] leading-[24px]">
-                        Borem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a
-                    </div>
-                </div>
-            </div>
+            <Testimonials />
         </div>
 
         <div 
             data-aos="fade-up" 
             data-aos-anchor-placement="top-bottom"
-            class="px-[144px] bg-[#F5F7FA]"
         >
-            <div class="py-[32px]">
-                <div class="text-center font-bold text-[40px] mx-auto lg:w-[640px]">
-                    Pellentesque suscipit fringilla libero eu.
-                </div>
-                <div class="flex gap-[25px] justify-center mt-[25px]">
-                    <button class="btn-with-arrow bg-black text-white rounded-[6px] px-[32px] py-[14px] flex gap-[8px]">
-                        <span>Join Our WhatsApp Community</span>
-                        <img class="arrow" src="/images/right-arrow.svg" alt="">
-                    </button>
-        
-                    <button class="btn-with-arrow bg-[var(--kc-green)] text-white rounded-[6px] px-[32px] py-[14px] flex gap-[8px]">
-                        <span>Get Satarted</span>
-                        <img class="arrow" src="/images/right-arrow.svg" alt="">
-                    </button>
-                </div>
-            </div>
+            <JoinCommunityChat />
         </div>
     </div>
 </template>
@@ -170,16 +139,5 @@ import PrimaryBtn from '~/components/PrimaryBtn.vue';
 .box-card {
     box-shadow: 0px 2px 4px 0px #ABBED133;
     padding: 24px 16px;
-}
-
-.btn-with-arrow .arrow {
-    transition: transform 0.3s ease-in-out;
-}
-
-.btn-with-arrow:hover {
-    .arrow {
-        transform: rotate(-35deg);
-        transition: transform 0.3s ease-in-out;
-    }
 }
 </style>

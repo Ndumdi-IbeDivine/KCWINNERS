@@ -10,12 +10,10 @@
                 <div class="grid h-fit text-white">
                     <div class="text-white font-semibold mb-[24px] text-[20px]">Company</div>
                     <div class="grid gap-[12px]">
-                        <div>Home</div>
-                        <div>About us</div>
-                        <div>FAQ</div>
-                        <div>Contact us</div>
-                        <div>Pricing</div>
-                        <div>Testimonials</div>
+                        <NuxtLink to="/">Home</NuxtLink>
+                        <NuxtLink to="/about">About us</NuxtLink>
+                        <NuxtLink to="/faq">FAQ</NuxtLink>
+                        <NuxtLink to="/contact">Contact us</NuxtLink>
                     </div>
                 </div>
                 <div class="grid h-fit text-white">
