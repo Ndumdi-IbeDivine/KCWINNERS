@@ -1,8 +1,8 @@
 <template>
     <div class="grid grid-cols-3 py-[22px] px-[68px] items-center">
-        <div>
+        <NuxtLink to=/>
             <img src="/images/logo.svg" alt="">
-        </div>
+        </NuxtLink>
         <div class="flex justify-center gap-[50px]">
             <NuxtLink
                 v-for="route in routes"

@@ -5,9 +5,9 @@ import PrimaryBtn from '~/components/PrimaryBtn.vue';
 
 <template>
     <div data-aos="fade" class="grid gap-[84px]">
-        <div class="grid grid-cols-2 gap-40 bg-[#114E1E] h-[87vh] px-[144px]">
+        <div class="grid grid-cols-2 gap-40 bg-[#114E1E] h-[87vh] px-5 lg:px-[144px]">
             <div class="flex flex-col justify-center text-white">
-                <h1 class="hero-text text-[64px] font-medium leading-[76px] tracking-normal">Lorem ipsum text that captivates</h1>
+                <h1 class="hero-text text-[32px] lg:text-[64px] font-medium lg:leading-[76px] tracking-normal">Lorem ipsum text that captivates</h1>
                 <p class="mt-[16px]">Where to grow your business as a photographer: site or social media?</p>
                 <div class="mt-[32px]">
                     <PrimaryBtn>Register</PrimaryBtn>
@@ -18,7 +18,7 @@ import PrimaryBtn from '~/components/PrimaryBtn.vue';
         <div 
             data-aos="fade-up" 
             data-aos-anchor-placement="top-bottom" 
-            class="grid grid-cols-2 px-[144px]"
+            class="grid lg:grid-cols-2 px-5 lg:px-[144px]"
         >
             <div></div>
             <div>
@@ -33,14 +33,14 @@ import PrimaryBtn from '~/components/PrimaryBtn.vue';
         <div
             data-aos="fade-up" 
             data-aos-anchor-placement="top-bottom" 
-            class="px-[144px]"
+            class="px-5 lg:px-[144px]"
         >
             <div class="text-center">
                 <div class="font-semibold text-[36px]">Manage your entire</div>
                 <div class="text-[#717171] mt-[8px]">Who is Nextcent suitable for?</div>
             </div>
 
-            <div class="grid grid-cols-3 gap-[126px] mt-[16px]">
+            <div class="grid md:grid-cols-3 gap-10 lg:gap-[126px] mt-[16px]">
                 <div class="box-card text-center">
                     <div class="mb-[16px] flex justify-center">
                         <img src="/images/card-one-icon.svg" alt="">
@@ -70,7 +70,7 @@ import PrimaryBtn from '~/components/PrimaryBtn.vue';
         <div
             data-aos="fade-up" 
             data-aos-anchor-placement="top-bottom" 
-            class="px-[144px] grid grid-cols-2"
+            class="px-5 lg:px-[144px] grid lg:grid-cols-2"
         >
             <div class="lg:w-[436px]">
                 <div class="font-bold text-[28px] leading-[44.8px]">How to design your site footer like we did</div>
@@ -82,7 +82,7 @@ import PrimaryBtn from '~/components/PrimaryBtn.vue';
         <div
             data-aos="fade-up" 
             data-aos-anchor-placement="top-bottom"
-            class="px-[144px] grid grid-cols-2 items-center gap-[72px]"
+            class="px-5 lg:px-[144px] grid lg:grid-cols-2 items-center gap-[72px]"
         >
             <div>
                 <img src="/images/home-illu.svg" alt="">
@@ -98,7 +98,7 @@ import PrimaryBtn from '~/components/PrimaryBtn.vue';
             data-aos-anchor-placement="top-bottom" 
             class="bg-[#EEAD08] py-[84px]"
         >
-            <div class="px-[144px] grid grid-cols-2">
+            <div class="px-5 lg:px-[144px] grid lg:grid-cols-2">
                 <div class="lg:w-[408px]">
                     <div class="font-bold text-[36px] leading-[44.8px]">Helping a local <span class="text-[var(--kc-green)]">business reinvent itself</span></div>
                     <p class="mt-[16px] text-[#18191F]">We reached here with our hard work and dedication.</p>
@@ -117,7 +117,7 @@ import PrimaryBtn from '~/components/PrimaryBtn.vue';
         <div 
             data-aos="fade-up" 
             data-aos-anchor-placement="top-bottom" 
-            class="px-[144px]"
+            class="px-5 lg:px-[144px]"
         >
             <Testimonials />
         </div>

@@ -5,7 +5,7 @@
             <div class="text-[#717171] mt-[8px]">Who is Nextcent suitable for?</div>
         </div>
 
-        <div class="grid grid-cols-3 gap-[47px] mt-[35px]">
+        <div class="grid md:grid-cols-3 gap-[47px] mt-[35px]">
             <div v-for="i in 3" class="bg-[#F8F8F8] p-[32px] rounded-lg">
                 <div>
                     <img src="/images/user-placeholder.png" class="rounded-full h-16 w-16" alt="">

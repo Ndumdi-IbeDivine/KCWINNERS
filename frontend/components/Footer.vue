@@ -1,7 +1,7 @@
 <template>
-    <div class="bg-[#263238] pt-[64px] pb-[75px] px-[165px]">
+    <div class="bg-[#263238] pt-[64px] pb-[75px] px-5 lg:px-[144px]">
         <div>
-            <div class="grid grid-cols-3 text-white">
+            <div class="grid lg:grid-cols-3 text-white gap-10 lg:gap-0">
                 <div class="grid h-fit gap-[40px]">
                     <img src="/images/logo-white.svg" alt="">
                     <div class="text-[#F5F7FA]">Copyright © {{ new Date().getFullYear() }} KCWINNERS Ltd. <br>All rights reserved.</div>
