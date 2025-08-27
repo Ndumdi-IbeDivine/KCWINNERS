@@ -4,7 +4,7 @@
                 data-aos="fade-up" 
                 data-aos-anchor-placement="top-bottom"
             >
-                <div class="text-center">
+                <div class="text-center px-5">
                     <div class="font-semibold text-[48px] tracking-[-3px]">Contact Us</div>
                     <div class="mt-[4px] text-[16px] text-[#717171]">Where to grow your business as a photographer: site or social media?</div>
                 </div>
@@ -13,7 +13,7 @@
             <div 
                 data-aos="fade-up" 
                 data-aos-anchor-placement="top-bottom"
-                class="px-[244px] mt-[40px] grid gap-[30px]"
+                class="px-5 lg:px-[244px] mt-[40px] grid gap-[30px]"
             >
                 <div>
                     <label for="full_name" class="block mb-2 text-sm font-medium text-gray-900">Full Name</label>
@@ -40,12 +40,12 @@
             <div 
                 data-aos="fade-up" 
                 data-aos-anchor-placement="top-bottom"
-                class="px-[244px] grid grid-cols-2 gap-[96px] my-[104px]"
+                class="px-5 lg:px-[244px] grid lg:grid-cols-2 gap-[96px] my-[40px] md:my-[104px]"
             >
                 <div></div>
                 <div>
                     <div class="font-semibold text-[32px]">Contact Us</div>
-                    <div class="grid grid-cols-2 mt-[37px] gap-[54px]">
+                    <div class="grid lg:grid-cols-2 mt-[37px] gap-[54px]">
                         <div>
                             <div class="font-semibold text-[20px]">Visit Us</div>
                             <div class="my-[16px] text-[18px]">

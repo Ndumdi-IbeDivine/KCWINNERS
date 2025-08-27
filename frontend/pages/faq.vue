@@ -6,13 +6,13 @@
             class="h-[449px]" style="background-image:linear-gradient(#000000A1, #000000A1), url('/images/image.jpg'); background-size: cover; background-position: center;"
         >
             <!-- <img src="/images/image.jpg" alt=""> -->
-             <div class="flex justify-center items-center h-full text-white font-semibold text-[48px]">Frequently Asked Questions</div>
+             <div class="flex justify-center items-center h-full text-white font-semibold text-[48px] text-center px-4">Frequently Asked Questions</div>
         </div>
 
         <div
             data-aos="fade-up" 
             data-aos-anchor-placement="top-bottom"  
-            class="px-[227px] text-center mt-[95px]"
+            class="px-5 lg:px-[227px] text-center mt-[95px]"
         >
             <div class="">
                 <div class="grid gap-[24px] h-auto">
@@ -109,7 +109,7 @@
         <div
             data-aos="fade-up" 
             data-aos-anchor-placement="top-bottom"  
-            class="mt-[188px]"
+            class="mt-[50px] lg:mt-[188px]"
         >
             <JoinCommunityChat />
         </div>
@@ -119,7 +119,6 @@
 
 <script setup lang="ts">
 const activeFaq = ref<null | number>(null);
-let showGetStartedModal = ref<boolean>(false)
 
 const toggleFaq = (index: number) => {
     console.log(index)

@@ -4,8 +4,8 @@ import JoinCommunityChat from '~/components/JoinCommunityChat.vue';
 </script>
 
 <template>
-    <div class="mt-[60px]">
-        <div class="mx-[144px]">
+    <div class="md:mt-[60px]">
+        <div class="px-5 lg:px-[144px]">
             <div
                 data-aos="fade-up" 
                 data-aos-anchor-placement="top-bottom"
@@ -31,7 +31,7 @@ import JoinCommunityChat from '~/components/JoinCommunityChat.vue';
             <div
                 data-aos="fade-up" 
                 data-aos-anchor-placement="top-bottom" 
-                class="grid grid-cols-2 mt-[80px] items-center gap-[80px]"
+                class="grid lg:grid-cols-2 mt-[80px] items-center gap-[80px]"
             >
                 <div>
                     <div class="font-semibold text-[32px]">Activity program</div>
