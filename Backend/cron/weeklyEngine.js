@@ -4,8 +4,9 @@ import User from "../models/user.model.js";
 import Transaction from "../models/transaction.model.js";
 
 const WEEKLY_AMOUNT = 2000
+const TOTAL_WEEKS = 30
 
-cron.schedule('* * * * 4', async (req, res, next) => { 
+cron.schedule('0 0 * * 4', async (req, res, next) => { 
     console.log('⏰ Cron tick', new Date().toLocaleTimeString());
     try {
         const contributions = await ContributionAccount.find();  // to find all contribution accounts
@@ -19,6 +20,14 @@ cron.schedule('* * * * 4', async (req, res, next) => {
 
             const user = await User.findById(account.userId);
             if (!user) continue;
+
+            // ✅ Skip finished accounts
+            if (account.weeksPaid >= TOTAL_WEEKS) {
+                account.status = "completed";
+                await account.save();
+                console.log(`✅ Account ${account._id} completed after 30 weeks.`);
+                continue;
+            }
 
             if (user.walletBalance >= WEEKLY_AMOUNT) {
 
