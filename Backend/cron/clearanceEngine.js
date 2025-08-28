@@ -5,64 +5,79 @@ import Transaction from "../models/transaction.model.js";
 
 const CLEARANCE_FEE = 2000;
 
-cron.schedule('0 2 * * 4', async () => {
-    console.log('Clearance Cron tick', new Date().toLocaleString());
+// Run EVERYDAY at 10AM
+cron.schedule('0 10 * * *', async () => {
+  console.log('Clearance Cron tick', new Date().toLocaleString());
 
-    try {
-        const contributions = await ContributionAccount.find();
-        const now = new Date();
+  try {
+    const contributions = await ContributionAccount.find();
+    const now = new Date();
 
-        for (const account of contributions) {
-        // only run on the 31st Thursday (one week after dueDate)
-        if (now < account.dueDate) continue;
-        if (now > account.dueDatePlusOneWeek) continue;  
+    for (const account of contributions) {
+      // Clearance window = dueDate → dueDate + 7 days
+      const clearanceStart = new Date(account.dueDate);
+      const clearanceEnd = new Date(account.dueDate);
+      clearanceEnd.setDate(clearanceEnd.getDate() + 7);
 
-        const user = await User.findById(account.userId);
-        if (!user) continue;
+      // Only act inside clearance window
+      if (now < clearanceStart || now > clearanceEnd) continue;
 
-        // skip if user still has uncleared defaults
-        if (account.defaults > 0) {
-            console.log(`User ${user._id} skipped clearance due to defaults`);
-            continue;
-        }
+      const user = await User.findById(account.userId);
+      if (!user) continue;
 
-        if (user.walletBalance >= CLEARANCE_FEE) {
-            //Deduct clearance fee
-            user.walletBalance -= CLEARANCE_FEE;
-            account.cleared = true;
+      // Skip if already cleared
+      if (account.cleared) {
+        console.log(`User ${user._id} already cleared`);
+        continue;
+      }
 
-            await Transaction.create({
-            userId: user._id,
-            contributionAccountId: account._id,
-            type: 'clearance',
-            amount: CLEARANCE_FEE,
-            status: 'success',
-            });
+      // Skip if user still has defaults
+      if (account.defaults > 0) {
+        console.log(`User ${user._id} skipped clearance due to defaults`);
+        continue;
+      }
 
-            // mark user eligible for payout
-            account.status = 'eligible_for_payout';
+      if (user.walletBalance >= CLEARANCE_FEE) {
+        // Deduct clearance fee
+        user.walletBalance -= CLEARANCE_FEE;
+        account.cleared = true;
+        account.status = 'eligible_for_payout';
 
-            await account.save();
-            await user.save();
+        await Transaction.create({
+          userId: user._id,
+          contributionAccountId: account._id,
+          type: 'clearance',
+          amount: CLEARANCE_FEE,
+          status: 'success',
+        });
 
-            console.log(`Clearance successful for user ${user._id}`);
+        await account.save();
+        await user.save();
 
-        } else {
-            //Not enough balance
-            await Transaction.create({
-            userId: user._id,
-            contributionAccountId: account._id,
-            type: 'clearance',
-            amount: 0,
-            status: 'failed',
-            });
+        console.log(`✅ Clearance successful for user ${user._id}`);
+      } else {
+        // Instead of permanent failure, just log an attempt for tracking
+        await Transaction.create({
+          userId: user._id,
+          contributionAccountId: account._id,
+          type: 'clearance_attempt',
+          amount: 0,
+          status: 'pending',
+        });
 
-            console.log(`User ${user._id} failed clearance (insufficient balance)`);
-        }
-        }
-
-        console.log('Clearance Cron run finished');
-    } catch (error) {
-        console.error('Clearance Cron error:', error);
+        console.log(`⏳ User ${user._id} has insufficient balance, will retry tomorrow`);
+      }
     }
-})
+
+    if (now > clearanceEnd && !account.cleared) {
+        account.status = 'clearance_failed';
+        await account.save();
+        console.log(`❌ User ${user._id} clearance permanently failed (7 days window passed)`);
+    }
+
+
+    console.log('Clearance Cron run finished');
+  } catch (error) {
+    console.error('❌ Clearance Cron error:', error);
+  }
+});

@@ -10,8 +10,10 @@ import authRouter from './routes/auth.route.js'
 import userRouter from './routes/user.route.js'
 import walletRouter from './routes/wallet.route.js'
 import contributionRouter from './routes/contribution.route.js'
+import adminRouter from './routes/admin.route.js'
 
 import './cron/weeklyEngine.js';
+import './cron/clearanceEngine.js'
 
 const app = express();
 
@@ -24,6 +26,7 @@ app.get('/', (req, res) => {
     res.send('Welcome to KCWINNERS CONTRIBUTION API')
 })
 
+app.use('/api/v1/admin', adminRouter);
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/wallet', walletRouter);

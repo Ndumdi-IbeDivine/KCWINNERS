@@ -15,7 +15,7 @@ const transactionSchema = new mongoose.Schema({
 
     type: {
         type: String,
-        enum: ['wallet_funding', 'weekly_contribution', 'withdrawal', 'account_creation_fee'],
+        enum: ['wallet_funding', 'weekly_contribution', 'account_creation_fee', 'clearance_fee'],
         required: true
     },
 

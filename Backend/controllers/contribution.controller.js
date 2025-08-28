@@ -47,11 +47,11 @@ const addContributionAccount = async (req, res, next) => {
         const due = addWeeks(firstThu, 29); // 30 weeks total
         const afterOneWeek = addWeeks(due, 1);
 
-        // 5. Generate codes
+        // Generate codes
         const code = await generateConCode(userId);
         const referralCodeUnique = await generateReferralCode();
 
-        // 6. Create account (with referredBy linkage)
+        // Create account (with referredBy linkage)
         const newAccount = await ContributionAccount.create({
             userId,
             code,
@@ -64,7 +64,7 @@ const addContributionAccount = async (req, res, next) => {
             isPrimary: false,
         });
 
-        // 7. Deduct fee & log transaction
+        // Deduct fee & log transaction
         user.walletBalance -= fee;
         await user.save();
 
@@ -76,7 +76,7 @@ const addContributionAccount = async (req, res, next) => {
             narration: "Creation of contribution account",
         });
 
-        // 8. Send response
+        // Send response
         res.status(201).json({
             success: true,
             message: "Contribution account created successfully",
@@ -89,19 +89,19 @@ const addContributionAccount = async (req, res, next) => {
 };
 
 
-    const getUserContributions = async (req, res, next) => {
-        try {
-            const { userId } = req.params;
+const getUserContributions = async (req, res, next) => {
+    try {
+        const { userId } = req.params;
 
-            const list = await ContributionAccount.find({ userId }).sort({ startDate: 1 });
+        const list = await ContributionAccount.find({ userId }).sort({ startDate: 1 });
 
-            res.status(200).json({ 
-                success: true, 
-                data: list 
-            });
+        res.status(200).json({ 
+            success: true, 
+            data: list 
+        });
         } catch (error) {
             next(error)
-        }
+    }
 }
 
 const getOneContribution = async (req, res, next) => {
@@ -124,23 +124,31 @@ const getOneContribution = async (req, res, next) => {
     }
 }
 
-const clearDefaults = async (req, res, next) => {
+const payDefaults = async (req, res, next) => {
     try {
         const userId = req.user.id;
-        const acc = await ContributionAccount.findOne({ userId, status: "active" });
-        if (!acc) return res.status(404).json({ success: false, message: "No active contribution account" });
+        const { accountId } = req.params; // Pass account explicitly
 
-        if (acc.missedWeeks === 0) {
-        return res.status(400).json({ success: false, message: "No defaults to clear" });
+        const acc = await ContributionAccount.findOne({ _id: accountId, userId, status: "active" });
+        if (!acc) {
+            return res.status(404).json({ success: false, message: "Contribution account not found or inactive" });
         }
 
-        const clearanceAmount = acc.missedWeeks * 2000 * 2;
+        if (acc.missedWeeks === 0) {
+        return res.status(400).json({ success: false, message: "No defaults to clear for this account" });
+        }
+
+        const clearanceAmount = acc.missedWeeks * 2000 * 2; // double penalty
         const wallet = await WalletFund.findOne({ userId });
+        if (!wallet) {
+        return res.status(404).json({ success: false, message: "Wallet not found" });
+        }
 
         if (wallet.balance < clearanceAmount) {
         return res.status(400).json({ success: false, message: "Insufficient wallet balance to clear defaults" });
         }
 
+        // Deduct & update
         wallet.balance -= clearanceAmount;
         acc.missedWeeks = 0;
         acc.clearedDefaults = true;
@@ -156,13 +164,17 @@ const clearDefaults = async (req, res, next) => {
         status: "success",
         });
 
-        res.status(200).json({ success: true, message: "Defaults cleared successfully" });
-    } catch (err) {
-        next(err);
+        res.status(200).json({ 
+        success: true, 
+        message: "Defaults cleared successfully",
+        newWalletBalance: wallet.balance 
+        });
+    } catch (error) {
+        next(error);
     }
 };
 
-const payClearanceFee = async (req, res, next) => {
+const payClearance = async (req, res, next) => {
     try {
         const userId = req.user.id;
         const acc = await ContributionAccount.findOne({ userId, status: "eligible_for_withdrawal" });
@@ -173,7 +185,7 @@ const payClearanceFee = async (req, res, next) => {
         return res.status(400).json({ success: false, message: "Insufficient balance to pay clearance fee" });
         }
 
-        wallet.balance -= 5000;
+        wallet.balance -= 2000;
         acc.clearanceFeePaid = true;
         acc.status = "eligible_for_payout"; // To mark as ready for payout
 
@@ -184,7 +196,7 @@ const payClearanceFee = async (req, res, next) => {
         userId,
         contributionAccountId: acc._id,
         type: "clearance",
-        amount: 5000,
+        amount: 2000,
         status: "success",
         });
 
@@ -198,6 +210,6 @@ export {
     addContributionAccount,
     getUserContributions,
     getOneContribution,
-    clearDefaults,
-    payClearanceFee
+    payDefaults,
+    payClearance
 }
