@@ -8,7 +8,7 @@ router.use(authorize);
 router.use(adminOnly);
 
 router.get('/pending-registrations', adminOnly, getPendingRegistrations);
-router.get('/approve-registration', adminOnly, approveRegistration);
+router.post('/approve-registration', adminOnly, approveRegistration);
 router.get('cleared-users', adminOnly, getClearedUsers)
 
 export default router;

@@ -96,6 +96,7 @@ const login = async (req, res, next) => {
 const activateAccount = async (req, res, next) => {
     try {
 
+        //Cloudinary
         const registrationProofUrl = req.files?.registrationProof?.[0]?.path;
         if(!registrationProofUrl) {
             const error = new Error('Registration proof is required');
@@ -103,6 +104,7 @@ const activateAccount = async (req, res, next) => {
             throw error;
         };
 
+        //user activation details
         const {
             userId,
             sex,
@@ -159,6 +161,7 @@ const activateAccount = async (req, res, next) => {
             referredBy = refAcc._id;
         }
 
+        //To create contribution account
         const newReferralCode = await generateReferralCode();
         const code = await generateConCode(userId);
         const firstThursday = getFirstThursdayAfter(); // finds the next Thursday from today
