@@ -1,8 +1,8 @@
 <template>
     <div>
-        <Nav />
-        <NuxtPage />
-        <Footer data-aos="fade-up" data-aos-anchor-placement="top-bottom" />
+        <NuxtLayout>
+            <NuxtPage />
+        </NuxtLayout>
     </div>
 </template>
 

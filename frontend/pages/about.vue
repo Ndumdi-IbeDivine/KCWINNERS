@@ -1,8 +1,3 @@
-<script setup lang="ts">
-import JoinCommunityChat from '~/components/JoinCommunityChat.vue';
-
-</script>
-
 <template>
     <div class="md:mt-[60px]">
         <div class="px-5 lg:px-[144px]">
@@ -71,3 +66,9 @@ import JoinCommunityChat from '~/components/JoinCommunityChat.vue';
         </div>
     </div>
 </template>
+
+<script setup lang="ts">
+definePageMeta({
+    layout: 'website-layout'
+});
+</script>

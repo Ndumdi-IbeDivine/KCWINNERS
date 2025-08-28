@@ -13,8 +13,12 @@
             </NuxtLink>
         </div>
         <div class="hidden lg:flex gap-[14px] justify-end items-center">
-            <button class="bg-tansparent text-[var(--kc-green)] rounded-[8px] px-[20px] py-[10px]">Login</button>
-            <button class="bg-[var(--kc-green)] ease-in transition hover:bg-[var(--kc-green-dark)] text-white rounded-[6px] px-[20px] py-[10px]">Sign Up</button>
+            <NuxtLink to="/login">
+                <button class="bg-tansparent text-[var(--kc-green)] rounded-[8px] px-[20px] py-[10px]">Login</button>
+            </NuxtLink>    
+            <NuxtLink to="/create-account">
+                <button class="bg-[var(--kc-green)] ease-in transition hover:bg-[var(--kc-green-dark)] text-white rounded-[6px] px-[20px] py-[10px]">Sign Up</button>
+            </NuxtLink>            
         </div>
         <!-- sm nav -->
         <div class="flex lg:hidden justify-end">
@@ -50,8 +54,12 @@
                                         >
                                             {{ route.name }}
                                         </NuxtLink>
-                                        <button class="bg-tansparent text-[var(--kc-green)] border border-[var(--kc-green)] rounded-[8px] px-[20px] py-[10px] w-fit">Login</button>
-                                        <button class="bg-[var(--kc-green)] ease-in transition hover:bg-[var(--kc-green-dark)] text-white rounded-[6px] px-[20px] py-[10px] w-fit">Sign Up</button>
+                                        <NuxtLink to="/login">
+                                            <button class="bg-tansparent text-[var(--kc-green)] border border-[var(--kc-green)] rounded-[8px] px-[20px] py-[10px] w-fit">Login</button>
+                                        </NuxtLink>
+                                        <NuxtLink to="/create-account">
+                                            <button class="bg-[var(--kc-green)] ease-in transition hover:bg-[var(--kc-green-dark)] text-white rounded-[6px] px-[20px] py-[10px] w-fit">Sign Up</button>
+                                        </NuxtLink>
                                     </div>
                                 </div>
                                 <NuxtLink to="/" class="px-4 w-fit" @click="open = false">

@@ -118,6 +118,10 @@
 </template>
 
 <script setup lang="ts">
+definePageMeta({
+    layout: 'website-layout'
+});
+
 const activeFaq = ref<null | number>(null);
 
 const toggleFaq = (index: number) => {

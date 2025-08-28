@@ -3,7 +3,7 @@
 
 :root {
     --kc-green: #4CAF4F;
-    --kc-green-dark: #3A8D3A;
+    --kc-green-dark: #114E1E;
 }
 * {
     font-family: 'Inter', sans-serif;
@@ -20,4 +20,28 @@
 
 button {
     cursor: pointer;
+}
+
+::-webkit-scrollbar {
+  width: 9px;
+  border-radius: 4.5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #E4E4E4;
+  border-radius: 3px;
+
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #838383; 
+  border-radius: 3px;
+
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #072635; 
 }

@@ -1,8 +1,3 @@
-<script setup lang="ts">
-import PrimaryBtn from '~/components/PrimaryBtn.vue';
-
-</script>
-
 <template>
     <div data-aos="fade" class="grid gap-[84px]">
         <div class="grid grid-cols-2 gap-40 bg-[#114E1E] h-[87vh] px-5 lg:px-[144px]">
@@ -130,6 +125,12 @@ import PrimaryBtn from '~/components/PrimaryBtn.vue';
         </div>
     </div>
 </template>
+
+<script setup lang="ts">
+definePageMeta({
+    layout: 'website-layout'
+});
+</script>
 
 <style scoped>
 .hero-text {
