@@ -10,10 +10,12 @@
                     <img class="arrow" src="/images/right-arrow.svg" alt="">
                 </button>
 
-                <button class="justify-center btn-with-arrow bg-[var(--kc-green)] text-white rounded-[6px] px-[32px] py-[14px] flex gap-[8px]">
-                    <span>Get Satarted</span>
-                    <img class="arrow" src="/images/right-arrow.svg" alt="">
-                </button>
+                <NuxtLink to="/create-account" class="w-full md:w-fit">
+                    <button class="w-full md:w-fit justify-center btn-with-arrow bg-[var(--kc-green)] text-white rounded-[6px] px-[32px] py-[14px] flex gap-[8px]">
+                        <span>Get Satarted</span>
+                        <img class="arrow" src="/images/right-arrow.svg" alt="">
+                    </button>
+                </NuxtLink>
             </div>
         </div>
     </div>

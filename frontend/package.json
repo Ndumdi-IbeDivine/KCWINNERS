@@ -13,9 +13,11 @@
     "@headlessui/vue": "^1.7.23",
     "@tailwindcss/vite": "^4.1.8",
     "aos": "^2.3.4",
+    "chart.js": "^4.5.0",
     "nuxt": "^3.17.4",
     "tailwindcss": "^4.1.8",
     "vue": "^3.5.16",
+    "vue-chartjs": "^5.3.2",
     "vue-router": "^4.5.1"
   },
   "devDependencies": {
