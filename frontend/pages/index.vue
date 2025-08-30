@@ -1,25 +1,16 @@
 <template>
     <div data-aos="fade" class="grid gap-[84px]">
-        <div class="relative grid lg:grid-cols-2 2xl:gap-40 bg-[#114E1E] h-[87vh] px-5 lg:px-[50px] xl:px-[144px]">
-  <!-- Background image + overlay (only on sm/md) -->
-            <div 
-                class="absolute inset-0 lg:hidden bg-cover md:bg-contain bg-no-repeat bg-[40vw] md:bg-[70vw]"
-                style="background-image: url('/images/hero.png')"
-            >
-                <!-- dark overlay -->
-                <div class="absolute inset-0 bg-black/50"></div>
-            </div>
-
-            <div class="flex flex-col justify-center text-white relative z-10 md:w-[70%] lg:w-full">
-                <h1 class="hero-text text-[42px] md:text-[64px] font-medium lg:leading-[76px] tracking-normal">Your Path to Smarter Wealth</h1>
+        <div class="relative grid lg:grid-cols-2 lg:h-[87vh] lg:pl-[50px] xl:pl-[144px]">
+            <div class="flex flex-col justify-center relative px-5 z-10 md:w-[80%]">
+                <h1 class="hero-text text-[42px] md:text-[64px] font-medium lg:leading-[76px] tracking-normal">Your Path to <span class="hero-text text-[var(--kc-green)]">Smarter Wealth</span></h1>
                 <p class="mt-[16px]">“Grow your money stress-free with KC Winners — safe savings, 20% returns, and real rewards.”</p>
                 <div class="mt-[32px]">
-                    <PrimaryBtn class="border-1 border-[var(--kc-green-dark)]">Register</PrimaryBtn>
+                    <PrimaryBtn>Register</PrimaryBtn>
                 </div>
             </div>
 
-            <div class="hidden lg:flex justify-end">
-                <img src="/images/hero.png" class="h-full object-cover" alt="">
+            <div class="hidden lg:flex justify-end my-10">
+                <img src="/images/hero.jpg" class="rounded-l-2xl" alt="">
             </div>
         </div>
 
@@ -27,7 +18,7 @@
         <div 
             data-aos="fade-up" 
             data-aos-anchor-placement="top-bottom" 
-            class="grid md:grid-cols-2 px-5 gap-10 lg:gap-[95px] lg:px-[50px] xl:px-[144px] items-center"
+            class="grid lg:grid-cols-2 px-5 gap-10 lg:gap-[95px] lg:px-[50px] xl:px-[144px] items-center"
         >
             <div>
                 <img src="/images/image-1.jpg" class="rounded-lg" alt="">
@@ -80,14 +71,14 @@
         <div
             data-aos="fade-up" 
             data-aos-anchor-placement="top-bottom" 
-            class="px-5 lg:px-[50px] xl:px-[144px] grid lg:flex 2xl:grid 2xl:grid-cols-2 gap-10 lg:gap-[153px] items-center"
+            class="px-5 lg:px-[50px] xl:px-[144px] grid lg:grid-cols-2 2xl:grid 2xl:grid-cols-2 gap-10 lg:gap-[153px] items-center"
         >
             <div class="lg:w-[436px] 2xl:w-full">
                 <div class="font-bold text-[28px] leading-[44.8px]">Save with Confidence, Enjoy with Ease</div>
                 <p class="mt-[16px]">With KC Winners, there’s no plenty talk — your money is safe, your returns are sure, and the benefits are real. We’ve built a system that works for families, workers, and hustlers who want their money to grow without stress. Every contribution moves you closer to cash-out time, when you get back more than you put in, plus extra goodies to support your home. That’s how KC Winners makes wealth simple.</p>
             </div>
-            <div class="lg:flex-1">
-                <img src="/images/image-2.jpg" class="rounded-lg lg:h-[500px] w-full" alt="">
+            <div>
+                <img src="/images/image-2.jpg" class="rounded-lg  w-full" alt="">
             </div>
         </div>
 
@@ -97,7 +88,7 @@
             class="px-5 lg:px-[50px] xl:px-[144px] grid lg:grid-cols-2 items-center gap-[72px]"
         >
             <div class="hidden lg:block">
-                <img src="/images/home-illu.svg" class="w-full" alt="">
+                <img src="/images/image-3.jpg" class="w-full rounded-lg" alt="">
             </div>
             <div>
                 <div class="font-bold text-[28px] leading-[44.8px]">Our Mission</div>
