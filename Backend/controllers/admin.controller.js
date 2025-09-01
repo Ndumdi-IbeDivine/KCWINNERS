@@ -1,4 +1,3 @@
-import express from 'express';
 import User from '../models/user.model.js';
 import ContributionAccount from '../models/contribution.model.js'
 import Transaction from '../models/transaction.model.js'

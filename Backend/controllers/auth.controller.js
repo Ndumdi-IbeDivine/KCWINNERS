@@ -7,6 +7,7 @@ import generateReferralCode from '../config/generateReferralCode.js';
 import User from '../models/user.model.js'
 import ContributionAccount from '../models/contribution.model.js'
 import { getFirstThursdayAfter, addWeeks} from '../config/firstThursday.js'
+import { sendVerificationToken, verifyToken } from '../config/termii.js';
 
 import { JWT_EXPIRES_IN, JWT_SECRET } from '../config/env.js';
 
@@ -16,7 +17,13 @@ const signUp = async (req, res, next) => {
 
     try {
         // logic to create a new user
-        const { name, email, phone, password } = req.body;
+        let { name, email, phone, password } = req.body;
+
+        // ✅ Normalize phone to international format (Nigerian default)
+        let formatPhone = phone.replace(/\s+/g, '').replace(/^\+/, ''); 
+        if (phone.startsWith("0")) {
+            phone = "234" + phone.slice(1);
+        }
 
         // To check if user already exists
         const existingUser = await User.findOne({ phone })
@@ -32,7 +39,7 @@ const signUp = async (req, res, next) => {
         const hashedPassword = await bcrypt.hash(password, salt);
 
         // create new user
-        const newUsers = await User.create([{ name, email, phone, password: hashedPassword }], { session });
+        const newUsers = await User.create([{ name, email, phone: formatPhone, password: hashedPassword }], { session });
 
         const token = jwt.sign({ userId: newUsers[0]._id }, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
 
@@ -194,11 +201,83 @@ const activateAccount = async (req, res, next) => {
     }
 }
 
-//const forgotPassword
-//const resetPassword
+
+const forgotPassword = async (req, res, next) => {
+    let response; 
+
+    try {
+        const { phone } = req.body;
+
+        if (!phone) {
+            throw new Error("Phone number is required");
+        }
+
+
+        // Call Termii to send OTP
+        response = await sendVerificationToken(phone);
+
+        // Check if Termii actually succeeded
+        if (!response || !response.pin_id) {
+            return res.status(500).json({
+                message: "Failed to send OTP. Please try again later.",
+                error: response || "No response from Termii"
+            });
+        }
+
+        // Save pin_id for later verification (in DB against the user)
+        await User.updateOne({ phone }, { resetPinId: response.pin_id });
+
+        res.json({ message: "OTP sent successfully", pinId: response.pin_id });
+    } catch (error) {
+        next(error);
+    }
+}
+
+const verifyOtp = async (req, res, next) => {
+    try {
+        const { phone, pin, pinId } = req.body;
+
+        const result = await verifyToken(pinId, pin);
+
+        if (result.verified === true) {
+            // Mark OTP verified for this user
+            await User.updateOne({ phone }, { otpVerified: true });
+
+            res.json({ message: "OTP verified, you may reset password now" });
+        } else {
+            res.status(400).json({ message: "Invalid OTP" });
+        }
+    } catch (error) {
+        next(error);
+    }
+}
+
+
+const resetPassword = async (req, res, next) => {
+    try {
+        const { phone, newPassword } = req.body;
+        const user = await User.findOne({ phone });
+
+        if (!user || !user.otpVerified) {
+            return res.status(400).json({ message: "OTP not verified" });
+        }
+
+        user.password = await bcrypt.hash(newPassword, 10);
+        user.otpVerified = false; // reset the flag
+        user.resetPinId = null;   // clear the pinId
+        await user.save();
+
+        res.json({ message: "Password reset successfully" });
+    } catch (error) {
+        next(error);
+    }
+}
 
 export {
     signUp, 
     login,
-    activateAccount
+    activateAccount, 
+    forgotPassword,
+    verifyOtp,
+    resetPassword
 }
