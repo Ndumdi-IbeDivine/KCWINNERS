@@ -6,7 +6,6 @@
             >
                 <div class="text-center px-5">
                     <div class="font-semibold text-[48px] tracking-[-3px]">Contact Us</div>
-                    <div class="mt-[4px] text-[16px] text-[#717171]">Where to grow your business as a photographer: site or social media?</div>
                 </div>
             </div>
 
@@ -49,14 +48,18 @@
                         <div>
                             <div class="font-semibold text-[20px]">Visit Us</div>
                             <div class="my-[16px] text-[18px]">
-                                2972 Westheimer Rd. Santa Ana, Illinois 85486
+                                Suite 2 AP Filling Station, Oke-Afa, Isolo, Lagos, Nigeria. 100263
                             </div>
                         </div>
                         <div>
                             <div class="font-semibold text-[20px]">Contact</div>
                             <div class="my-[16px] text-[18px]">
-                                <p>contact@gmail.com</p>
-                                <p>1234567890</p>
+                                <div>
+                                    <a href="mailto:kcwinners3@gmail.com" class="hover:underline">kcwinners3@gmail.com</a>
+                                </div>
+                                <div>
+                                    <a href="tel:+2349136757875" class="hover:underline">09136757875</a>
+                                </div>
                             </div>
                         </div>
                     </div>

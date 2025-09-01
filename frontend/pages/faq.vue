@@ -3,7 +3,7 @@
         <div
             data-aos="fade-up" 
             data-aos-anchor-placement="top-bottom"  
-            class="h-[449px]" style="background-image:linear-gradient(#000000A1, #000000A1), url('/images/image.jpg'); background-size: cover; background-position: center;"
+            class="h-[250px] lg:h-[449px]" style="background-image:linear-gradient(#000000A1, #000000A1), url('/images/image-4.jpg'); background-size: cover; background-position: center;"
         >
             <!-- <img src="/images/image.jpg" alt=""> -->
              <div class="flex justify-center items-center h-full text-white font-semibold text-[48px] text-center px-4">Frequently Asked Questions</div>
@@ -133,17 +133,45 @@ const toggleFaq = (index: number) => {
 
 const faqs = [
   {
-    question: "What is KC Winners?",
-    answer: "KC Winners is an organisation and a platform that simplifies study abroad applications, IELTS training, IELTS test registration, and visa application processes for students and professionals aiming to study in the UK, Canada, USA, Australia, New Zealand, and other countries."
+    question: "What is KCWinners?",
+    answer: "KCWINNERS is a global industry and distribution company in Nigeria. We work in real estate, property sales, building materials distribution, and also run a weekly contribution initiative that allows members to grow their money with guaranteed returns and food rewards."
   },
   {
-    question: "What services does KC Winners? offer?",
-    answer: "Study Abroad Application Assistance, IELTS Training (Self-paced and Instructor-led), IELTS Test Registration Guidance/Assistance, Visa Application Services (UK and Canada)"
+    question: "How does the weekly contribution initiative work?",
+    answer: "Members contribute a fixed amount of 2000 naira every week for 7 months. At the end of the cycle, you receive your total contributions back plus 66.7% profit. If you refer others, you also earn 20% worth of foodstuffs."
   },
   {
-    question: "Who can use the KC Winners? platform?",
-    answer: "Students, professionals, and parents seeking reliable guidance and support for studying abroad or taking the IELTS test can use the EduBureau platform."
+    question: "Who can join the contribution plan?",
+    answer: "Anyone above 18 years old with a valid means of identification and bank account can register. Both individuals and groups are welcome to participate."
   },
+  {
+    question: "How do I register for the contribution plan?",
+    answer: "You can register through our platform by filling in your details and paying a registration fee. Once your account is verified, you can start making weekly contributions."
+  },
+  {
+    question: "Is KCWINNERS’ contribution safe?",
+    answer: "Yes. KCWINNERS is a registered company with a strong reputation in real estate and distribution, and we ensure that all contributions are properly recorded and managed."
+  },
+  {
+    question: "What happens if I miss a weekly payment?",
+    answer: "Members are expected to stay consistent. If you miss a payment, you will need to clear all missed weeks at the end of the savings period before you can withdraw savings."
+  },
+  {
+    question: "What kind of building materials does KCWINNERS supply?",
+    answer: "We provide blocks, bricks, interlocking stones, and other materials used in constructing houses, estates, and roads."
+  },
+  {
+    question: "Does KCWINNERS sell properties too?",
+    answer: "Yes, we are involved in real estate sales and property development. Whether you’re looking for land, houses, or investment opportunities, KCWINNERS can connect you to the right option."
+  },
+  {
+    question: "Can organizations partner with KCWINNERS?",
+    answer: "Absolutely. We partner with organizations and individuals for outreach programs, food distribution, and building projects."
+  },
+  {
+    question: "How do I contact KCWINNERS?",
+    answer: "You can reach us through our official website, email, phone lines, or by visiting our office. We also respond quickly on our social media platforms."
+  }
 ]
 </script>
 

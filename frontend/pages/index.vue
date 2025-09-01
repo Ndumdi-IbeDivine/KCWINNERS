@@ -2,10 +2,12 @@
     <div data-aos="fade" class="grid gap-[84px]">
         <div class="relative grid lg:grid-cols-2 lg:h-[87vh] lg:pl-[50px] xl:pl-[144px]">
             <div class="flex flex-col justify-center relative px-5 z-10 md:w-[80%]">
-                <h1 class="hero-text text-[42px] md:text-[64px] font-medium lg:leading-[76px] tracking-normal">Your Path to <span class="hero-text text-[var(--kc-green)]">Smarter Wealth</span></h1>
-                <p class="mt-[16px]">“Grow your money stress-free with KC Winners — safe savings, 20% returns, and real rewards.”</p>
+                <h1 class="hero-text text-[42px] md:text-[64px] font-medium lg:leading-[76px] tracking-normal">"KCWINNERS –<span class="hero-text text-[var(--kc-green)]">Building Wealth, Building Communities.</span>"</h1>
+                <p class="mt-[16px]">From real estate to building materials, from distribution to weekly contributions, KCWINNERS is creating value, empowering families, and shaping the future.</p>
                 <div class="mt-[32px]">
-                    <PrimaryBtn>Register</PrimaryBtn>
+                    <NuxtLink to="/create-account">
+                        <PrimaryBtn>Join the Contribution Plan </PrimaryBtn>
+                    </NuxtLink>
                 </div>
             </div>
 
@@ -24,10 +26,18 @@
                 <img src="/images/image-1.jpg" class="rounded-lg" alt="">
             </div>
             <div>
-                <div class="font-bold text-[36px]">Your Path to Smarter Wealth</div>
-                <p class="mt-[16px] leading-[20px] tracking-normal">KC Winners is running a <b>Wealth Solution Initiative</b> that gives everyday people a simple way to grow their money. By contributing a fixed amount weekly, you don’t just keep your money safe — you multiply it. At the end of your cycle, you get your full savings back with a <b>20% bonus</b>, and you can even enjoy food packages and extra rewards when you bring others on board.</p>
+                <div class="semi-heading">WHO WE ARE</div>
+                <p class="mt-[16px] leading-[20px] tracking-normal">KCWINNERS Global Industries is a multi-sector company dedicated to providing solutions that improve lives and communities. We operate in:
+                </p>
+                <ul class="mt-5">
+                    <li>Real estate and property sales</li>
+                    <li>The distribution of quality building materials such as blocks, bricks, and interlocking stones used in building homes, estates, and even roads.</li>
+                    <li>Alongside these, we run a unique wealth solution initiative — our weekly contribution system — that helps Nigerians grow their money with guaranteed returns and added rewards.</li>
+                </ul> 
                 <div class="mt-[32px]">
-                    <PrimaryBtn>Learn More</PrimaryBtn>
+                    <NuxtLink to="/contact">
+                        <PrimaryBtn>Work With Us</PrimaryBtn>
+                    </NuxtLink>
                 </div>
             </div>
         </div>
@@ -38,7 +48,7 @@
             class="px-5 lg:px-[50px] xl:px-[144px]"
         >
             <div class="text-center">
-                <div class="font-semibold text-[36px]">KC Winners in 3 Steps</div>
+                <div class="font-semibold text-[36px]">HOW CONTRIBUTING WORKS (3 SIMPLE STEPS)</div>
             </div>
 
             <div class="grid md:grid-cols-3 gap-10 2xl:gap-[126px] mt-[16px]">
@@ -46,23 +56,23 @@
                     <div class="mb-[16px] flex justify-center">
                         <img src="/images/card-one-icon.svg" alt="">
                     </div>
-                    <div class="font-bold text-[28px] leading-[26px] mb-[8px]">Join the Winners Family</div>
-                    <div class="text-[14px]">Register with KC Winners and choose your weekly contribution plan. Once you’re in, you’re part of a growing community of Nigerians securing their future.</div>
+                    <div class="font-bold text-[28px] leading-[26px] mb-[8px]">Register and Join</div>
+                    <div class="text-[14px]">Sign up with KCWINNERS, read the terms, and activate your account.</div>
                 </div>
 
                 <div class="box-card text-center">
                     <div class="mb-[16px] flex justify-center">
                         <img src="/images/card-two-icon.svg" alt="">
                     </div>
-                    <div class="font-bold text-[28px] leading-[26px] mb-[8px]">Keep Up with Your Contributions</div>
-                    <div class="text-[14px]">Every week, you make your set payment. It’s simple, straightforward, and keeps you on track to cash out big in the end.</div>
+                    <div class="font-bold text-[28px] leading-[26px] mb-[8px]">Contribute Weekly</div>
+                    <div class="text-[14px]">And at the end of the cycle, you receive your full contributions plus <b>66.7% profit</b>, and if you referred others, you also enjoy <b>20% worth of food support</b>.</div>
                 </div>
 
                 <div class="box-card text-center">
                     <div class="mb-[16px] flex justify-center">
                         <img src="/images/card-three-icon.svg" alt="">
                     </div>
-                    <div class="font-bold text-[28px] leading-[26px] mb-[8px]">Cash Out and Celebrate</div>
+                    <div class="font-bold text-[28px] leading-[26px] mb-[8px]">Cash Out with Benefitse</div>
                     <div class="text-[14px]">At the end of your cycle, KC Winners pays you back all your contributions plus a 20% bonus, and adds food items to support your home. If you’ve referred friends or family, you enjoy even more rewards. That’s the KC Winners way — everybody wins.</div>
                 </div>
             </div>
@@ -74,8 +84,8 @@
             class="px-5 lg:px-[50px] xl:px-[144px] grid lg:grid-cols-2 2xl:grid 2xl:grid-cols-2 gap-10 lg:gap-[153px] items-center"
         >
             <div class="lg:w-[436px] 2xl:w-full">
-                <div class="font-bold text-[28px] leading-[44.8px]">Save with Confidence, Enjoy with Ease</div>
-                <p class="mt-[16px]">With KC Winners, there’s no plenty talk — your money is safe, your returns are sure, and the benefits are real. We’ve built a system that works for families, workers, and hustlers who want their money to grow without stress. Every contribution moves you closer to cash-out time, when you get back more than you put in, plus extra goodies to support your home. That’s how KC Winners makes wealth simple.</p>
+                <div class="semi-heading leading-[44.8px]">WEEKLY CONTRIBUTION</div>
+                <p class="mt-[16px]">Our <b>KCWINNERS Contribution Initiative</b> gives everyday people the chance to grow their money with ease. By contributing a fixed weekly amount for <b>7 months</b>, you get back your full contributions plus a <b>66.7% return</b>. On top of that, if you refer others, you also receive an additional <b>20% worth of foodstuffs</b>. It’s more than a contribution cycle — it’s a way to save, earn, and support your home.</p>
             </div>
             <div>
                 <img src="/images/image-2.jpg" class="rounded-lg  w-full" alt="">
@@ -91,10 +101,9 @@
                 <img src="/images/image-3.jpg" class="w-full rounded-lg" alt="">
             </div>
             <div>
-                <div class="font-bold text-[28px] leading-[44.8px]">Our Mission</div>
-                <p class="mt-[16px]">To Make Wealth Possible for Everyone <br>At KC Winners, our mission is to help Nigerians grow their money in a safe, reliable, and rewarding way. We know the hustle is real, so we created a platform that turns your weekly contributions into something bigger — with cash bonuses, food support, and referral rewards that give you even more value.</p>
-
-                <p class="mt-[16px]">We are not just running a savings cycle; we are building a community where people win together, support one another, and see real results. For us, it’s not just about money — it’s about lifting homes, empowering dreams, and making life a little easier for everyone who joins KC Winners.</p>
+                <div class="semi-heading leading-[44.8px]">Mission</div>
+                <div class="font-bold">Our Mission: Creating Wealth, Building Lives</div>
+                <p class="mt-[16px]">KCWINNERS exists to empower people and communities by combining strong industries with impactful initiatives. From housing solutions to financial growth programs, our mission is to help people build wealth, live better, and share in opportunities that uplift families across Nigeria and beyond.</p>
             </div>
         </div>
 
