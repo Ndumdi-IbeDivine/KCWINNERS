@@ -1,12 +1,85 @@
 # KC Winners API Documentation
 
-Base URL: `https://your-domain.com/api/v1`
+Base URL: `https://localhost:3000/api/v1`
 
 All protected routes require an `Authorization: Bearer <token>` header.
 
----
 
-## AUTHENTICATION
+🔑  AUTH ROUTES (/api/v1/auth)
 
-### Register User
-`POST /auth/register`
+# Authentication & account activation.
+
+--- POST /api/v1/auth/sign-up
+To Register a new user.
+
+
+--- POST /api/v1/auth/login 
+Authenticate user and return token.
+
+
+--- POST /api/v1/auth/activate {protected}
+Activate user account with extra profile fields and registration proof.
+Form-Data:
+
+
+
+👑 ADMIN ROUTES (/api/v1/admin)
+
+# Admin-only functions. {all routes are protected}
+
+--- GET /api/v1/admin/pending-registrations
+Get list of users awaiting approval.
+
+
+--- POST /api/v1/admin/approve-registration/:userId
+Approve a user’s registration.
+
+
+--- GET /api/v1/admin/cleared-users
+List of users who cleared defaults and paid clearance.
+
+
+
+💰 CONTRIBUTION ROUTES (/api/contributions)
+
+# Handles user contributions. All routes are protected
+
+--- POST /api/v1/contributions/create
+Create a new contribution account.
+
+--- GET /api/contributions/:userId
+Get all contributions for a user.
+
+--- POST /api/contributions/detail/:id
+Get details of a single contribution account.
+
+--- POST /api/contributions/clear-defaults
+Clear missed contributions (defaulter payment).
+
+--- POST /api/contributions/pay-clearance
+Pay clearance fee (before withdrawal).
+
+
+👤 USER ROUTES (/api/users)
+
+# Get user info.
+
+--- GET /api/users
+Fetch all users.
+
+
+--- GET /api/users/:id {protected}
+Fetch single user by ID.
+
+
+💵 Wallet Routes (/api/wallet)
+
+# Wallet funding & tracking.
+
+--- POST /api/wallet/transfer/initiate
+Initiate a transfer to fund wallet.
+
+--- POST /api/wallet/webhook
+Handle webhook for automatic wallet funding.
+
+

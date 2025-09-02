@@ -5,7 +5,6 @@ import { getUsers, getUser} from '../controllers/user.controller.js'
 
 const router = express.Router();
 
-router.use(authorize);
 
 router.get('/', getUsers);
 router.get('/:id', authorize, getUser);

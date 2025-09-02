@@ -2,6 +2,10 @@ import aj from '../config/arcjet.js';
 
 const arcjetMiddleware = async (req, res, next) => {
     try {
+        // Skip Arcjet for signup/login routes
+        if (["/api/v1/auth/forgot-password", "/login"].includes(req.path)) {
+            return next();
+        }
         const decision = await aj.protect(req, { requested: 1 });
 
         if(decision.isDenied()) {
