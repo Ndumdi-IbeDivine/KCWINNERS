@@ -187,6 +187,72 @@
                                 </nav>
                             </div>
                     </div>
+
+                    <div class="flex justify-end">
+                        <button class="mb-5 me-3 px-[21px] py-[13px] rounded-[31px] bg-red-500 hover:bg-red-600  transition ease-in text-[14px] text-white" @click="open = true">
+                            Clear Contribution Account
+                        </button>
+                        <TransitionRoot as="template" :show="open">
+                            <Dialog class="relative z-10" @close="open = false">
+                                <TransitionChild
+                                    as="template"
+                                    enter="ease-out duration-300"
+                                    enter-from="opacity-0"
+                                    enter-to=""
+                                    leave="ease-in duration-200"
+                                    leave-from=""
+                                    leave-to="opacity-0"
+                                >
+                                    <div
+                                        class="fixed inset-0 bg-gray-900/50 transition-opacity"
+                                    />
+                                </TransitionChild>
+
+                                <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+                                    <div
+                                        class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0"
+                                    >
+                                        <TransitionChild
+                                            as="template"
+                                            enter="ease-out duration-300"
+                                            enter-from="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                                            enter-to=" translate-y-0 sm:scale-100"
+                                            leave="ease-in duration-200"
+                                            leave-from=" translate-y-0 sm:scale-100"
+                                            leave-to="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                                        >
+                                            <DialogPanel
+                                                class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl outline -outline-offset-1 outline-white/10 transition-all sm:my-8 sm:w-full sm:max-w-lg"
+                                            >
+                                                <DialogTitle class="bg-[#F5F6F7] px-[50px] py-[33px] font-bold text-[18px]">
+                                                    Clear contribution account 
+                                                </DialogTitle>
+                                                <div
+                                                    class="bg-white px-[50px] py-[33px]"
+                                                >
+                                                    <div>
+                                                        <div>
+                                                            <div>
+                                                                Are you sure you want to clear contribution account? <br>This action is irreversible.
+                                                            </div>
+                                                            <div class="mt-[33px] flex justify-end gap-[5px]">
+                                                                <button class="px-[21px] py-[13px] rounded-[31px] hover:bg-[#e4e4e4] border border-[#F5F6F7] transition ease-in text-[14px]" @click="open = false">
+                                                                    Cancel
+                                                                </button>
+                                                                <button class="px-[21px] py-[13px] rounded-[31px] bg-black text-white hover:bg-gray-800 transition ease-in text-[14px]" @click="open = false">
+                                                                    Continue
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </DialogPanel>
+                                        </TransitionChild>
+                                    </div>
+                                </div>
+                            </Dialog>
+                        </TransitionRoot>
+                    </div>
                 </div>
             </div>
         </div>
@@ -194,9 +260,19 @@
 </template>
 
 <script setup lang="ts">
+import {
+    Dialog,
+    DialogPanel,
+    DialogTitle,
+    TransitionChild,
+    TransitionRoot,
+} from "@headlessui/vue";
+
 definePageMeta({
     layout: 'dashboard-layout'
 })
+
+const open = ref(false)
 
 const tabs = ["Weekly Deductions", "Failed Transactions"]
 const activeTab = ref(tabs[0])
