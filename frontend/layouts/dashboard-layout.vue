@@ -14,31 +14,31 @@
                 <hr class="border-[#63493E47]">
     
                 <div class="mt-8 flex-1">
-                    <div class="flex gap-[13px] px-[13px] py-[15px] text-white items-center active-dashbord-link rounded-[8px] cursor-pointer">
+                    <NuxtLink to="/dashboard" :class="[$route.path == '/dashboard' ? 'active-dashbord-link' : '', 'flex gap-[13px] px-[13px] py-[15px] text-white items-center rounded-[8px] cursor-pointer']">
                         <img src="/images/home.svg" alt="">
                         <div class="flex-1">Dashboard</div>
                         <img src="/images/chevron-right.svg" alt="">
-                    </div>
-                    <div class="flex gap-[13px] px-[13px] py-[15px] text-white items-center rounded-[8px] cursor-pointer">
+                    </NuxtLink>
+                    <NuxtLink to="/dashboard/contributions" :class="[$route.path == '/dashboard/contributions' ? 'active-dashbord-link' : '', 'flex gap-[13px] px-[13px] py-[15px] text-white items-center rounded-[8px] cursor-pointer']">
                         <img src="/images/shop.svg" alt="">
                         <div class="flex-1">Contributions</div>
                         <img src="/images/chevron-right.svg" alt="">
-                    </div>
-                    <div class="flex gap-[13px] px-[13px] py-[15px] text-white items-center rounded-[8px] cursor-pointer">
+                    </NuxtLink>
+                    <NuxtLink to="/dashboard/transactions" :class="[$route.path == '/dashboard/transactions' ? 'active-dashbord-link' : '', 'flex gap-[13px] px-[13px] py-[15px] text-white items-center rounded-[8px] cursor-pointer']">
                         <img src="/images/wallet.svg" alt="">
                         <div class="flex-1">Transactions</div>
                         <img src="/images/chevron-right.svg" alt="">
-                    </div>
-                    <div class="flex gap-[13px] px-[13px] py-[15px] text-white items-center rounded-[8px] cursor-pointer">
+                    </NuxtLink>
+                    <NuxtLink to="/dashboard/support" :class="[$route.path == '/dashboard/support' ? 'active-dashbord-link' : '', 'flex gap-[13px] px-[13px] py-[15px] text-white items-center rounded-[8px] cursor-pointer']">
                         <img src="/images/envelope.svg" alt="">
                         <div class="flex-1">Support</div>
                         <img src="/images/chevron-right.svg" alt="">
-                    </div>
-                    <div class="flex gap-[13px] px-[13px] py-[15px] text-white items-center rounded-[8px] cursor-pointer">
+                    </NuxtLink>
+                    <NuxtLink to="/dashboard/profile" :class="[$route.path == '/dashboard/profile' ? 'active-dashbord-link' : '', 'flex gap-[13px] px-[13px] py-[15px] text-white items-center rounded-[8px] cursor-pointer']">
                         <img src="/images/profile.svg" alt="">
                         <div class="flex-1">Profile</div>
                         <img src="/images/chevron-right.svg" alt="">
-                    </div>
+                    </NuxtLink>
                 </div>
     
                 <div>

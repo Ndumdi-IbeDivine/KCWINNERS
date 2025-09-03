@@ -1,9 +1,11 @@
 <template>
     <div>
         <div class="text-[33px] font-bold">Welcome Divine! 👋</div>
-        <div>Your wallet update for today!</div>
+        <div class="text-[#747474]">Your wallet update for today!</div>
         <div class="flex justify-end">
-            <BlackBtn>Fund Wallet</BlackBtn>
+            <DashboardModal btn-title="Fund Wallet" modal-title="Ready to fund your wallet?">
+                <input class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500" type="text" name="" id="">
+            </DashboardModal>
         </div>
 
         <div class="mt-[36px]">
@@ -52,7 +54,7 @@
                             <img src="/images/trophy.svg" alt="">
                             Transactions
                         </div>
-                        <div class="h-[500px] overflow-auto">
+                        <div class="h-[320px] overflow-auto">
                             <div v-for="i in 30" class="grid grid-cols-3 text-[#747474] mt-5 pe-3">
                                 <div class="col-span-2">Fee</div>
                                 <div class="text-end">+ ₦2000</div>
