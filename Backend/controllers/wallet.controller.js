@@ -1,3 +1,5 @@
+import axios from "axios";
+
 import WalletFund from "../models/walletFunding.model.js";
 import User from '../models/user.model.js';
 import Transaction from '../models/transaction.model.js'

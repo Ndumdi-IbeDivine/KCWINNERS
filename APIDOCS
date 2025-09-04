@@ -5,6 +5,7 @@ Base URL: `https://localhost:3000/api/v1`
 All protected routes require an `Authorization: Bearer <token>` header.
 
 
+
 🔑  AUTH ROUTES (/api/v1/auth)
 
 # Authentication & account activation.
@@ -12,14 +13,80 @@ All protected routes require an `Authorization: Bearer <token>` header.
 --- POST /api/v1/auth/sign-up
 To Register a new user.
 
+# request body: 
+{
+    name,
+    email,
+    phone,
+    password
+}
+
 
 --- POST /api/v1/auth/login 
 Authenticate user and return token.
 
+# request body: 
+{
+    phone,
+    password
+}
 
 --- POST /api/v1/auth/activate {protected}
 Activate user account with extra profile fields and registration proof.
 Form-Data:
+
+# request body: 
+{
+    userId (optional)
+    sex,
+    bankName,
+    accountNumber,
+    residentialAddress,
+    nextOfKinName,
+    nextOfKinPhone,
+    nextOfKinAddress,
+    registraionProof
+}
+
+--- POST /api/v1/auth/update-profile
+Update user profile
+
+# request body:
+{
+    sex,
+    accountName,
+    accountNumber,
+    residentialAddress,
+    nextOfKinName,
+    nextOfKinPhone,
+    nextOfKinAddress,
+}
+
+--- POST /api/v1/auth/forgot-password
+
+# request body
+{
+    phone
+}
+
+
+--- POST /api/v1/auth/verify-otp
+
+# request body:
+{ 
+    phone, 
+    pin, 
+    pinId 
+}
+
+--- POST /api/v1/auth/reset-password
+
+# request body
+{
+    phone,
+    newPassword
+}
+
 
 
 
@@ -40,6 +107,7 @@ List of users who cleared defaults and paid clearance.
 
 
 
+
 💰 CONTRIBUTION ROUTES (/api/contributions)
 
 # Handles user contributions. All routes are protected
@@ -47,10 +115,16 @@ List of users who cleared defaults and paid clearance.
 --- POST /api/v1/contributions/create
 Create a new contribution account.
 
+# Request body
+{
+    userId
+    referral code
+}
+
 --- GET /api/contributions/:userId
 Get all contributions for a user.
 
---- POST /api/contributions/detail/:id
+--- GET /api/contributions/detail/:id
 Get details of a single contribution account.
 
 --- POST /api/contributions/clear-defaults
@@ -58,6 +132,9 @@ Clear missed contributions (defaulter payment).
 
 --- POST /api/contributions/pay-clearance
 Pay clearance fee (before withdrawal).
+
+
+
 
 
 👤 USER ROUTES (/api/users)
@@ -72,6 +149,9 @@ Fetch all users.
 Fetch single user by ID.
 
 
+
+
+
 💵 Wallet Routes (/api/wallet)
 
 # Wallet funding & tracking.
@@ -81,5 +161,4 @@ Initiate a transfer to fund wallet.
 
 --- POST /api/wallet/webhook
 Handle webhook for automatic wallet funding.
-
 
