@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="font-bold text-[33px]">Transactions</div>
-        <div class="grid grid-cols-2 items-center">
+        <div>
             <div class="text-[#747474]">Your weekly update for transactions!</div>
         </div>
 
@@ -9,7 +9,7 @@
             <div>
                 <!-- Tabs -->
                 <div class="border-b border-gray-200 bg-white px-[20px]">
-                    <nav class="-mb-px flex space-x-8" aria-label="Tabs">
+                    <nav class="-mb-px space-x-4 flex md:space-x-8" aria-label="Tabs">
                         <button
                             v-for="tab in tabs"
                             :key="tab"
@@ -26,51 +26,37 @@
 
                 <!-- Tab Content -->
                 <div class="mt-[30px] rounded-lg bg-white">
-                    <div v-if="activeTab === 'Weekly Deductions'" class="p-4 rounded">
+                    <div v-if="activeTab === 'Weekly Deductions'" class="md:p-4 rounded">
                         <div class="font-bold flex items-center gap-2 p-5"><img src="/images/link.svg" alt=""> Weekly Deductions</div>
 
-                            <table class="w-full text-sm text-left rtl:text-right text-gray-500">
-                                <thead class="text-sm text-[#072635] bg-white rounded-3xl">
-                                    <tr class="rounded-3xl">
-                                        <th scope="col" class="px-6 py-3">
-                                            Account
-                                        </th>
-                                        <th scope="col" class="px-6 py-3">
-                                            Total amount
-                                        </th>
-                                        <th scope="col" class="px-6 py-3">
-                                            Last transaction
-                                        </th>
-                                        <th scope="col" class="px-6 py-3">
-                                            Status
-                                        </th>
-                                        <th scope="col" class="px-6 py-3">
-                                            Date updated
-                                        </th>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left text-gray-500 border-collapse">
+                                    <thead class="text-sm text-[#072635] bg-white">
+                                    <tr>
+                                        <th scope="col" class="px-6 py-3 sticky left-0 bg-white">Account</th>
+                                        <th scope="col" class="px-6 py-3">Total amount</th>
+                                        <th scope="col" class="px-6 py-3">Last transaction</th>
+                                        <th scope="col" class="px-6 py-3">Status</th>
+                                        <th scope="col" class="px-6 py-3">Date updated</th>
                                     </tr>
-                                </thead>
-                                <tbody class="">
-                                    <tr v-for="i in 10" class="bg-white border-b border-gray-200 text-[14px] text-[#072635] hover:bg-[#F6F7F8]">
-                                        <td class="px-6 py-4">
-                                            Primary contribution
+                                    </thead>
+                                    <tbody>
+                                    <tr v-for="i in 20" class="bg-white border-b border-gray-200 text-[14px] text-[#072635] hover:bg-[#F6F7F8]">
+                                        <td class="px-6 py-4 sticky left-0 bg-white z-10">
+                                        Primary contribution {{ i }}
                                         </td>
+                                        <td class="px-6 py-4">10,000</td>
+                                        <td class="px-6 py-4">+2,000</td>
                                         <td class="px-6 py-4">
-                                            10,000
+                                        <div class="flex items-center bg-[#ECFFF4] text-[10px] rounded-[10px] text-[#27B060] py-0.5 px-2.5 w-fit">
+                                            Successful
+                                        </div>
                                         </td>
-                                        <td class="px-6 py-4">
-                                            +2,000
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            <div class="flex items-center bg-[#ECFFF4] text-[10px] rounded-[10px] text-[#27B060] py-0.5 px-2.5 w-fit">
-                                                Successful
-                                            </div>
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            1/1/2025
-                                        </td>
+                                        <td class="px-6 py-4">1/1/2025</td>
                                     </tr>
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                </table>
+                            </div>
 
                             <div class="mt-3">
                                 <nav class="w-full grid grid-cols-3 gap-x-1" aria-label="Pagination">
@@ -107,151 +93,71 @@
                             </div>
                     </div>
 
-                    <div v-else-if="activeTab === 'Failed Transactions'" class="p-4 rounded">
+                    <div v-else-if="activeTab === 'Failed Transactions'" class="md:p-4 rounded">
                         <div class="font-bold flex items-center gap-2 p-5"><img src="/images/link.svg" alt=""> Failed Transactions</div>
                         
-                        <table class="w-full text-sm text-left rtl:text-right text-gray-500">
-                                <thead class="text-sm text-[#072635] bg-white rounded-3xl">
-                                    <tr class="rounded-3xl">
-                                        <th scope="col" class="px-6 py-3">
-                                            Account
-                                        </th>
-                                        <th scope="col" class="px-6 py-3">
-                                            Total amount
-                                        </th>
-                                        <th scope="col" class="px-6 py-3">
-                                            Last transaction
-                                        </th>
-                                        <th scope="col" class="px-6 py-3">
-                                            Status
-                                        </th>
-                                        <th scope="col" class="px-6 py-3">
-                                            Date updated
-                                        </th>
+                        <div class="overflow-x-auto">
+                                <table class="w-full text-left text-gray-500 border-collapse">
+                                    <thead class="text-sm text-[#072635] bg-white">
+                                    <tr>
+                                        <th scope="col" class="px-6 py-3 sticky left-0 bg-white">Account</th>
+                                        <th scope="col" class="px-6 py-3">Total amount</th>
+                                        <th scope="col" class="px-6 py-3">Last transaction</th>
+                                        <th scope="col" class="px-6 py-3">Status</th>
+                                        <th scope="col" class="px-6 py-3">Date updated</th>
                                     </tr>
-                                </thead>
-                                <tbody class="">
-                                    <tr v-for="i in 10" class="bg-white border-b border-gray-200 text-[14px] text-[#072635] hover:bg-[#F6F7F8]">
-                                        <td class="px-6 py-4">
-                                            Primary contribution
+                                    </thead>
+                                    <tbody>
+                                    <tr v-for="i in 20" class="bg-white border-b border-gray-200 text-[14px] text-[#072635] hover:bg-[#F6F7F8]">
+                                        <td class="px-6 py-4 sticky left-0 bg-white z-10">
+                                        Primary contribution {{ i }}
                                         </td>
+                                        <td class="px-6 py-4">10,000</td>
+                                        <td class="px-6 py-4">+2,000</td>
                                         <td class="px-6 py-4">
-                                            10,000
+                                        <div class="flex items-center bg-red-100 text-[10px] rounded-[10px] text-red-500 py-0.5 px-2.5 w-fit">
+                                            Failed
+                                        </div>
                                         </td>
-                                        <td class="px-6 py-4">
-                                            +2,000
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            <div class="flex items-center bg-red-100 text-[10px] rounded-[10px] text-red-500 py-0.5 px-2.5 w-fit">
-                                                Failed
-                                            </div>
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            1/1/2025
-                                        </td>
+                                        <td class="px-6 py-4">1/1/2025</td>
                                     </tr>
-                                </tbody>
-                            </table>
-
-                            <div class="mt-3">
-                                <nav class="w-full grid grid-cols-3 gap-x-1" aria-label="Pagination">
-                                    <div class="">
-                                        <button type="button" class="min-h-9.5 min-w-9.5 py-2 px-3.5 inline-flex jusify-center items-center gap-x-2 text-sm rounded-full text-gray-800 bg-white border border-[#0000001A] focus:outline-hidden focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none transition-all duration-500 hover:transition-all hover:duration-300 cursor-pointer"  aria-label="Previous">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-5 h-5">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m7-7l-7 7 7 7" />
-                                            </svg>
-
-                                            <span aria-hidden="true" class="hidden sm:block">Previous</span>
-                                        </button>
-                                    </div>
-
-                                    <div class="flex justify-center gap-x-1">
-                                        <button
-                                            type="button"
-                                            class="min-h-9.5 min-w-9.5 flex justify-center items-center py-2 px-3 text-sm rounded-full focus:outline-hidden disabled:opacity-50 disabled:pointer-events-none"
-                                            
-                                            
-                                        >
-                                            1
-                                        </button>
-                                    </div>
-                                    
-                                    <div class="flex justify-end">
-                                        <button type="button" class="min-h-9.5 min-w-9.5 py-2 px-3.5 inline-flex jusify-center items-center gap-x-2 text-sm rounded-full text-gray-800 bg-white border border-[#0000001A] focus:outline-hidden focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none transition-all duration-500 hover:transition-all hover:duration-300 cursor-pointer"  aria-label="Next">
-                                            <span aria-hidden="true" class="hidden sm:block">Next</span>
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-5 h-5">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M13 5l7 7-7 7" />
-                                            </svg>
-                                        </button>
-                                    </div>
-                                </nav>
+                                    </tbody>
+                                </table>
                             </div>
-                    </div>
 
-                    <div class="flex justify-end">
-                        <button class="mb-5 me-3 px-[21px] py-[13px] rounded-[31px] bg-red-500 hover:bg-red-600  transition ease-in text-[14px] text-white" @click="open = true">
-                            Clear Contribution Account
-                        </button>
-                        <TransitionRoot as="template" :show="open">
-                            <Dialog class="relative z-10" @close="open = false">
-                                <TransitionChild
-                                    as="template"
-                                    enter="ease-out duration-300"
-                                    enter-from="opacity-0"
-                                    enter-to=""
-                                    leave="ease-in duration-200"
-                                    leave-from=""
-                                    leave-to="opacity-0"
-                                >
-                                    <div
-                                        class="fixed inset-0 bg-gray-900/50 transition-opacity"
-                                    />
-                                </TransitionChild>
+                        <div class="mt-3">
+                            <nav class="w-full grid grid-cols-3 gap-x-1" aria-label="Pagination">
+                                <div class="">
+                                    <button type="button" class="min-h-9.5 min-w-9.5 py-2 px-3.5 inline-flex jusify-center items-center gap-x-2 text-sm rounded-full text-gray-800 bg-white border border-[#0000001A] focus:outline-hidden focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none transition-all duration-500 hover:transition-all hover:duration-300 cursor-pointer"  aria-label="Previous">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-5 h-5">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m7-7l-7 7 7 7" />
+                                        </svg>
 
-                                <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
-                                    <div
-                                        class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0"
-                                    >
-                                        <TransitionChild
-                                            as="template"
-                                            enter="ease-out duration-300"
-                                            enter-from="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-                                            enter-to=" translate-y-0 sm:scale-100"
-                                            leave="ease-in duration-200"
-                                            leave-from=" translate-y-0 sm:scale-100"
-                                            leave-to="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-                                        >
-                                            <DialogPanel
-                                                class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl outline -outline-offset-1 outline-white/10 transition-all sm:my-8 sm:w-full sm:max-w-lg"
-                                            >
-                                                <DialogTitle class="bg-[#F5F6F7] px-[50px] py-[33px] font-bold text-[18px]">
-                                                    Clear contribution account 
-                                                </DialogTitle>
-                                                <div
-                                                    class="bg-white px-[50px] py-[33px]"
-                                                >
-                                                    <div>
-                                                        <div>
-                                                            <div>
-                                                                Are you sure you want to clear contribution account? <br>This action is irreversible.
-                                                            </div>
-                                                            <div class="mt-[33px] flex justify-end gap-[5px]">
-                                                                <button class="px-[21px] py-[13px] rounded-[31px] hover:bg-[#e4e4e4] border border-[#F5F6F7] transition ease-in text-[14px]" @click="open = false">
-                                                                    Cancel
-                                                                </button>
-                                                                <button class="px-[21px] py-[13px] rounded-[31px] bg-black text-white hover:bg-gray-800 transition ease-in text-[14px]" @click="open = false">
-                                                                    Continue
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </DialogPanel>
-                                        </TransitionChild>
-                                    </div>
+                                        <span aria-hidden="true" class="hidden sm:block">Previous</span>
+                                    </button>
                                 </div>
-                            </Dialog>
-                        </TransitionRoot>
+
+                                <div class="flex justify-center gap-x-1">
+                                    <button
+                                        type="button"
+                                        class="min-h-9.5 min-w-9.5 flex justify-center items-center py-2 px-3 text-sm rounded-full focus:outline-hidden disabled:opacity-50 disabled:pointer-events-none"
+                                        
+                                        
+                                    >
+                                        1
+                                    </button>
+                                </div>
+                                
+                                <div class="flex justify-end">
+                                    <button type="button" class="min-h-9.5 min-w-9.5 py-2 px-3.5 inline-flex jusify-center items-center gap-x-2 text-sm rounded-full text-gray-800 bg-white border border-[#0000001A] focus:outline-hidden focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none transition-all duration-500 hover:transition-all hover:duration-300 cursor-pointer"  aria-label="Next">
+                                        <span aria-hidden="true" class="hidden sm:block">Next</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-5 h-5">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M13 5l7 7-7 7" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </nav>
+                        </div>
                     </div>
                 </div>
             </div>

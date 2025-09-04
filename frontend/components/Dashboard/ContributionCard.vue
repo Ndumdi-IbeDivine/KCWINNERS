@@ -12,12 +12,12 @@
         </div>
         <div class="mt-[4px]">
             <div class="text-[#232323] text-[19px]">Primary contribution</div>
-            <div class="bg-[#F4F4F5] text-[7px] py-1 px-2 w-fit rounded-[11px] text-[#6D6D6D] font-bold">REFERRAL CODE: SDCV3I9098</div>
+            <div class="bg-[#F4F4F5] text-[7px] py-1 px-2 w-fit rounded-[11px] text-[#6D6D6D] font-bold">REFERRAL CODE: SDCV3I9098 <br> REFERRAL COUNT: 1</div>
         </div>
         <div class="grid grid-cols-2 mt-[21px] items-center">
             <div class="font-semibold text-[#27B060]">6000 <sup class="text-[10px]">+2000</sup></div>
             <div class="flex justify-end">
-                <div class="rounded-full bg-[#F4F4F5] h-6 w-6 text-[#838484] text-[12px] flex items-center justify-center">1</div>
+                <div class="rounded-full bg-[#F4F4F5] h-6 px-3 text-[#838484] text-[12px] flex items-center justify-center">Defaults: 1</div>
             </div>
         </div>
     </div>

@@ -2,7 +2,7 @@
     <div>
         <div class="text-[33px] font-bold">Welcome Divine! 👋</div>
         <div class="text-[#747474]">Your wallet update for today!</div>
-        <div class="flex justify-end">
+        <div class="flex mt-3 lg:justify-end">
             <DashboardModal btn-title="Fund Wallet" modal-title="Ready to fund your wallet?">
                 <input class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500" type="text" name="" id="">
             </DashboardModal>
@@ -20,9 +20,9 @@
                 <div class="px-8 py-[21px] bg-white rounded-lg">
                     <div class="flex gap-2.5 text-[#747474] font-[16px]">
                         <img src="/images/eye.svg" alt="">
-                        Account Funds
+                        Number of accounts
                     </div>
-                    <div class="text-[33px] font-bold">₦1200</div>
+                    <div class="text-[33px] font-bold">12</div>
                 </div>
                 <div class="px-8 py-[21px] bg-white rounded-lg">
                     <div class="flex gap-2.5 text-[#747474] font-[16px]">
@@ -34,21 +34,21 @@
                 <div class="px-8 py-[21px] bg-white rounded-lg">
                     <div class="flex gap-2.5 text-[#747474] font-[16px]">
                         <img src="/images/money-bills.svg" alt="">
-                        Wallet Balance
+                        Total contributions
                     </div>
                     <div class="text-[33px] font-bold">₦1200</div>
                 </div>
             </div>
 
-            <div class="mt-[34px] grid grid-cols-3 gap-5">
+            <div class="mt-[34px] grid grid-cols-1 lg:grid-cols-3 lg:gap-5">
                 <div class="col-span-2 p-6 bg-white rounded-lg h-fit ">
                     <div class="text-[22px]">Revenue</div>
 
-                    <div class="mt-10">
+                    <div class="mt-10 relative">
                         <Bar :data="data" :options="options" />
                     </div>
                 </div>
-                <div>
+                <div class="w-full mt-5 lg:mt-0">
                     <div class="p-6 bg-white rounded-lg">
                         <div class="flex gap-[4.5px] items-center font-semibold text-[18px]">
                             <img src="/images/trophy.svg" alt="">
@@ -62,7 +62,7 @@
                         </div>
                     </div>
                     <div class="grid grid-cols-2 gap-[17px] mt-[29px]">
-                        <button class="text-white bg-[var(--kc-green-dark)] rounded-[34px] text-[12px] p-2 py-4 hover:underline">Clear Default Account</button>
+                        <button class="text-white bg-[var(--kc-green-dark)] rounded-[34px] text-[12px] p-2 py-4 hover:underline">Clear Account Defaults</button>
                         <button class="text-white bg-black rounded-[34px] text-[12px] p-2 py-4 hover:underline">Clear Contribution Account</button>
                     </div>
                 </div>
@@ -116,6 +116,8 @@ const data = {
 
 
 const options = ref({
+    responsive: true,
+    // maintainAspectRatio: false,
     plugins: {
         legend: {
             labels: {

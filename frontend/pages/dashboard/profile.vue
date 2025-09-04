@@ -1,19 +1,19 @@
 <template>
     <div>
         <div class="text-[33px] font-bold">Profile</div>
-        <div class="grid grid-cols-2 items-center">
+        <div class="grid md:grid-cols-2 gap-3 md:gap-0 items-center">
             <div class="text-[#747474]">Edit your profile</div>
-            <div class="flex justify-end">
+            <div class="flex md:justify-end">
                 <DashboardModal btn-title="Fund Wallet" modal-title="Ready to fund your wallet?">
                     <input class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500" type="text" name="" id="">
                 </DashboardModal>
             </div>
         </div>
 
-        <div class="bg-white rounded-lg p-[40px] mt-[57px]">
-            <div class="font-bold text-[#292B32]">Genereal</div>
+        <div class="bg-white rounded-lg p-5 lg:p-[40px] mt-[57px]">
+            <div class="font-bold text-[#292B32]">General</div>
             <div class="mt-[17px]">
-                <div class="grid grid-cols-2 gap-5">
+                <div class="grid lg:grid-cols-2 gap-5">
                     <div>
                         <label for="fname" class="font-semibold text-[14px]">Full name</label>
                         <input class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500" type="text" name="" id="fname" placeholder="Enter full name"></input>
