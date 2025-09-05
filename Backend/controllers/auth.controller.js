@@ -112,8 +112,8 @@ const activateAccount = async (req, res, next) => {
         };
 
         //user activation details
+        const userId = req.user.id
         const {
-            userId,
             sex,
             bankName,
             accountNumber,
@@ -123,6 +123,7 @@ const activateAccount = async (req, res, next) => {
             nextOfKinAddress,
         } = req.body;
 
+        
         if(!userId) {
             const error = new Error('User Id is required');
             error.statusCode = 400;
@@ -273,11 +274,56 @@ const resetPassword = async (req, res, next) => {
     }
 }
 
+// Update profile
+const updateProfile = async (req, res, next) => {
+    try {
+        const userId = req.user.id; 
+        const {
+        sex,
+        accountName,
+        accountNumber,
+        residentialAddress,
+        nextOfKinName,
+        nextOfKinPhone,
+        nextOfKinAddress,
+        } = req.body;
+
+        const updatedUser = await User.findByIdAndUpdate(
+        userId,
+        {
+            sex,
+            accountName,
+            accountNumber,
+            residentialAddress,
+            nextOfKin: {
+            name: nextOfKinName,
+            phone: nextOfKinPhone,
+            address: nextOfKinAddress,
+            },
+        },
+        { new: true }
+        ).select("-password"); // don’t send password back
+
+        if (!updatedUser) {
+        return res.status(404).json({ message: "User not found" });
+        }
+
+        res.json({
+        message: "Profile updated successfully",
+        user: updatedUser,
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
+
 export {
     signUp, 
     login,
     activateAccount, 
     forgotPassword,
     verifyOtp,
-    resetPassword
+    resetPassword,
+    updateProfile
 }

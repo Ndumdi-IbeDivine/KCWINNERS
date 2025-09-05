@@ -10,7 +10,7 @@ const transactionSchema = new mongoose.Schema({
     contributionAccountId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'ContributionAccount',
-        default: null  // optional -- for wallet funding
+        default: null 
     },
 
     type: {
