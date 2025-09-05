@@ -34,12 +34,12 @@
                                         </div>
                                         <div class="grid gap-4">
                                             <div class="mt-8 flex-1">
-                                                <NuxtLink to="/dashboard" @click="open = false" :class="[$route.path == '/dashboard' || $route.path == '/dashboard/' ? 'active-dashbord-link' : '', 'flex gap-[13px] px-[13px] py-[15px] text-white items-center rounded-[8px] cursor-pointer']">
-                                                    <img src="/images/home.svg" alt="">
-                                                    <div class="flex-1">Dashboard</div>
+                                                <NuxtLink v-for="item in navLinks" :to="item.to" @click="open = false" :class="[$route.path == item.to || $route.path == item.to + '/' ? 'active-dashbord-link' : '', 'flex gap-[13px] px-[13px] py-[15px] text-white items-center rounded-[8px] cursor-pointer']">
+                                                    <img :src="item.icon" alt="">
+                                                    <div class="flex-1">{{ item.label }}</div>
                                                     <img src="/images/chevron-right.svg" alt="">
                                                 </NuxtLink>
-                                                <NuxtLink to="/dashboard/contributions" @click="open = false" :class="[$route.path == '/dashboard/contributions' || $route.path == '/dashboard/contributions/' ? 'active-dashbord-link' : '', 'flex gap-[13px] px-[13px] py-[15px] text-white items-center rounded-[8px] cursor-pointer']">
+                                                <!-- <NuxtLink to="/dashboard/contributions" @click="open = false" :class="[$route.path == '/dashboard/contributions' || $route.path == '/dashboard/contributions/' ? 'active-dashbord-link' : '', 'flex gap-[13px] px-[13px] py-[15px] text-white items-center rounded-[8px] cursor-pointer']">
                                                     <img src="/images/shop.svg" alt="">
                                                     <div class="flex-1">Contributions</div>
                                                     <img src="/images/chevron-right.svg" alt="">
@@ -58,7 +58,7 @@
                                                     <img src="/images/profile.svg" alt="">
                                                     <div class="flex-1">Profile</div>
                                                     <img src="/images/chevron-right.svg" alt="">
-                                                </NuxtLink>
+                                                </NuxtLink> -->
                                             </div>
                                         </div>
                                     </div>
@@ -82,64 +82,112 @@
                 </Dialog>
             </TransitionRoot>
         </div>
-        <div class="min-h-screen lg:flex">
-            <div class="hidden lg:block fixed h-full w-[253px]">
-                <div class="flex flex-col bg-[#010206] min-h-full py-[19px] px-[13px]">
-                    <div class="flex pb-[11px]">
-                        <div class="flex-1">
-                            <img src="/images/logo-white.svg" alt="">
-                        </div>
-                        <div class="cursor-pointer">
-                            <img src="/images/streamline-flex-nav.svg" alt="">
+         <div class="min-h-screen lg:flex">
+
+        <div 
+            class="hidden lg:block fixed h-full transition-all duration-300"
+            :class="isCollapsed ? 'w-[80px]' : 'w-[253px]'"
+        >
+            <div class="flex flex-col bg-[#010206] min-h-full py-[19px] px-[13px]">
+                <div class="flex justify-center pb-[11px] items-center">
+                    <div :class="[isCollapsed ? '' : 'flex-1']">
+                        <img src="/images/logo-white.svg" alt="" v-if="!isCollapsed" />
+                    </div>
+                    <div class="flex justify-center cursor-pointer relative group" @click="toggleSidebar">
+                        <img src="/images/streamline-flex-nav.svg" alt="">
+                        <div class="absolute left ml-24 px-2 py-1 text-xs bg-black text-white rounded opacity-0 group-hover:opacity-100 transition">
+                            {{ isCollapsed ? "Expand side navigation bar" : "Collapse side navigation bar" }}
                         </div>
                     </div>
-        
-                    <hr class="border-[#63493E47]">
-        
-                    <div class="mt-8 flex-1">
-                        <NuxtLink to="/dashboard" :class="[$route.path == '/dashboard' || $route.path == '/dashboard/' ? 'active-dashbord-link' : '', 'flex gap-[13px] px-[13px] py-[15px] text-white items-center rounded-[8px] cursor-pointer']">
-                            <img src="/images/home.svg" alt="">
-                            <div class="flex-1">Dashboard</div>
-                            <img src="/images/chevron-right.svg" alt="">
-                        </NuxtLink>
-                        <NuxtLink to="/dashboard/contributions" :class="[$route.path == '/dashboard/contributions' || $route.path == '/dashboard/contributions/' ? 'active-dashbord-link' : '', 'flex gap-[13px] px-[13px] py-[15px] text-white items-center rounded-[8px] cursor-pointer']">
-                            <img src="/images/shop.svg" alt="">
-                            <div class="flex-1">Contributions</div>
-                            <img src="/images/chevron-right.svg" alt="">
-                        </NuxtLink>
-                        <NuxtLink to="/dashboard/transactions" :class="[$route.path == '/dashboard/transactions' || $route.path == '/dashboard/transactions/' ? 'active-dashbord-link' : '', 'flex gap-[13px] px-[13px] py-[15px] text-white items-center rounded-[8px] cursor-pointer']">
-                            <img src="/images/wallet.svg" alt="">
-                            <div class="flex-1">Transactions</div>
-                            <img src="/images/chevron-right.svg" alt="">
-                        </NuxtLink>
-                        <NuxtLink to="/dashboard/support" :class="[$route.path == '/dashboard/support' || $route.path == '/dashboard/support/' ? 'active-dashbord-link' : '', 'flex gap-[13px] px-[13px] py-[15px] text-white items-center rounded-[8px] cursor-pointer']">
-                            <img src="/images/envelope.svg" alt="">
-                            <div class="flex-1">Support</div>
-                            <img src="/images/chevron-right.svg" alt="">
-                        </NuxtLink>
-                        <NuxtLink to="/dashboard/profile" :class="[$route.path == '/dashboard/profile' || $route.path == '/dashboard/profile/' ? 'active-dashbord-link' : '', 'flex gap-[13px] px-[13px] py-[15px] text-white items-center rounded-[8px] cursor-pointer']">
-                            <img src="/images/profile.svg" alt="">
-                            <div class="flex-1">Profile</div>
-                            <img src="/images/chevron-right.svg" alt="">
-                        </NuxtLink>
-                    </div>
-        
-                    <div>
-                        <hr class="border-[#63493E47]">
-                        <div class="mt-[25px] flex gap-[13px]">
-                            <div class="h-[36px] w-[36px] rounded-full bg-zinc-400"></div>
-                            <div class="text-white">
-                                <div class="font-semibold text-[16px]">Divine Ndumdi-ibe</div>
-                                <div class="text-[10px]">divinendumdiibe@gmail.com</div>
-                            </div>
+                </div>
+
+                <hr class="border-[#63493E47]">
+
+                <div class="mt-8 flex-1">
+                    <NuxtLink
+                        v-for="item in navLinks"
+                        :key="item.to"
+                        :to="item.to"
+                        :class="[
+                        $route.path == item.to || $route.path == item.to + '/' ? 'active-dashbord-link' : '',
+                        'relative flex text-white items-center gap-[13px] px-[13px] py-[15px] rounded-[8px] cursor-pointer hover:bg-[#1a1a1a] group'
+                        ]"
+                    >
+                        <img :src="item.icon" :alt="item.label" />
+                        <div v-if="!isCollapsed" class="flex-1">{{ item.label }}</div>
+
+                        <div
+                            v-if="isCollapsed"
+                            class="absolute left-full ml-2 px-2 py-1 text-xs bg-black text-white rounded opacity-0 group-hover:opacity-100 transition"
+                        >
+                            {{ item.label }}
+                        </div>
+                        <img v-if="!isCollapsed" src="/images/chevron-right.svg" alt="">
+                    </NuxtLink>
+                    
+                    <!-- <NuxtLink
+                        to="/dashboard"
+                        :class="[$route.path == '/dashboard' || $route.path == '/dashboard/' ? 'active-dashbord-link' : '', 'flex items-center gap-[13px] px-[13px] py-[15px] text-white rounded-[8px] cursor-pointer relative']"
+                    >
+                        <img src="/images/home.svg" alt="">
+                        <div v-if="!isCollapsed" class="flex-1">Dashboard</div>
+                        <img v-if="!isCollapsed" src="/images/chevron-right.svg" alt="">
+                    </NuxtLink>
+
+                    <NuxtLink
+                        to="/dashboard/contributions"
+                        :class="[$route.path == '/dashboard/contributions' || $route.path == '/dashboard/contributions/' ? 'active-dashbord-link' : '', 'flex items-center gap-[13px] px-[13px] py-[15px] text-white rounded-[8px] cursor-pointer']"
+                    >
+                        <img src="/images/shop.svg" alt="">
+                        <div v-if="!isCollapsed" class="flex-1">Contributions</div>
+                        <img v-if="!isCollapsed" src="/images/chevron-right.svg" alt="">
+                    </NuxtLink>
+
+                    <NuxtLink
+                        to="/dashboard/transactions"
+                        :class="[$route.path == '/dashboard/transactions' || $route.path == '/dashboard/transactions/' ? 'active-dashbord-link' : '', 'flex items-center gap-[13px] px-[13px] py-[15px] text-white rounded-[8px] cursor-pointer']"
+                    >
+                        <img src="/images/wallet.svg" alt="">
+                        <div v-if="!isCollapsed" class="flex-1">Transactions</div>
+                        <img v-if="!isCollapsed" src="/images/chevron-right.svg" alt="">
+                    </NuxtLink>
+
+                    <NuxtLink
+                        to="/dashboard/support"
+                        :class="[$route.path == '/dashboard/support' || $route.path == '/dashboard/support/' ? 'active-dashbord-link' : '', 'flex items-center gap-[13px] px-[13px] py-[15px] text-white rounded-[8px] cursor-pointer']"
+                    >
+                        <img src="/images/envelope.svg" alt="">
+                        <div v-if="!isCollapsed" class="flex-1">Support</div>
+                        <img v-if="!isCollapsed" src="/images/chevron-right.svg" alt="">
+                    </NuxtLink>
+
+                    <NuxtLink
+                        to="/dashboard/profile"
+                        :class="[$route.path == '/dashboard/profile' || $route.path == '/dashboard/profile/' ? 'active-dashbord-link' : '', 'flex items-center gap-[13px] px-[13px] py-[15px] text-white rounded-[8px] cursor-pointer']"
+                    >
+                        <img src="/images/profile.svg" alt="">
+                        <div v-if="!isCollapsed" class="flex-1">Profile</div>
+                        <img v-if="!isCollapsed" src="/images/chevron-right.svg" alt="">
+                    </NuxtLink> -->
+                </div>
+
+                <div>
+                <hr class="border-[#63493E47]">
+                    <div class="mt-[25px] flex gap-[13px] justify-center">
+                        <div class="h-[36px] w-[36px] rounded-full bg-zinc-400"></div>
+                        <div v-if="!isCollapsed" class="text-white">
+                            <div class="font-semibold text-[16px]">Divine Ndumdi-ibe</div>
+                            <div class="text-[10px]">divinendumdiibe@gmail.com</div>
                         </div>
                     </div>
                 </div>
             </div>
-    
-            <!-- </div> -->
-    
-            <div class="flex-1 px-5 py-5 lg:px-[34px] lg:py-[24px] bg-[#f6f6f6] lg:ml-[253px]">
+            </div>
+
+            <div 
+                class="flex-1 px-5 py-5 lg:px-[34px] lg:py-[24px] bg-[#f6f6f6] transition-all duration-300"
+                :class="isCollapsed ? 'lg:ml-[80px]' : 'lg:ml-[253px]'"
+            >
                 <slot></slot>
             </div>
         </div>
@@ -150,6 +198,38 @@
 import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
 
 const open = ref(false)
+
+const isCollapsed = ref(false)
+
+const navLinks= [
+    { to: '/dashboard', label: 'Dashboard', icon: '/images/home.svg' },
+    { to: '/dashboard/contributions', label: 'Contributions', icon: '/images/shop.svg' },
+    { to: '/dashboard/transactions', label: 'Transactions', icon: '/images/wallet.svg' },
+    { to: '/dashboard/support', label: 'Support', icon: '/images/envelope.svg' },
+    { to: '/dashboard/profile', label: 'Profile', icon: '/images/profile.svg' }
+]
+
+const toggleSidebar = () => {
+  isCollapsed.value = !isCollapsed.value
+}
+
+const checkScreen = () => {
+  if (window.innerWidth < 1280) { // xl breakpoint in Tailwind
+    isCollapsed.value = true
+  } else {
+    isCollapsed.value = false
+  }
+}
+
+onMounted(() => {
+  checkScreen()
+  window.addEventListener('resize', checkScreen)
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', checkScreen)
+})
+
 </script>
 
 <style scoped>
