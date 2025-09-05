@@ -1,1 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 @import "tailwindcss";
+
+body {
+  font-size: 18px;
+}
+
+:root {
+    --kc-green: #4CAF4F;
+    --kc-green-dark: #114E1E;
+}
+* {
+    font-family: 'Inter', sans-serif;
+    scroll-behavior: smooth;
+}
+
+@font-face {
+    font-family: "glitz";
+    src: url(/public/fonts/glitz-webfont.woff2) format("woff2"),
+        url(/public/fonts/glitz-webfont.woff) format("woff");
+    font-style: normal;
+    font-weight: normal;
+}
+
+button {
+    cursor: pointer;
+}
+
+::-webkit-scrollbar {
+  width: 9px;
+  border-radius: 4.5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #E4E4E4;
+  border-radius: 3px;
+
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #838383; 
+  border-radius: 3px;
+
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #072635; 
+}
+
+.font-glitz {
+  font-family: 'glitz';
+}
+
+ul li {
+  margin-left: 40px;
+  list-style: disc;
+}
+
+.semi-heading {
+  font-weight: bold;
+  font-size: 36px;
+  font-family: 'glitz';
+  color: var(--kc-green);
+}

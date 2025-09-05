@@ -4,6 +4,11 @@ export default defineNuxtConfig({
     compatibilityDate: "2025-05-15",
     css: ["~/assets/css/main.css"],
     ssr: false,
+    runtimeConfig: {
+        public: {
+            apiBaseUrl: process.env.API_BASE_URL,
+        },
+    },
 
     plugins: ["~/plugins/aos.client.ts"],
 

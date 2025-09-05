@@ -1,28 +1,30 @@
 <template>
     <div class="grid xl:grid-cols-2 min-h-screen lg:p-8">
-        <div>
-            <NuxtLink to="/">
-                <img src="/images/logo.svg" class="mb-10" alt="" />
-            </NuxtLink>
+        <div class="flex flex-col">
+            <div class="p-3 w-fit">
+                <NuxtLink to="/">
+                    <img src="/images/logo.svg" alt="" />
+                </NuxtLink>
+            </div>
             <div class="grid gap-4 py-4 px-5 md:px-20 h-full content-center">
                 <div class="text-center mb-4">
                     <div class="text-[32px] font-semibold">Sign in</div>
-                    <div class="font-[20px]">Enter your details to login</div>
+                    <div class="lg:text-[20px]">Enter your details to login</div>
                 </div>
 
                 <div>
                     <label
-                        for="email"
+                        for="phone"
                         class="mb-2 block text-sm font-bold text-gray-900"
-                        >Email Address <span>*</span></label
+                        >Phone number <span>*</span></label
                     >
                     <input
-                        v-model="email"
-                        type="email"
+                        v-model="phone"
+                        type="phone"
                         @keypress.enter="handleLogin"
-                        id="email"
+                        id="phone"
                         class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500"
-                        placeholder="hello@gmail.com"
+                        placeholder="08000000000"
                         required
                     />
                 </div>
@@ -57,6 +59,10 @@
                     </NuxtLink>
                 </div>
 
+                <div v-if="isError">
+                    <p :class="[isError ? 'text-red-500' : 'text-green-500', 'text-[17px]']">{{ feedback }}</p>
+                </div>
+
                 <div>
                     <PrimaryBtnAsync
                         :is-disabled="loading"
@@ -67,14 +73,10 @@
                     </PrimaryBtnAsync>
                 </div>
 
-                <div class="flex justify-center gap-2">
+                <div class="text-center">
                     Don't have an account?
-                    <NuxtLink to="/create-account">
-                        <div
-                            class="text-center font-bold text-[var(--kc-green-dark)] hover:underline"
-                        >
-                            Create an account
-                        </div>
+                    <NuxtLink to="/create-account" class="text-center font-bold text-[var(--kc-green-dark)] hover:underline">
+                        Create an account
                     </NuxtLink>
                 </div>
             </div>
@@ -91,66 +93,60 @@
 
 <script setup lang="ts">
 import { ref, inject } from "vue";
-// import Cookies from "js-cookie";
+import Cookies from "js-cookie";
 // import { useAuthStore } from "~/store/useAuthStore";
-// import { useCartAndWishListStore } from "~/store/useCartAndWishlistStore";
 
-// const cartAndWishlistStore = useCartAndWishListStore()
-// const { localCart } = storeToRefs(cartAndWishlistStore)
 // const authStore = useAuthStore();
-// const router = useRouter();
-// const api = useApi();
+const router = useRouter();
+const api = useApi();
 
-const email = ref("");
+const phone = ref("");
 const password = ref("");
 const loading = ref(false);
-// const error = ref("");
+const feedback = ref("");
+const isError = ref(false)
 
-// const toast = inject('toast') as Ref<{ showToast: (msg: string, success: boolean) => void } | undefined>
 
 async function handleLogin() {
-    // loading.value = true;
-    // error.value = "";
+    loading.value = true;
+    feedback.value = "";
+    isError.value = false
 
-    // if(!email.value || !password.value) {
-    //     error.value = "Email and password are required.";
-    //     toast?.value?.showToast("Email and password are required.", false);
-    //     loading.value = false;
-    //     return;
-    // }
+    if(!phone.value || !password.value) {
+        feedback.value = "Email and password are required.";
+        loading.value = false;
+        isError.value = true
+        return;
+    }
 
-    // try {
-    //     const res = await api.post("/auth/login", {
-    //         email: email.value,
-    //         password: password.value,
-    //     });
+    try {
+        const res = await api.post("/auth/login", {
+            phone: phone.value,
+            password: password.value,
+        });
 
-    //     toast?.value?.showToast(res.data.message, res.data.success);
 
-    //     if(res.data.success) {
-    //         Cookies.set('token', res.data.token, { expires: 7 });
-    //         authStore.setIsAuthenticated(true);
-    //         authStore.setUserProfile(res.data.user);
+        if(res.data.success) {
+            console.log(res.data)
+            Cookies.set('token', res.data.data.token, { expires: 7 });
+            // authStore.setIsAuthenticated(true);
+            // authStore.setUserProfile(res.data.user);
 
-    //         console.log(authStore.userProfile);
-    //         cartAndWishlistStore.getCart()
-    //         router.push('/')
+            // console.log(authStore.userProfile);
+            // router.push('/dashboard')
+        }
+    } catch (err: any) {
+        const msg = err.response?.data?.message || err.response?.data?.error || "Login failed";
 
-    //         if(localCart.value?.items) {
-    //             cartAndWishlistStore.addToCart(null, 0, localCart.value?.items)
-    //             setTimeout(() => {
-    //                 localCart.value = null
-    //                 localStorage.removeItem('localStorage')
-    //             }, 2000);
-    //         }
-    //     }
-    //     // Redirect or store token logic here
-    // } catch (err: any) {
-    //     const msg = err.response?.data?.message || "Login failed";
-    //     error.value = msg;
-    //     toast?.value?.showToast(msg, false);
-    // } finally {
-    //     loading.value = false;
-    // }
+        if(msg == 'Invalid Password' || msg == 'User not found') {
+            feedback.value = 'Incorrect username or password'
+        } else {
+            feedback.value = msg;
+        }
+
+        isError.value = true
+    } finally {
+        loading.value = false;
+    }
 }
 </script>

@@ -1,5 +1,6 @@
 import express from 'express';
 import cookieParser from 'cookie-parser';
+import cors from 'cors'
 
 import { PORT } from './config/env.js';
 import connectToDatabase from './database/mongodb.js';
@@ -21,6 +22,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser())
 app.use(arcjetMiddleware)
+app.use(cors({
+    origin: '*',
+    methods: '*',
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
 
 app.get('/', (req, res) => {
     res.send('Welcome to KCWINNERS CONTRIBUTION API')
