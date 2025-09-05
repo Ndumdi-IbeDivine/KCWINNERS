@@ -11,6 +11,6 @@ router.post('/activate', upload.fields([{ name: 'registrationProof', maxCount: 1
 router.post('/forgot-password', forgotPassword);
 router.post('/verify-otp', verifyOtp);
 router.post('/reset-password', resetPassword);
-router.post('/update-profile', authorize, updateProfile);
+router.patch('/update-profile', authorize, updateProfile);
 
 export default router
