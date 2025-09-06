@@ -150,7 +150,7 @@ const activateAccount = async (req, res, next) => {
             accountNumber,
             residentialAddress,
             registrationProofUrl,
-            isActivated: true, // ✅ should be true on activation
+            isActivated: true, 
             nextOfKin: {
             name: nextOfKinName,
             phone: nextOfKinPhone,
