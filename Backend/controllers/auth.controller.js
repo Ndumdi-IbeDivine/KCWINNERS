@@ -2,12 +2,12 @@ import mongoose from 'mongoose'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 
-import generateConCode from '../config/generateConCode.js';
-import generateReferralCode from '../config/generateReferralCode.js';
+import generateConCode from '../utils/generateConCode.js';
+import generateReferralCode from '../utils/generateReferralCode.js';
 import User from '../models/user.model.js'
 import ContributionAccount from '../models/contribution.model.js'
-import { getFirstThursdayAfter, addWeeks} from '../config/firstThursday.js'
-import { sendVerificationToken, verifyToken } from '../config/termii.js';
+import { getFirstThursdayAfter, addWeeks} from '../utils/firstThursday.js'
+import { sendVerificationToken, verifyToken } from '../utils/termii.js';
 
 import { JWT_EXPIRES_IN, JWT_SECRET } from '../config/env.js';
 
