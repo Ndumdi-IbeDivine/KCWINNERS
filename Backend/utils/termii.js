@@ -1,5 +1,5 @@
 import axios from "axios";
-import { TERMII_API_KEY, TERMII_VERIFY_URL } from './env.js'
+import { TERMII_API_KEY, TERMII_TOKEN_URL, TERMII_VERIFY_URL } from '../config/env.js'
 
 /**
  * Send verification token (OTP) to users via sms
@@ -31,7 +31,7 @@ const sendVerificationToken = async (phone) => {
             pin_length: 6,
             pin_placeholder: "< 123456 >",
             message_text: "Your KCWinners reset code is < 123456 >",
-            channel: "whatsapp",   // try "dnd" or "whatsapp" if SMS fails
+            channel: "dnd",   // try "dnd" or "whatsapp" if SMS fails
             to: phone,
             from: "KCWinners"     // must match your approved Termii sender ID
         };
@@ -39,7 +39,7 @@ const sendVerificationToken = async (phone) => {
         console.log("Sending payload to Termii:", payload);
 
         const { data } = await axios.post(
-        "https://api.ng.termii.com/api/sms/otp/send",
+        TERMII_TOKEN_URL,
         payload,
         { headers: { "Content-Type": "application/json" } }
         );
