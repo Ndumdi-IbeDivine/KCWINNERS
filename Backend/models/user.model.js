@@ -63,7 +63,7 @@ const userSchema = new mongoose.Schema({
     registrationFeeUrl: {
         type: String
     },
-    isRegistered: {
+    isActivated: {
         type: Boolean,
         default: false
     },

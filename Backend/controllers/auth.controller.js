@@ -76,6 +76,13 @@ const login = async (req, res, next) => {
             throw error;
         }
 
+        if (!user.isActivated) {
+            const error = new Error("Account not activated. Please complete activation first.");
+            error.statusCode = 403;
+            throw error;
+        }
+
+
         const isPasswordValid = await bcrypt.compare(password, user.password)
 
         if(!isPasswordValid) {
@@ -88,11 +95,16 @@ const login = async (req, res, next) => {
 
         res.status(200).json({
             success: true,
-            message: "User logged in succesfully",
+            message: "User logged in successfully",
             data: {
                 token,
-                user,
-            }
+                user: {
+                    id: user._id,
+                    phone: user.phone,
+                    email: user.email,
+                    isActivated: user.isActivated,
+                },
+            },
         });
 
     } catch (error) {
@@ -101,18 +113,23 @@ const login = async (req, res, next) => {
 }
 
 const activateAccount = async (req, res, next) => {
-    try {
-
-        //Cloudinary
+  try {
+        // 📌 Cloudinary proof check
         const registrationProofUrl = req.files?.registrationProof?.[0]?.path;
-        if(!registrationProofUrl) {
-            const error = new Error('Registration proof is required');
+            if (!registrationProofUrl) {
+            const error = new Error("Registration proof is required");
             error.statusCode = 400;
             throw error;
-        };
+        }
 
-        //user activation details
-        const userId = req.user.id
+        // 📌 User activation details
+        const userId = req.user?.id;
+        if (!userId) {
+            const error = new Error("User Id is required");
+            error.statusCode = 400;
+            throw error;
+        }
+
         const {
             sex,
             bankName,
@@ -121,86 +138,79 @@ const activateAccount = async (req, res, next) => {
             nextOfKinName,
             nextOfKinPhone,
             nextOfKinAddress,
+            referralCode,
         } = req.body;
 
-        
-        if(!userId) {
-            const error = new Error('User Id is required');
-            error.statusCode = 400;
-            throw error;
-        };
-
-        // Update user with activation form details
+        // 📌 Update user with activation form details
         const updatedUser = await User.findByIdAndUpdate(
-            userId,
-            {
-                sex,
-                bankName,
-                accountNumber,
-                residentialAddress,
-                registrationFeeUrl: registrationProofUrl,
-                isRegistered: false,
-                nextOfKin: {
-                    name: nextOfKinName,
-                    phone: nextOfKinPhone,
-                    address: nextOfKinAddress,
-                },
-                activatedAt: new Date()
-
+        userId,
+        {
+            sex,
+            bankName,
+            accountNumber,
+            residentialAddress,
+            registrationProofUrl,
+            isActivated: true, // ✅ should be true on activation
+            nextOfKin: {
+            name: nextOfKinName,
+            phone: nextOfKinPhone,
+            address: nextOfKinAddress,
             },
-            { new: true }
-        )
+            activatedAt: new Date(),
+        },
+        { new: true }
+        );
 
-        if(!updatedUser) {
-            const error = new Error('User not found');
-            error.statusCode = 400;
+        if (!updatedUser) {
+            const error = new Error("User not found");
+            error.statusCode = 404;
             throw error;
-        };
-
-        // validate referral code if provided
-        let referredBy = null;
-        if (req.body.referralCode) {
-        const refAcc = await ContributionAccount.findOne({ referralCode: req.body.referralCode });
-            if (!refAcc) {
-                const error = new Error("Invalid referral code");
-                error.statusCode = 400;
-                throw error;
-            }
-            referredBy = refAcc._id;
         }
 
-        //To create contribution account
+        // 📌 Validate referral code if provided
+        let referredBy = null;
+        if (referralCode) {
+        const refAcc = await ContributionAccount.findOne({ referralCode });
+        if (!refAcc) {
+            const error = new Error("Invalid referral code");
+            error.statusCode = 400;
+            throw error;
+        }
+        referredBy = refAcc._id;
+        }
+
+        // 📌 Create contribution account
         const newReferralCode = await generateReferralCode();
         const code = await generateConCode(userId);
+
         const firstThursday = getFirstThursdayAfter(); // finds the next Thursday from today
-        const dueDate = addWeeks(firstThursday, 30); 
-        const dueDatePlusOneWeek = addWeeks(dueDate, 1); // one week later
+        const dueDate = addWeeks(firstThursday, 30);
+        const dueDatePlusOneWeek = addWeeks(dueDate, 1);
 
         const newContribution = await ContributionAccount.create({
-            userId: updatedUser._id,
-            referralCode: newReferralCode,
-            code,
-            isPrimary: true,
-            referredBy,
-            firstThursday,
-            dueDate,
-            dueDatePlusOneWeek,
-            status: "active"
+        userId: updatedUser._id,
+        referralCode: newReferralCode,
+        code,
+        isPrimary: true,
+        referredBy,
+        firstThursday,
+        dueDate,
+        dueDatePlusOneWeek,
+        status: "active",
         });
 
         res.status(200).json({
         success: true,
-        message: 'Account activated and primary contribution account created',
+        message: "Account activated and primary contribution account created",
         data: {
             user: updatedUser,
             contribution: newContribution,
         },
         });
-
     } catch (error) {
-        next(error);
-    }
-}
+    next(error);
+  }
+};
 
 
 const forgotPassword = async (req, res, next) => {
