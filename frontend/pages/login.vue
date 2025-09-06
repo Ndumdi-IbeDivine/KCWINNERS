@@ -59,7 +59,7 @@
                     </NuxtLink>
                 </div>
 
-                <div v-if="isError">
+                <div v-if="feedback">
                     <p :class="[isError ? 'text-red-500' : 'text-green-500', 'text-[17px]']">{{ feedback }}</p>
                 </div>
 
@@ -94,9 +94,9 @@
 <script setup lang="ts">
 import { ref, inject } from "vue";
 import Cookies from "js-cookie";
-// import { useAuthStore } from "~/store/useAuthStore";
+import { useAuthStore } from "~/store/useAuthStore";
 
-// const authStore = useAuthStore();
+const authStore = useAuthStore();
 const router = useRouter();
 const api = useApi();
 
@@ -120,21 +120,26 @@ async function handleLogin() {
     }
 
     try {
+        Cookies.remove('token')
+
         const res = await api.post("/auth/login", {
             phone: phone.value,
             password: password.value,
         });
 
-
-        if(res.data.success) {
-            console.log(res.data)
+        
+        if(res.data.success && res.data.data.user.isActivated) {
             Cookies.set('token', res.data.data.token, { expires: 7 });
-            // authStore.setIsAuthenticated(true);
-            // authStore.setUserProfile(res.data.user);
-
-            // console.log(authStore.userProfile);
-            // router.push('/dashboard')
+            router.push('/dashboard')
+        } else if (res.data.success && !res.data.data.user.isActivated) {
+            Cookies.set('token', res.data.data.token, { expires: 7 });
+            router.push('/activate')
         }
+        
+        authStore.setIsAuthenticated(true);
+        authStore.setUserProfile(res.data.data.user);
+
+        console.log(authStore.userProfile);
     } catch (err: any) {
         const msg = err.response?.data?.message || err.response?.data?.error || "Login failed";
 

@@ -9,7 +9,7 @@ export default defineNuxtConfig({
             apiBaseUrl: process.env.API_BASE_URL,
         },
     },
-
+    modules: ["@pinia/nuxt"],
     plugins: ["~/plugins/aos.client.ts"],
 
     devtools: { enabled: true },

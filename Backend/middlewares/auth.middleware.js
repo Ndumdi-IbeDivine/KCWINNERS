@@ -14,7 +14,13 @@ const authorize = async (req, res, next) => {
 
         const decoded = jwt.verify(token, JWT_SECRET);
 
+        console.log(decoded)
+
         const user = await User.findById(decoded.userId);
+
+        // remove password from user obj
+        user.password = undefined
+
 
         if(!user) return res.status(401).json({ message: 'Unauthorized'});
 

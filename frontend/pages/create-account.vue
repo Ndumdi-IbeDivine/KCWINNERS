@@ -97,7 +97,7 @@
                     />
                 </div>
 
-                <div v-if="isError">
+                <div v-if="feedback">
                     <p :class="[isError ? 'text-red-500' : 'text-green-500', 'text-[17px]']">{{ feedback }}</p>
                 </div>
 

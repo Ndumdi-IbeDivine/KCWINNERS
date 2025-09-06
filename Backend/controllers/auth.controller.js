@@ -75,35 +75,31 @@ const login = async (req, res, next) => {
             error.statusCode = 404;
             throw error;
         }
-
-        if (!user.isActivated) {
-            const error = new Error("Account not activated. Please complete activation first.");
-            error.statusCode = 403;
-            throw error;
-        }
-
-
+        
         const isPasswordValid = await bcrypt.compare(password, user.password)
-
+        
         if(!isPasswordValid) {
             const error = new Error('Invalid Password');
             error.statusCode = 401;
             throw error;
         }
 
+        // if (!user.isActivated) {
+        //     const error = new Error("Account not activated. Please complete activation first.");
+        //     error.statusCode = 403;
+        //     throw error;
+        // }
+
         const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
+
+        user.password = undefined
 
         res.status(200).json({
             success: true,
             message: "User logged in successfully",
             data: {
                 token,
-                user: {
-                    id: user._id,
-                    phone: user.phone,
-                    email: user.email,
-                    isActivated: user.isActivated,
-                },
+                user
             },
         });
 
