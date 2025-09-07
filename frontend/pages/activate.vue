@@ -195,7 +195,6 @@ function handleFileChange(event: Event) {
 
 async function activateAccount() {
     try {
-        console.log(token)
         loading.value = true
         isError.value = false
         feedback.value = ""

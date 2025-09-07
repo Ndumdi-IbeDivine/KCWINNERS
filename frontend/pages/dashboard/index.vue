@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="text-[33px] font-bold">Welcome Divine! 👋</div>
+        <div class="text-[33px] font-bold">Welcome {{ userProfile?.name }} ! 👋</div>
         <div class="text-[#747474]">Your wallet update for today!</div>
         <div class="flex mt-3 lg:justify-end">
             <DashboardModal btn-title="Fund Wallet" modal-title="Ready to fund your wallet?">
@@ -15,28 +15,28 @@
                         <img src="/images/money-bills.svg" alt="">
                         Wallet Balance
                     </div>
-                    <div class="text-[33px] font-bold">₦1200</div>
+                    <div class="text-[33px] font-bold">₦{{ userProfile?.walletBalance }}</div>
                 </div>
                 <div class="px-8 py-[21px] bg-white rounded-lg">
                     <div class="flex gap-2.5 text-[#747474] font-[16px]">
                         <img src="/images/eye.svg" alt="">
                         Number of accounts
                     </div>
-                    <div class="text-[33px] font-bold">12</div>
+                    <div class="text-[33px] font-bold">{{ contributions.length }}</div>
                 </div>
                 <div class="px-8 py-[21px] bg-white rounded-lg">
                     <div class="flex gap-2.5 text-[#747474] font-[16px]">
                         <img src="/images/ticket.svg" alt="">
                         Due Date
                     </div>
-                    <div class="text-[33px] font-bold">30th Dec.</div>
+                    <div class="text-[33px] font-bold">{{ useFormatDate(closestContributionDueDate()?.dueDate as string) }}</div>
                 </div>
                 <div class="px-8 py-[21px] bg-white rounded-lg">
                     <div class="flex gap-2.5 text-[#747474] font-[16px]">
                         <img src="/images/money-bills.svg" alt="">
                         Total contributions
                     </div>
-                    <div class="text-[33px] font-bold">₦1200</div>
+                    <div class="text-[33px] font-bold">₦{{ userProfile?.totalContributed }}</div>
                 </div>
             </div>
 
@@ -77,6 +77,8 @@ import {
   Title, Tooltip, Legend, LineElement, BarElement, CategoryScale, LinearScale, PointElement, ArcElement
 } from 'chart.js'
 import { Bar } from 'vue-chartjs'
+import { useAuthStore } from '~/store/useAuthStore'
+import { useContribustionsStore } from '~/store/useContributionsStore'
 
 definePageMeta({
     layout: 'dashboard-layout',
@@ -93,6 +95,11 @@ ChartJS.register(
   ArcElement,
   BarElement
 )
+
+const authStore = useAuthStore()
+const { userProfile } = storeToRefs(authStore)
+const contributionStore = useContribustionsStore()
+const { contributions } = storeToRefs(contributionStore)
 
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
 
@@ -114,7 +121,6 @@ const data = {
     ],
 }
 
-
 const options = ref({
     responsive: true,
     // maintainAspectRatio: false,
@@ -135,4 +141,21 @@ const options = ref({
         },
     }
 })
+
+function closestContributionDueDate() {
+    const now = new Date();
+
+    // Filter contributions that have a dueDate after "now"
+    const upcoming = contributions.value.filter(c => new Date(c.dueDate) >= now);
+
+    if (!upcoming.length) return null;
+
+    // Find the one with the smallest time difference
+    return upcoming.reduce((closest, current) => {
+        const closestDate = new Date(closest.dueDate).getTime();
+        const currentDate = new Date(current.dueDate).getTime();
+
+        return currentDate < closestDate ? current : closest;
+  });
+}
 </script>

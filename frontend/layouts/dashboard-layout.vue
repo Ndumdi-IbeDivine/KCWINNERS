@@ -68,8 +68,8 @@
                                         <div class="mt-[25px] flex gap-[13px]">
                                             <div class="h-[36px] w-[36px] rounded-full bg-zinc-400"></div>
                                             <div class="text-white">
-                                                <div class="font-semibold text-[16px]">Divine Ndumdi-ibe</div>
-                                                <div class="text-[10px]">divinendumdiibe@gmail.com</div>
+                                                <div class="font-semibold text-[16px]">{{ userProfile?.name }}</div>
+                                                <div class="text-[10px]">{{ userProfile?.phone }}</div>
                                             </div>
                                         </div>
                                     </div>
@@ -173,11 +173,11 @@
 
                 <div>
                 <hr class="border-[#63493E47]">
-                    <div class="mt-[25px] flex gap-[13px] justify-center">
+                    <div class="mt-[25px] flex gap-[13px] md:justify-center xl:justify-start">
                         <div class="h-[36px] w-[36px] rounded-full bg-zinc-400"></div>
                         <div v-if="!isCollapsed" class="text-white">
-                            <div class="font-semibold text-[16px]">Divine Ndumdi-ibe</div>
-                            <div class="text-[10px]">divinendumdiibe@gmail.com</div>
+                            <div class="font-semibold text-[16px]">{{ userProfile?.name }}</div>
+                            <div class="text-[10px]">{{ userProfile?.phone }}</div>
                         </div>
                     </div>
                 </div>
@@ -196,7 +196,10 @@
 
 <script setup lang="ts">
 import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
+import { useAuthStore } from '~/store/useAuthStore'
 
+const authStore = useAuthStore()
+const { userProfile } = storeToRefs(authStore)
 const open = ref(false)
 
 const isCollapsed = ref(false)
