@@ -76,6 +76,11 @@ const addContributionAccount = async (req, res, next) => {
             narration: "Creation of contribution account",
         });
 
+        // 🔑 Increment referral count on referrer’s account
+        await ContributionAccount.findByIdAndUpdate(refAcc._id, {
+            $inc: { referralCount: 1 },
+        });
+
         // Send response
         res.status(201).json({
             success: true,
