@@ -132,52 +132,53 @@ const getUserTransactions = async (req, res, next) => {
 
 //get user revenue
 const getUserRevenue = async (req, res, next) => {
-  try {
-    const { userId } = req.params;
-    const { ObjectId } = mongoose.Types;
+    try {
+        const { userId } = req.params;
+        const { ObjectId } = mongoose.Types;
 
-    if (!ObjectId.isValid(userId)) {
-      const error = new Error("Invalid userId");
-      error.statusCode = 400;
-      throw error;
+        if (!ObjectId.isValid(userId)) {
+        const error = new Error("Invalid userId");
+        error.statusCode = 400;
+        throw error;
+        }
+
+        const revenueData = await Transaction.aggregate([
+        {
+            $match: { 
+            userId: new ObjectId(userId),
+            status: "success"
+            }
+        },
+        {
+            $group: {
+            _id: { year: { $year: "$createdAt" }, month: { $month: "$createdAt" } },
+            total: { $sum: "$amount" }
+            }
+        },
+        {
+            $sort: { "_id.year": 1, "_id.month": 1 }
+        }
+        ]);
+
+        // Format for frontend graph
+        const formatted = revenueData.map(item => ({
+        month: `${item._id.month}-${item._id.year}`,
+        total: item.total
+        }));
+
+        res.json({
+        success: true,
+        data: formatted
+        });
+    } catch (error) {
+        next(error);
     }
-
-    const revenueData = await Transaction.aggregate([
-      {
-        $match: { 
-          userId: new ObjectId(userId),
-          status: "success"
-        }
-      },
-      {
-        $group: {
-          _id: { year: { $year: "$createdAt" }, month: { $month: "$createdAt" } },
-          total: { $sum: "$amount" }
-        }
-      },
-      {
-        $sort: { "_id.year": 1, "_id.month": 1 }
-      }
-    ]);
-
-    // Format for frontend graph
-    const formatted = revenueData.map(item => ({
-      month: `${item._id.month}-${item._id.year}`,
-      total: item.total
-    }));
-
-    res.json({
-      success: true,
-      data: formatted
-    });
-  } catch (error) {
-    next(error);
-  }
 };
 
 export {
     initiateFunding,
     verifyFunding,
     squadWebhook,
-    getUserTransactions
+    getUserTransactions,
+    getUserRevenue
 }
