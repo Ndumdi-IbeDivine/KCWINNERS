@@ -30,6 +30,10 @@ const contributionSchema = new mongoose.Schema({
         ref: "ContributionAccount", // links to another contribution account
         required: false,            // optional for primary, required for secondary
     },
+    referralCount: {
+        type: Number,
+        default: 0
+    },
     startDate: { 
         type: Date, 
         default: Date.now 
