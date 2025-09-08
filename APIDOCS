@@ -121,16 +121,16 @@ Create a new contribution account.
     referral code
 }
 
---- GET /api/contributions/:userId
+--- GET /api/v1/contributions/:userId
 Get all contributions for a user.
 
---- GET /api/contributions/detail/:id
+--- GET /api/v1/contributions/detail/:id
 Get details of a single contribution account.
 
---- POST /api/contributions/clear-defaults
+--- POST /api/v1/contributions/clear-defaults
 Clear missed contributions (defaulter payment).
 
---- POST /api/contributions/pay-clearance
+--- POST /api/v1/contributions/pay-clearance
 Pay clearance fee (before withdrawal).
 
 
@@ -154,6 +154,11 @@ Fetch single user by ID.
 
 --- POST /api/v1/wallet/fund-initiate
 Initiate a transfer to fund wallet.
+
+# request body
+{
+    amount
+}
 
 --- POST /api/v1/wallet/fund-verify
 Handle webhook for automatic wallet funding
