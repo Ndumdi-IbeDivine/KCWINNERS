@@ -140,7 +140,7 @@ const getUserTransactions = async (req, res, next) => {
 //get user revenue
 const getUserRevenue = async (req, res, next) => {
     try {
-        const { userId } = req.params;
+        const userId = req.user?._id;
         const { ObjectId } = mongoose.Types;
 
         if (!ObjectId.isValid(userId)) {
@@ -152,8 +152,9 @@ const getUserRevenue = async (req, res, next) => {
         const revenueData = await Transaction.aggregate([
         {
             $match: { 
-            userId: new ObjectId(userId),
-            status: "success"
+            userId,
+            status: "success",
+            type: "weekly_contribution"
             }
         },
         {
