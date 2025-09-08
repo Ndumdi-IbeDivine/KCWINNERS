@@ -186,7 +186,7 @@ const payClearance = async (req, res, next) => {
         if (!acc) return res.status(404).json({ success: false, message: "Not eligible for clearance" });
 
         const wallet = await WalletFund.findOne({ userId });
-        if (wallet.balance < 5000) {
+        if (wallet.balance < 2000) {
         return res.status(400).json({ success: false, message: "Insufficient balance to pay clearance fee" });
         }
 
