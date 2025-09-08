@@ -2,9 +2,9 @@ import ContributionAccount from "../models/contribution.model.js";
 import User from "../models/user.model.js";
 import Transaction from "../models/transaction.model.js";
 import WalletFund from "../models/walletFunding.model.js";
-import generateConCode from "../config/generateConCode.js";
-import generateReferralCode from "../config/generateReferralCode.js";
-import { getFirstThursdayAfter, addWeeks } from "../config/firstThursday.js";
+import generateConCode from "../utils/generateConCode.js";
+import generateReferralCode from "../utils/generateReferralCode.js";
+import { getFirstThursdayAfter, addWeeks } from "../utils/firstThursday.js";
 
 
 const addContributionAccount = async (req, res, next) => {
@@ -74,6 +74,11 @@ const addContributionAccount = async (req, res, next) => {
             amount: fee,
             status: "success",
             narration: "Creation of contribution account",
+        });
+
+        // 🔑 Increment referral count on referrer’s account
+        await ContributionAccount.findByIdAndUpdate(refAcc._id, {
+            $inc: { referralCount: 1 },
         });
 
         // Send response

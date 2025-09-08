@@ -141,10 +141,6 @@ Pay clearance fee (before withdrawal).
 
 # Get user info.
 
---- GET /api/users
-Fetch all users.
-
-
 --- GET /api/users/:id {protected}
 Fetch single user by ID.
 
@@ -152,13 +148,22 @@ Fetch single user by ID.
 
 
 
-💵 Wallet Routes (/api/wallet)
+💵 Wallet Routes (/api/v1/wallet)
 
 # Wallet funding & tracking.
 
---- POST /api/wallet/transfer/initiate
+--- POST /api/v1/wallet/fund-initiate
 Initiate a transfer to fund wallet.
 
---- POST /api/wallet/webhook
-Handle webhook for automatic wallet funding.
+--- POST /api/v1/wallet/fund-verify
+Handle webhook for automatic wallet funding
+
+--- POST /api/v1/wallet/webhook
+Initiate a transfer to fund wallet.
+
+--- POST /api/v1/wallet/transactions 
+Handle webhook for automatic wallet funding
+
+--- POST /api/v1/wallet/revenue/monthly 
+Handle webhook for automatic wallet funding
 
