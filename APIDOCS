@@ -159,12 +159,52 @@ Initiate a transfer to fund wallet.
 {
     amount
 }
+# What it does:
+Takes an amount from the frontend.
+Finds the logged-in user (req.user._id) and prepares a payment payload for Squad.
+Creates a pending transaction record in your database with a unique reference (uuidv4).
+Calls Squad’s initiate transaction API, and Squad responds with a checkoutUrl.
+Returns that checkoutUrl to the frontend.
+
+# Frontend connection:
+When the user clicks “Fund Wallet”, this endpoint is called with { amount }.
+The frontend receives a checkoutUrl from squad and is to redirect the user there to complete payment.
+
+
 
 --- POST /api/v1/wallet/fund-verify
 Handle webhook for automatic wallet funding
+# What it does:
+After Squad redirects back (via callback_url), the backend hits this endpoint with the transaction reference.
+Calls Squad’s verify API to check if payment was successful.
+If success:
+    Finds the matching transaction record.
+    Updates the user’s wallet balance in WalletFund.
+    Marks the transaction status as success.
+    If failed → marks it as failed.
+
+# Frontend connection:
+After the user pays, your frontend should call /wallet/fund-verify?reference=xyz.
+This will confirm if money landed, and you can show “Wallet funded successfully”.
+
+
+
 
 --- POST /api/v1/wallet/webhook
 Initiate a transfer to fund wallet.
+# What it does:
+This is server-to-server communication from Squad.
+When a payment succeeds, Squad calls your webhook with event details.
+You extract the userId (stored in metadata during initiation) and credit the wallet automatically.
+Returns 200 to acknowledge receipt.
+
+# Frontend connection:
+None directly.
+This runs in the background even if the user closes the browser.
+It ensures payments are never lost if verifyFunding isn’t called.
+
+
+
 
 --- POST /api/v1/wallet/transactions 
 Handle webhook for automatic wallet funding
