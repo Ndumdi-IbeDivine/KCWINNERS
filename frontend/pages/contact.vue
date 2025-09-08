@@ -39,16 +39,18 @@
             <div 
                 data-aos="fade-up" 
                 data-aos-anchor-placement="top-bottom"
-                class="px-5 lg:px-[244px] grid lg:grid-cols-2 gap-[96px] my-[40px] md:my-[104px]"
+                class="px-5 lg:px-[244px] grid lg:grid-cols-2 gap-[96px] my-[40px] md:my-[104px] items-center"
             >
-                <div></div>
+                <div>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3963.9311683072747!2d3.3102539749929987!3d6.530377793462305!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNsKwMzEnNDkuNCJOIDPCsDE4JzQ2LjIiRQ!5e0!3m2!1sen!2sng!4v1757269620528!5m2!1sen!2sng" width="100%" height="450" style="border:0;" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
                 <div>
                     <div class="font-semibold text-[32px]">Contact Us</div>
                     <div class="grid lg:grid-cols-2 mt-[37px] gap-[54px]">
                         <div>
                             <div class="font-semibold text-[20px]">Visit Us</div>
                             <div class="my-[16px] text-[18px]">
-                                Suite 2 AP Filling Station, Oke-Afa, Isolo, Lagos, Nigeria. 100263
+                                Suite 1, AP Filling Station Complex, Oke-Afa, Isolo, Lagos
                             </div>
                         </div>
                         <div>

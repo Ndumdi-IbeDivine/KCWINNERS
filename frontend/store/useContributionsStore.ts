@@ -8,6 +8,7 @@ export const useContribustionsStore = defineStore("contributions", {
     
     state: () => ({
         contributions: [] as Contribution[],
+        initContributionLoad: false as boolean,
     }),
     
     actions: {
@@ -17,6 +18,7 @@ export const useContribustionsStore = defineStore("contributions", {
 
             let res = await api.get(`/contributions/${authStore.userProfile?._id}`)
             this.contributions = res.data.data
+            this.initContributionLoad = true
         }
     }
 });

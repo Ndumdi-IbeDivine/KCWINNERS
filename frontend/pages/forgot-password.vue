@@ -8,8 +8,7 @@
             </div>
             <div class="grid gap-4 py-4 px-5 md:px-20 h-full content-center">
                 <div class="text-center mb-4">
-                    <div class="text-[32px] font-semibold">Sign in</div>
-                    <div class="lg:text-[20px]">Enter your details to login</div>
+                    <div class="text-[32px] font-semibold">Forgot password</div>
                 </div>
 
                 <div>
@@ -21,42 +20,12 @@
                     <input
                         v-model="phone"
                         type="phone"
-                        @keypress.enter="handleLogin"
+                        @keypress.enter="handleForgotPassword"
                         id="phone"
                         class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500"
                         placeholder="08000000000"
                         required
                     />
-                </div>
-
-                <div>
-                    <label
-                        for="password"
-                        class="mb-2 block text-sm font-bold text-gray-900"
-                        >Password <span>*</span></label
-                    >
-                    <input
-                        v-model="password"
-                        type="password"
-                        @keypress.enter="handleLogin"
-                        id="password"
-                        class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500"
-                        placeholder="********"
-                        required
-                    />
-                </div>
-
-                <div class="grid grid-cols-2">
-                    <div>
-                        <input type="checkbox" id="remember" class="mr-2" />
-                        <label for="remember" class="text-sm cursor-pointer">Remember me</label>
-                    </div>
-                    <NuxtLink
-                        to="/forgot-password"
-                        class="flex justify-end s-p text-[var(--sp-blue)] hover:underline"
-                    >
-                        Forgot password?
-                    </NuxtLink>
                 </div>
 
                 <div v-if="feedback">
@@ -66,20 +35,51 @@
                 <div>
                     <PrimaryBtnAsync
                         :is-disabled="loading"
-                        @click="handleLogin"
+                        @click="handleForgotPassword"
                         custom-class="w-full rounded-lg"
                     >
-                        {{ loading ? "Logging in..." : "Login" }}
+                        {{ loading ? "Continue..." : "Continue" }}
                     </PrimaryBtnAsync>
                 </div>
-
-                <div class="text-center">
-                    Don't have an account?
-                    <NuxtLink to="/create-account" class="text-center font-bold text-[var(--kc-green-dark)] hover:underline">
-                        Create an account
-                    </NuxtLink>
-                </div>
             </div>
+
+            <!-- <div class="grid gap-4 py-4 px-5 md:px-20 h-full content-center">
+                <div class="text-center mb-4">
+                    <div class="text-[32px] font-semibold">Forgot password</div>
+                    <div class="lg:text-[20px]">We sent an OTP to 09090909</div>
+                </div>
+
+                <div>
+                    <label
+                        for="otp"
+                        class="mb-2 block text-sm font-bold text-gray-900"
+                        >OTP <span>*</span></label
+                    >
+                    <input
+                        v-model="otp"
+                        type="phone"
+                        @keypress.enter="handleForgotPassword"
+                        id="otp"
+                        class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500"
+                        placeholder="Enter OTP"
+                        required
+                    />
+                </div>
+
+                <div v-if="feedback">
+                    <p :class="[isError ? 'text-red-500' : 'text-green-500', 'text-[17px]']">{{ feedback }}</p>
+                </div>
+
+                <div>
+                    <PrimaryBtnAsync
+                        :is-disabled="loading"
+                        @click="handleForgotPassword"
+                        custom-class="w-full rounded-lg"
+                    >
+                        {{ loading ? "Continue..." : "Continue" }}
+                    </PrimaryBtnAsync>
+                </div>
+            </div> -->
         </div>
         <div class="hidden xl:block">
             <!-- <img
@@ -101,53 +101,54 @@ const router = useRouter();
 const api = useApi();
 
 const phone = ref("");
-const password = ref("");
+const otp = ref("")
+const newPassword = ref("")
+const newPasswordConfirmation = ref("")
+const step = ref(1)
+
 const loading = ref(false);
 const feedback = ref("");
 const isError = ref(false)
 
+function normalizePhone(phone: string): string | null {
+    let cleaned = phone.replace(/\D/g, "");
 
-async function handleLogin() {
+    if (/^0\d{10}$/.test(cleaned)) {
+        return "+234" + cleaned.slice(1);
+    }
+
+    if (/^234\d{10}$/.test(cleaned)) {
+        return "+" + cleaned;
+    }
+
+    if (/^\+234\d{10}$/.test(phone)) {
+        return phone;
+    }
+
+    return null;
+}
+
+
+async function handleForgotPassword() {
     loading.value = true;
     feedback.value = "";
     isError.value = false
 
-    if(!phone.value || !password.value) {
-        feedback.value = "Phone number and password are required.";
+    if(!phone.value) {
+        feedback.value = "Phone number is required.";
         loading.value = false;
         isError.value = true
         return;
     }
 
     try {
-        Cookies.remove('token')
-
-        const res = await api.post("/auth/login", {
-            phone: phone.value,
-            password: password.value,
+        const res = await api.post("/auth/forgot-password", {
+            phone: normalizePhone(phone.value),
         });
-
         
-        if(res.data.success && res.data.data.user.isActivated) {
-            Cookies.set('token', res.data.data.token, { expires: 7 });
-            router.push('/dashboard')
-        } else if (res.data.success && !res.data.data.user.isActivated) {
-            Cookies.set('token', res.data.data.token, { expires: 7 });
-            router.push('/activate')
-        }
-        
-        authStore.setIsAuthenticated(true);
-        authStore.setUserProfile(res.data.data.user);
-
-        console.log(authStore.userProfile);
+        console.log(res)
     } catch (err: any) {
-        const msg = err.response?.data?.message || err.response?.data?.error || "Login failed";
-
-        if(msg == 'Invalid Password' || msg == 'User not found') {
-            feedback.value = 'Incorrect username or password'
-        } else {
-            feedback.value = msg;
-        }
+        feedback.value = "Failed to send OTP, try again later"
 
         isError.value = true
     } finally {

@@ -19,18 +19,30 @@
                 data-aos-anchor-placement="top-bottom"
                 class="mt-[48px]"
             >
-                <p class="mt-[20px]">KCWINNERS Global Industries is a diversified company with a vision to create value across multiple sectors. We are actively involved in:</p>
+                <p class="mt-[20px]"><b>KCWINNERS</b> is a global industry and distribution company that provides real solutions for families, communities, and businesses. Over the years, we have established ourselves in real estate, property sales, and building materials distribution, becoming a trusted name for both individuals and organizations. <br>
+                Our work is rooted in excellence, integrity, and community impact — values that guide everything we do.</p>
 
+                <div class="semi-heading mt-10">What we do</div>
                 <ul class="mt-5">
-                    <li><b>Real Estate & Property Sales:</b> Helping individuals and organizations own quality homes and properties, while contributing to urban development.</li>
-                    <li><b>Building Materials Distribution:</b> Supplying essential materials such as blocks, bricks, and interlocking stones used in constructing durable houses, estates, and roads.</li>
-                    <li><b>Wealth Contribution Initiative:</b> Running a weekly contribution system where members contribute for 7 months and enjoy not just their savings back, but also a 66.7% return on investment, plus food rewards for referrals.</li>
+                    <li><b>Real Estate & Property Sales:</b> KCWINNERS provides reliable access to properties — from affordable housing to investment opportunities. Whether it’s land, homes, or estate projects, we connect people with secure investments for the future.</li>
+                    <li><b>Building Materials Distribution:</b>  We supply high-quality blocks, bricks, and interlocking stones used in constructing homes, estates, and even roads. Our distribution arm ensures durability and affordability for builders and developers alike.</li>
+                    <li><b>Wealth Contribution Initiative:</b> As part of our community-focused drive, KCWINNERS also runs a weekly contribution program that allows members to contribute consistently for a set period and enjoy rewards in both cash and food items. This initiative has already gained the trust of over 100 families, making it a practical way for many to meet their financial goals.</li>
                 </ul>
+            </div>
 
-                <p class="mt-5">But beyond business, KCWINNERS is a company with a heart. <br> 
-                We partner with organizations and individuals to carry out <b>community outreaches, food drives, and material distributions</b> to support families in need. Our goal is not just to grow wealth but to build communities, strengthen homes, and make a real difference. <br>
-                At KCWINNERS, every service we provide — whether in housing, building, or financial growth — is guided by our belief that <b>everybody deserves a chance to win.</b>
-                </p>
+             <div
+                data-aos="fade-up" 
+                data-aos-anchor-placement="top-bottom"
+                class="mt-[80px] px-5 grid lg:grid-cols-2 items-center gap-[72px]"
+            >
+                <div class="hidden lg:block">
+                    <img src="/images/image-3.jpg" class="w-full rounded-lg" alt="">
+                </div>
+                <div>
+                    <div class="semi-heading leading-[44.8px]">Mission</div>
+                    <div class="font-bold">Empowering Growth, Rewarding Commitment.</div>
+                    <p class="mt-[16px]">KCWINNERS exists to provide opportunities that make life better for families and communities. From real estate and property sales to material distribution and financial initiatives, we are committed to ensuring that consistency and commitment are always rewarded.</p>
+                </div>
             </div>
 
             <div
@@ -42,17 +54,17 @@
                     <!-- <div class="font-semibold text-[32px]">Activity program</div> -->
                     <div></div>
                     <p class="mt-[20px]">
-                        <b>Be Part of KCWINNERS –</b> Whether as a customer, partner, or contributor, there’s a place for you in the KCWINNERS family.
+                        At KCWINNERS, we are expanding beyond business into <b>community impact</b>. We are opening our doors for partnerships with individuals and organizations to:
                     </p>
                     <div class="mt-5 grid gap-3 h-fit">
-                        <div class="flex gap-3 items-start"><svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#4caf4f" stroke-width="1.5"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 1.25C6.06294 1.25 1.25 6.06294 1.25 12C1.25 17.9371 6.06294 22.75 12 22.75C17.9371 22.75 22.75 17.9371 22.75 12C22.75 6.06294 17.9371 1.25 12 1.25ZM7.53044 11.9697C7.23755 11.6768 6.76268 11.6768 6.46978 11.9697C6.17689 12.2626 6.17689 12.7374 6.46978 13.0303L9.46978 16.0303C9.76268 16.3232 10.2376 16.3232 10.5304 16.0303L17.5304 9.03033C17.8233 8.73744 17.8233 8.26256 17.5304 7.96967C17.2375 7.67678 16.7627 7.67678 16.4698 7.96967L10.0001 14.4393L7.53044 11.9697Z" fill="#4caf4f"></path></svg> Partner with Us – Join hands with KCWINNERS in real estate, distribution, or outreach initiatives.</div>
-                        <div class="flex gap-3 items-start"><svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#4caf4f" stroke-width="1.5"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 1.25C6.06294 1.25 1.25 6.06294 1.25 12C1.25 17.9371 6.06294 22.75 12 22.75C17.9371 22.75 22.75 17.9371 22.75 12C22.75 6.06294 17.9371 1.25 12 1.25ZM7.53044 11.9697C7.23755 11.6768 6.76268 11.6768 6.46978 11.9697C6.17689 12.2626 6.17689 12.7374 6.46978 13.0303L9.46978 16.0303C9.76268 16.3232 10.2376 16.3232 10.5304 16.0303L17.5304 9.03033C17.8233 8.73744 17.8233 8.26256 17.5304 7.96967C17.2375 7.67678 16.7627 7.67678 16.4698 7.96967L10.0001 14.4393L7.53044 11.9697Z" fill="#4caf4f"></path></svg> Join the Contribution Plan – Save weekly, earn 66.7% returns, and enjoy food benefits.</div>
-                        <div class="flex gap-3 items-start"><svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#4caf4f" stroke-width="1.5"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 1.25C6.06294 1.25 1.25 6.06294 1.25 12C1.25 17.9371 6.06294 22.75 12 22.75C17.9371 22.75 22.75 17.9371 22.75 12C22.75 6.06294 17.9371 1.25 12 1.25ZM7.53044 11.9697C7.23755 11.6768 6.76268 11.6768 6.46978 11.9697C6.17689 12.2626 6.17689 12.7374 6.46978 13.0303L9.46978 16.0303C9.76268 16.3232 10.2376 16.3232 10.5304 16.0303L17.5304 9.03033C17.8233 8.73744 17.8233 8.26256 17.5304 7.96967C17.2375 7.67678 16.7627 7.67678 16.4698 7.96967L10.0001 14.4393L7.53044 11.9697Z" fill="#4caf4f"></path></svg> Buy and Build with Us – Access quality building materials and reliable property sales.</div>
-                        <div class="flex gap-3 items-start"><svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#4caf4f" stroke-width="1.5"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 1.25C6.06294 1.25 1.25 6.06294 1.25 12C1.25 17.9371 6.06294 22.75 12 22.75C17.9371 22.75 22.75 17.9371 22.75 12C22.75 6.06294 17.9371 1.25 12 1.25ZM7.53044 11.9697C7.23755 11.6768 6.76268 11.6768 6.46978 11.9697C6.17689 12.2626 6.17689 12.7374 6.46978 13.0303L9.46978 16.0303C9.76268 16.3232 10.2376 16.3232 10.5304 16.0303L17.5304 9.03033C17.8233 8.73744 17.8233 8.26256 17.5304 7.96967C17.2375 7.67678 16.7627 7.67678 16.4698 7.96967L10.0001 14.4393L7.53044 11.9697Z" fill="#4caf4f"></path></svg> Work With Us on Outreaches – Collaborate to distribute food, materials, and support to communities.</div>
+                        <ul>
+                            <li>Support building projects.</li>
+                            <li>Carry out outreach programs that distribute food and materials to families and communities in need.</li>
+                        </ul>
                     </div>
                 </div>
-                <div class="h-[480px] w-full bg-slate-500 rounded">
-
+                <div class="w-full bg-slate-500 rounded">
+                    <img src="/images/image-7.jpg" class="rounded" alt="">
                 </div>
             </div>
 

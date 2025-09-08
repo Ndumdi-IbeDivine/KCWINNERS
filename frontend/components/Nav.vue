@@ -84,8 +84,8 @@ const open = ref(false)
 
 const routes = [
     { name: 'Home', path: '/' },
-    { name: 'About Us', path: '/about' },
+    { name: 'About', path: '/about' },
     { name: 'FAQ', path: '/faq' },
-    { name: 'Contact Us', path: '/contact' },
+    { name: 'Contact', path: '/contact' },
 ]
 </script>

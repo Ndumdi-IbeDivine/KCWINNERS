@@ -39,6 +39,16 @@ export const useAuthStore = defineStore("auth", {
                 this.setUserProfile(null);
             }
         },
+        async getProfile() {
+            const api = useApi()
+            
+            try {
+                const res = await api.get(`users/${this.userProfile?._id}`)
+                this.userProfile = res.data.data
+            } catch (error) {
+                
+            }
+        },
         logout() {            
             Cookies.remove('token');
             this.setUserProfile(null);

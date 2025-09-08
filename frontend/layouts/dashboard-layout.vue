@@ -64,14 +64,23 @@
                                     </div>
 
                                     <div class="px-4 sm:px-6">
+                                        <div
+                                        @click="logout"
+                                        class="flex items-center gap-[13px] px-[13px] py-[15px]  rounded-[8px] cursor-pointer hover:bg-red-50"
+                                    >
+                                        <svg width="24px" height="24px" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#ff0000"><path d="M12 12H19M19 12L16 15M19 12L16 9" stroke="#ff0000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M19 6V5C19 3.89543 18.1046 3 17 3H7C5.89543 3 5 3.89543 5 5V19C5 20.1046 5.89543 21 7 21H17C18.1046 21 19 20.1046 19 19V18" stroke="#ff0000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                                        <div class="flex-1 text-[#ff0000]">Log out</div>
+                                    </div>
                                         <hr class="border-[#63493E47]">
-                                        <div class="mt-[25px] flex gap-[13px]">
-                                            <div class="h-[36px] w-[36px] rounded-full bg-zinc-400"></div>
+                                        <NuxtLink to="/dashboard/profile" class="mt-[25px] flex gap-[13px]">
+                                            <div class="h-[36px] w-[36px] flex items-center justify-center">
+                                                <svg width="100%" height="100%" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#fff"><path d="M7 18V17C7 14.2386 9.23858 12 12 12V12C14.7614 12 17 14.2386 17 17V18" stroke="#fff" stroke-width="1.5" stroke-linecap="round"></path><path d="M12 12C13.6569 12 15 10.6569 15 9C15 7.34315 13.6569 6 12 6C10.3431 6 9 7.34315 9 9C9 10.6569 10.3431 12 12 12Z" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="12" cy="12" r="10" stroke="#fff" stroke-width="1.5"></circle></svg>
+                                            </div>
                                             <div class="text-white">
                                                 <div class="font-semibold text-[16px]">{{ userProfile?.name }}</div>
                                                 <div class="text-[10px]">{{ userProfile?.phone }}</div>
                                             </div>
-                                        </div>
+                                        </NuxtLink>
                                     </div>
                                 </div>
                             </DialogPanel>
@@ -172,20 +181,29 @@
                 </div>
 
                 <div>
-                <hr class="border-[#63493E47]">
-                    <div class="mt-[25px] flex gap-[13px] md:justify-center xl:justify-start">
-                        <div class="h-[36px] w-[36px] rounded-full bg-zinc-400"></div>
+                    <div
+                        @click="logout"
+                        class="flex items-center gap-[13px] px-[13px] py-[15px]  rounded-[8px] cursor-pointer hover:bg-red-50"
+                    >
+                        <svg width="24px" height="24px" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#ff0000"><path d="M12 12H19M19 12L16 15M19 12L16 9" stroke="#ff0000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M19 6V5C19 3.89543 18.1046 3 17 3H7C5.89543 3 5 3.89543 5 5V19C5 20.1046 5.89543 21 7 21H17C18.1046 21 19 20.1046 19 19V18" stroke="#ff0000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                        <div v-if="!isCollapsed" class="flex-1 text-[#ff0000]">Log out</div>
+                    </div>
+                    <hr class="border-[#63493E47]">
+                    <NuxtLink to="/dashboard/profile" class="mt-[25px] flex gap-[13px] md:justify-center xl:justify-start">
+                        <div class="h-[36px] w-[36px] flex items-center justify-center">
+                            <svg width="100%" height="100%" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#fff"><path d="M7 18V17C7 14.2386 9.23858 12 12 12V12C14.7614 12 17 14.2386 17 17V18" stroke="#fff" stroke-width="1.5" stroke-linecap="round"></path><path d="M12 12C13.6569 12 15 10.6569 15 9C15 7.34315 13.6569 6 12 6C10.3431 6 9 7.34315 9 9C9 10.6569 10.3431 12 12 12Z" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="12" cy="12" r="10" stroke="#fff" stroke-width="1.5"></circle></svg>
+                        </div>
                         <div v-if="!isCollapsed" class="text-white">
                             <div class="font-semibold text-[16px]">{{ userProfile?.name }}</div>
                             <div class="text-[10px]">{{ userProfile?.phone }}</div>
                         </div>
-                    </div>
+                    </NuxtLink>
                 </div>
             </div>
             </div>
 
             <div 
-                class="flex-1 px-5 py-5 lg:px-[34px] lg:py-[24px] bg-[#f6f6f6] transition-all duration-300"
+                class="min-h-screen flex-1 px-5 py-5 lg:px-[34px] lg:py-[24px] bg-[#f6f6f6] transition-all duration-300"
                 :class="isCollapsed ? 'lg:ml-[80px]' : 'lg:ml-[253px]'"
             >
                 <slot></slot>
@@ -201,6 +219,7 @@ import { useAuthStore } from '~/store/useAuthStore'
 const authStore = useAuthStore()
 const { userProfile } = storeToRefs(authStore)
 const open = ref(false)
+const router = useRouter()
 
 const isCollapsed = ref(false)
 
@@ -222,6 +241,11 @@ const checkScreen = () => {
   } else {
     isCollapsed.value = false
   }
+}
+
+function logout() {
+    authStore.logout()
+    router.push('/')
 }
 
 onMounted(() => {

@@ -6,7 +6,7 @@
             </div>
             <div class="flex flex-col md:flex-row gap-5 lg:gap-[25px] justify-center mt-[25px]">
                 <a href="https://chat.whatsapp.com/LF6TB3IHLBp8aStTpTKvae?mode=ac_t" target="_blank">
-                    <button class="justify-center btn-with-arrow bg-black text-white rounded-[6px] px-[32px] py-[14px] flex gap-[8px]">
+                    <button class="justify-center btn-with-arrow bg-black text-white rounded-[6px] px-[32px] py-[14px] flex gap-[8px] w-full">
                         <span>Join Our WhatsApp Community</span>
                         <img class="arrow" src="/images/right-arrow.svg" alt="">
                     </button>

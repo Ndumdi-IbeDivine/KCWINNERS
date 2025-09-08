@@ -47,11 +47,11 @@
                                                 <slot></slot>
                                             </div>
                                             <div class="mt-[33px] flex justify-end gap-[5px]">
-                                                <button class="px-[21px] py-[13px] rounded-[31px] hover:bg-[#e4e4e4] border border-[#F5F6F7] transition ease-in text-[14px]" @click="open = false">
+                                                <button class="px-3 lg:px-[21px] py-3 rounded-[31px] hover:bg-[#e4e4e4] border border-[#F5F6F7] transition ease-in text-[14px]" @click="open = false">
                                                     Cancel
                                                 </button>
-                                                <button class="px-[21px] py-[13px] rounded-[31px] bg-black text-white hover:bg-gray-800 transition ease-in text-[14px]" @click="open = false">
-                                                    Continue
+                                                <button :class="[loading ? 'bg-gray-400 cursor-not-allowed text-gray-500' : '', 'px-3 lg:px-[21px] py-3 lg:py-[13px] rounded-[31px] bg-black text-white hover:bg-gray-800 transition ease-in text-[14px]']" @click="handleContinue" :disabled="loading">
+                                                    {{ continueBtn }}
                                                 </button>
                                             </div>
                                         </div>
@@ -76,10 +76,25 @@ import {
 } from "@headlessui/vue";
 // import { ExclamationTriangleIcon } from "@heroicons/vue/24/outline";
 
-defineProps<{
-    btnTitle: string,
-    modalTitle: string
-}>()
+withDefaults(
+  defineProps<{
+        btnTitle: string
+        modalTitle: string
+        continueBtn?: string
+        loading?: boolean
+  }>(),
+  {
+    continueBtn: "Continue",
+    loading: false
+  }
+)
+
+const emit = defineEmits(['continue'])
 
 const open = ref(false);
+
+function handleContinue() {
+    emit('continue')
+    // open.value = false
+}
 </script>

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="text-[33px] font-bold">Welcome {{ userProfile?.name }} ! 👋</div>
+        <div class="text-[33px] font-bold">Welcome {{ userProfile?.name.split(' ')[0] }} ! 👋</div>
         <div class="text-[#747474]">Your wallet update for today!</div>
         <div class="flex mt-3 lg:justify-end">
             <DashboardModal btn-title="Fund Wallet" modal-title="Ready to fund your wallet?">

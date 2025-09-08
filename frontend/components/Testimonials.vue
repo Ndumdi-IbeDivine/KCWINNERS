@@ -2,7 +2,7 @@
     <div>
         <div class="text-center">
             <div class="font-semibold text-[36px]">Testimonials</div>
-            <div class="text-[#717171] mt-[8px]">Who is Nextcent suitable for?</div>
+            <div class="text-[#717171] mt-[8px]">What are our clients saying?</div>
         </div>
 
         <div class="grid md:grid-cols-3 gap-[47px] mt-[35px]">
