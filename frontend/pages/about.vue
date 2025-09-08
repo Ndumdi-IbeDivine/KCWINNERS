@@ -19,14 +19,14 @@
                 data-aos-anchor-placement="top-bottom"
                 class="mt-[48px]"
             >
-                <p class="mt-[20px]"><b>KCWINNERS</b> is a global industry and distribution company that provides real solutions for families, communities, and businesses. Over the years, we have established ourselves in real estate, property sales, and building materials distribution, becoming a trusted name for both individuals and organizations. <br>
+                <p class="mt-[20px]"><b>KCwinners</b> is a global industry and distribution company that provides real solutions for families, communities, and businesses. Over the years, we have established ourselves in real estate, property sales, and building materials distribution, becoming a trusted name for both individuals and organizations. <br>
                 Our work is rooted in excellence, integrity, and community impact — values that guide everything we do.</p>
 
                 <div class="semi-heading mt-10">What we do</div>
                 <ul class="mt-5">
-                    <li><b>Real Estate & Property Sales:</b> KCWINNERS provides reliable access to properties — from affordable housing to investment opportunities. Whether it’s land, homes, or estate projects, we connect people with secure investments for the future.</li>
+                    <li><b>Real Estate & Property Sales:</b> KCwinners provides reliable access to properties — from affordable housing to investment opportunities. Whether it’s land, homes, or estate projects, we connect people with secure investments for the future.</li>
                     <li><b>Building Materials Distribution:</b>  We supply high-quality blocks, bricks, and interlocking stones used in constructing homes, estates, and even roads. Our distribution arm ensures durability and affordability for builders and developers alike.</li>
-                    <li><b>Wealth Contribution Initiative:</b> As part of our community-focused drive, KCWINNERS also runs a weekly contribution program that allows members to contribute consistently for a set period and enjoy rewards in both cash and food items. This initiative has already gained the trust of over 100 families, making it a practical way for many to meet their financial goals.</li>
+                    <li><b>Wealth Contribution Initiative:</b> As part of our community-focused drive, KCwinners also runs a weekly contribution program that allows members to contribute consistently for a set period and enjoy rewards in both cash and food items. This initiative has already gained the trust of over 100 families, making it a practical way for many to meet their financial goals.</li>
                 </ul>
             </div>
 
@@ -41,7 +41,7 @@
                 <div>
                     <div class="semi-heading leading-[44.8px]">Mission</div>
                     <div class="font-bold">Empowering Growth, Rewarding Commitment.</div>
-                    <p class="mt-[16px]">KCWINNERS exists to provide opportunities that make life better for families and communities. From real estate and property sales to material distribution and financial initiatives, we are committed to ensuring that consistency and commitment are always rewarded.</p>
+                    <p class="mt-[16px]">KCwinners exists to provide opportunities that make life better for families and communities. From real estate and property sales to material distribution and financial initiatives, we are committed to ensuring that consistency and commitment are always rewarded.</p>
                 </div>
             </div>
 
@@ -54,7 +54,7 @@
                     <!-- <div class="font-semibold text-[32px]">Activity program</div> -->
                     <div></div>
                     <p class="mt-[20px]">
-                        At KCWINNERS, we are expanding beyond business into <b>community impact</b>. We are opening our doors for partnerships with individuals and organizations to:
+                        At KCwinners, we are expanding beyond business into <b>community impact</b>. We are opening our doors for partnerships with individuals and organizations to:
                     </p>
                     <div class="mt-5 grid gap-3 h-fit">
                         <ul>

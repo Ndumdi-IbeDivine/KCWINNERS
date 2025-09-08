@@ -32,7 +32,7 @@
             <div>
                 <div class="semi-heading leading-[44.8px]">Mission</div>
                 <div class="font-bold">Empowering Families, Building Communities</div>
-                <p class="mt-[16px]">KCWINNERS is committed to providing Nigerians, both home and abroad, a trusted way to support their loved ones and achieve their financial goals. Our mission is to provide a trusted system where people can grow their money through steady weekly contributions, while enjoying meaningful rewards. <br> We believe in <b>community strength, shared growth, and family happiness.</b></p>
+                <p class="mt-[16px]">KCwinners is committed to providing Nigerians, both home and abroad, a trusted way to support their loved ones and achieve their financial goals. Our mission is to provide a trusted system where people can grow their money through steady weekly contributions, while enjoying meaningful rewards. <br> We believe in <b>community strength, shared growth, and family happiness.</b></p>
             </div>
         </div>
 
@@ -107,7 +107,7 @@
         >
             <div class="lg:w-[436px] 2xl:w-full">
                 <div class="semi-heading leading-[44.8px]">Weekly Contribution</div>
-                <p class="mt-[16px]">Our <b>KCWINNERS Contribution Initiative</b> gives everyday people the chance to grow their money with ease. By contributing a fixed weekly amount for <b>7 months</b>, you get back your full contributions plus a <b>66.7% return</b>. On top of that, if you refer others, you also receive an additional <b>20% worth of foodstuffs</b>. It’s more than a contribution cycle — it’s a way to save, earn, and support your home.</p>
+                <p class="mt-[16px]">Our <b>KCwinners Contribution Initiative</b> gives everyday people the chance to grow their money with ease. By contributing a fixed weekly amount for <b>7 months</b>, you get back your full contributions plus a <b>66.7% return</b>. On top of that, if you refer others, you also receive an additional <b>20% worth of foodstuffs</b>. It’s more than a contribution cycle — it’s a way to save, earn, and support your home.</p>
             </div>
             <div>
                 <img src="/images/image-2.jpg" class="rounded-lg  w-full" alt="">

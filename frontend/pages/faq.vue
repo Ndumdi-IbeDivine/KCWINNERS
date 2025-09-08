@@ -133,8 +133,8 @@ const toggleFaq = (index: number) => {
 
 const faqs = [
   {
-    question: "What is KCWinners?",
-    answer: "KCWINNERS is a global industry and distribution company in Nigeria. We work in real estate, property sales, building materials distribution, and also run a weekly contribution initiative that allows members to grow their money with guaranteed returns and food rewards."
+    question: "What is KCwinners?",
+    answer: "KCwinners is a global industry and distribution company in Nigeria. We work in real estate, property sales, building materials distribution, and also run a weekly contribution initiative that allows members to grow their money with guaranteed returns and food rewards."
   },
   {
     question: "How does the weekly contribution initiative work?",
@@ -150,26 +150,26 @@ const faqs = [
   },
   {
     question: "Is KCWINNERS’ contribution safe?",
-    answer: "Yes. KCWINNERS is a registered company with a strong reputation in real estate and distribution, and we ensure that all contributions are properly recorded and managed."
+    answer: "Yes. KCwinners is a registered company with a strong reputation in real estate and distribution, and we ensure that all contributions are properly recorded and managed."
   },
   {
     question: "What happens if I miss a weekly payment?",
     answer: "Members are expected to stay consistent. If you miss a payment, you will need to clear all missed weeks at the end of the savings period before you can withdraw savings."
   },
   {
-    question: "What kind of building materials does KCWINNERS supply?",
+    question: "What kind of building materials does KCwinners supply?",
     answer: "We provide blocks, bricks, interlocking stones, and other materials used in constructing houses, estates, and roads."
   },
   {
-    question: "Does KCWINNERS sell properties too?",
-    answer: "Yes, we are involved in real estate sales and property development. Whether you’re looking for land, houses, or investment opportunities, KCWINNERS can connect you to the right option."
+    question: "Does KCwinners sell properties too?",
+    answer: "Yes, we are involved in real estate sales and property development. Whether you’re looking for land, houses, or investment opportunities, KCwinners can connect you to the right option."
   },
   {
-    question: "Can organizations partner with KCWINNERS?",
+    question: "Can organizations partner with KCwinners?",
     answer: "Absolutely. We partner with organizations and individuals for outreach programs, food distribution, and building projects."
   },
   {
-    question: "How do I contact KCWINNERS?",
+    question: "How do I contact KCwinners?",
     answer: "You can reach us through our official website, email, phone lines, or by visiting our office. We also respond quickly on our social media platforms."
   }
 ]
