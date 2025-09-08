@@ -9,7 +9,8 @@ import { getFirstThursdayAfter, addWeeks } from "../utils/firstThursday.js";
 
 const addContributionAccount = async (req, res, next) => {
     try {
-        const { userId, referralCode } = req.body;
+        const userId = user.req._id
+        const { referralCode } = req.body;
 
         if (!userId || !referralCode) {
             const error = new Error("userId and referralCode are required");
@@ -186,7 +187,7 @@ const payClearance = async (req, res, next) => {
         if (!acc) return res.status(404).json({ success: false, message: "Not eligible for clearance" });
 
         const wallet = await WalletFund.findOne({ userId });
-        if (wallet.balance < 5000) {
+        if (wallet.balance < 2000) {
         return res.status(400).json({ success: false, message: "Insufficient balance to pay clearance fee" });
         }
 
