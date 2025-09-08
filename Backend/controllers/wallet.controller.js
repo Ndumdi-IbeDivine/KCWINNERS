@@ -41,7 +41,7 @@ const initiateFunding = async (req, res, next) => {
             status: "pending",
         });
 
-        const response = await axios.post(SQUAD_INITIATE_URL, payload, {
+        const response = await axios.post("https://sandbox-api-d.squadco.com/transaction/initiate", payload, {
         headers: {
             Authorization: `Bearer ${SQUAD_SECRET_KEY}`,
             "Content-Type": "application/json",
