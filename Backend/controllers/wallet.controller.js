@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import mongoose from "mongoose";
 
 import WalletFund from "../models/walletFunding.model.js";
-// import User from '../models/user.model.js';
+import User from '../models/user.model.js';
 import Transaction from '../models/transaction.model.js'
 import { SQUAD_SECRET_KEY, SQUAD_INITIATE_URL, SQUAD_VERIFY_URL } from "../config/env.js";
 // import generateReference from "../config/generateReference.js";
@@ -11,18 +11,25 @@ import { SQUAD_SECRET_KEY, SQUAD_INITIATE_URL, SQUAD_VERIFY_URL } from "../confi
 
 const initiateFunding = async (req, res, next) => {
     try {
-        const { amount, email, name } = req.body;
+        const { amount } = req.body;
         const userId = req.user?._id; 
         const transaction_ref = uuidv4();
 
+        const user = await User.findById(userId);
+        if (!user) {
+            const error = new Error("User not found");
+            error.statusCode = 404;
+            throw error;
+        }
+
         const payload = {
             amount: amount * 100,
-            email,
+            email: user.email,
             currency: "NGN",
             initiate_type: "inline",
             transaction_ref,
             callback_url: "http://localhost:3000/api/v1/wallet/fund-verify",
-            customer_name: name,
+            customer_name: user.name,
         };
 
         // Create a pending transaction record

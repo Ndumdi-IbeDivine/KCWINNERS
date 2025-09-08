@@ -5,7 +5,7 @@ import Transaction from '../models/transaction.model.js'
 
 const getPendingRegistrations = async (req, res, next) => {
     try {
-        const users = await User.find({ isRegistered: false })
+        const users = await User.find({ isActivated: false })
         .select('-password -resetPasswordToken -resetPasswordExpires')
         .sort({ createdAt: 1 });
 
