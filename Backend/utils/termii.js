@@ -27,11 +27,11 @@ const sendVerificationToken = async (phone) => {
             api_key: TERMII_API_KEY,
             pin_type: "NUMERIC",
             pin_attempts: 3,
-            pin_time_to_live: 5,
+            pin_time_to_live: 10,
             pin_length: 6,
             pin_placeholder: "< 123456 >",
             message_text: "Your KCWinners reset code is < 123456 >",
-            channel: "dnd",   // try "dnd" or "whatsapp" if SMS fails
+            channel: "generic",
             to: phone,
             from: "KCWinners"     // must match your approved Termii sender ID
         };
@@ -48,11 +48,15 @@ const sendVerificationToken = async (phone) => {
         return data;
 
     } catch (error) {
-        console.error("Error sending verification token:", {
-        status: error.response?.status,
-        data: error.response?.data,
-        message: error.message
-});
+        if (error.response) {
+            // Server responded with error (400, 401, etc)
+            console.error("❌ Termii API Error Response:", error.response.data);
+        } else {
+            // Network or unexpected error
+            console.error("❌ Termii Request Failed:", error.message);
+        }
+        throw error;
+
     }
 }
 
