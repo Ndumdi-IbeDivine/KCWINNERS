@@ -9,7 +9,8 @@ import { getFirstThursdayAfter, addWeeks } from "../utils/firstThursday.js";
 
 const addContributionAccount = async (req, res, next) => {
     try {
-        const { userId, referralCode } = req.body;
+        const userId = user.req._id
+        const { referralCode } = req.body;
 
         if (!userId || !referralCode) {
             const error = new Error("userId and referralCode are required");
