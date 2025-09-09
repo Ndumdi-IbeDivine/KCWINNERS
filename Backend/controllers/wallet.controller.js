@@ -126,11 +126,27 @@ const squadWebhook = async (req, res, next) => {
 
 const getUserTransactions = async (req, res, next) => {
   try {
-    const transactions = await Transaction.find({ userId: req.user._id }).sort({ createdAt: -1 });
+    const userId= req.user._id;
+
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const skip = (page-1) * 0;
+
+    const [transactions, total] = await Promise.all([
+        Transaction.find({ userId})
+        .sort({ createdAt: -1 })
+        .skip(skip)
+        .limit(limit),
+        Transaction.countDocuments({ userId })
+    ])
+    
     res.status(200).json({
-      success: true,
-      count: transactions.length,
-      transactions,
+        success: true,
+        currentPage: page,
+        totalPages: Math.ceil(total / limit),
+        totalTransactions: total,
+        count: transactions.length,
+        transactions,
     });
   } catch (error) {
     next(error);
