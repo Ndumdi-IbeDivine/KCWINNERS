@@ -12,7 +12,7 @@ import { SQUAD_SECRET_KEY, SQUAD_INITIATE_URL, SQUAD_VERIFY_URL } from "../confi
 const initiateFunding = async (req, res, next) => {
     try {
         const { amount } = req.body;
-        const userId = req.user?._id; 
+        const userId = req.user.id; 
         const transaction_ref = uuidv4();
 
         const user = await User.findById(userId);
