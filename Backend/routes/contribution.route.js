@@ -9,8 +9,8 @@ const router = express.Router();
 router.post('/create', authorize, addContributionAccount);
 router.get('/:userId', authorize, getUserContributions);
 router.post('/detail/:id', authorize, getOneContribution);
-router.post('/clear-defaults', authorize, payDefaults);
-router.post('/pay-default', authorize, payClearance);
+router.post('/clear-default/:accountId', authorize, payDefaults);
+router.post('/pay-clearance', authorize, payClearance);
 
 
 export default router;

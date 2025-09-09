@@ -15,6 +15,10 @@ const walletFundSchema = new mongoose.Schema({
         required: true, 
         unique: true 
     },
+    balance: {
+        type: Number,
+        default: 0
+    },
     status: { 
         type: String, 
         enum: ['pending', 'completed'], 
