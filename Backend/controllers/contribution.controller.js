@@ -9,7 +9,7 @@ import { getFirstThursdayAfter, addWeeks } from "../utils/firstThursday.js";
 
 const addContributionAccount = async (req, res, next) => {
     try {
-        const userId = user.req._id
+        const userId = req.user._id
         const { referralCode } = req.body;
 
         if (!userId || !referralCode) {
@@ -97,7 +97,7 @@ const addContributionAccount = async (req, res, next) => {
 
 const getUserContributions = async (req, res, next) => {
     try {
-        const { userId } = req.params;
+        const userId = req.user.id;
 
         const list = await ContributionAccount.find({ userId }).sort({ startDate: 1 });
 
@@ -132,7 +132,7 @@ const getOneContribution = async (req, res, next) => {
 
 const payDefaults = async (req, res, next) => {
     try {
-        const userId = req.user.id;
+        const userId = req.user._id;
         const { accountId } = req.params; // Pass account explicitly
 
         const acc = await ContributionAccount.findOne({ _id: accountId, userId, status: "active" });
