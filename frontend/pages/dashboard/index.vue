@@ -3,8 +3,13 @@
         <div class="text-[33px] font-bold">Welcome {{ userProfile?.name.split(' ')[0] }} ! 👋</div>
         <div class="text-[#747474]">Your wallet update for today!</div>
         <div class="flex mt-3 lg:justify-end">
-            <DashboardModal btn-title="Fund Wallet" modal-title="Ready to fund your wallet?">
-                <input class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500" type="text" name="" id="">
+            <DashboardModal btn-title="Fund Wallet" modal-title="Ready to fund your wallet?" @continue="fundWallet" :loading="loadingFundWallet">
+                <label for="amount" class="font-semibold mb-2">Amount *</label>
+                <input class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500" type="text" name="" id="amount" placeholder="Enter amount" v-model="amount">
+
+                <div v-if="fundWalletFeedback">
+                    <p :class="[isFundWalletError ? 'text-red-500' : 'text-green-500', 'text-[17px]']">{{ fundWalletFeedback }}</p>
+                </div>
             </DashboardModal>
         </div>
 
@@ -29,7 +34,7 @@
                         <img src="/images/ticket.svg" alt="">
                         Due Date
                     </div>
-                    <div class="text-[33px] font-bold">{{ useFormatDate(closestContributionDueDate()?.dueDate as string) }}</div>
+                    <div class="text-[33px] font-bold">{{ contributions.length ? useFormatDate(closestContributionDueDate()?.dueDate as string) : '...' }}</div>
                 </div>
                 <div class="px-8 py-[21px] bg-white rounded-lg">
                     <div class="flex gap-2.5 text-[#747474] font-[16px]">
@@ -96,12 +101,14 @@ ChartJS.register(
   BarElement
 )
 
+const api = useApi()
 const authStore = useAuthStore()
 const { userProfile } = storeToRefs(authStore)
 const contributionStore = useContribustionsStore()
 const { contributions } = storeToRefs(contributionStore)
 
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
+const amount = ref<number | null>(null)
 
 const data = {
     labels: months,
@@ -157,5 +164,44 @@ function closestContributionDueDate() {
 
         return currentDate < closestDate ? current : closest;
   });
+}
+
+const loadingFundWallet = ref(false)
+const isFundWalletError = ref(false)
+const fundWalletFeedback = ref("")
+
+async function fundWallet() {
+    try {
+        loadingFundWallet.value = true
+        fundWalletFeedback.value = "";
+        isFundWalletError.value = false
+
+        if(!amount.value || isNaN(amount.value)) {
+            fundWalletFeedback.value = "Please enter amount.";
+            loadingFundWallet.value = false;
+            isFundWalletError.value = true
+            return;
+        }
+
+        if(amount.value && !(amount.value >= 100)) {
+            fundWalletFeedback.value = "Minimum amount is 100 naira.";
+            loadingFundWallet.value = false;
+            isFundWalletError.value = true
+            return;
+        }
+
+        let res = await api.post('/wallet/fund-initiate', {
+            amount: amount.value
+        })
+
+        window.location = res.data.checkoutUrl
+        console.log(res.data)
+    } catch (err: any) {
+        const msg = err.response?.data?.message || err.response?.data?.error || "Login failed";
+        fundWalletFeedback.value = msg;
+        isFundWalletError.value = true
+    } finally {
+        loadingFundWallet.value = false;
+    }
 }
 </script>

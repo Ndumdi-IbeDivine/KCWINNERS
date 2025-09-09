@@ -68,6 +68,11 @@ async function addAccount() {
             isError.value = true
             feedback.value = "Referral code is required"
             loading.value = false
+
+            setTimeout(() => {
+                feedback.value = ''
+            }, 7000);
+
             return
         }
         
@@ -88,6 +93,9 @@ async function addAccount() {
         isError.value = true;
     } finally {
         loading.value = false
+        setTimeout(() => {
+            feedback.value = ''
+        }, 7000);
     }
 }
 </script>

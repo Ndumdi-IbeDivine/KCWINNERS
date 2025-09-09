@@ -32,6 +32,7 @@ export interface Contribution {
     firstThursday: string;
     isPrimary: boolean;
     referralCode: string;
+    referralCount: number;
     referredBy: string | null;
     startDate: string;
     status: string;

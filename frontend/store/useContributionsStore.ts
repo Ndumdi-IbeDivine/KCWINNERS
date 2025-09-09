@@ -9,6 +9,8 @@ export const useContribustionsStore = defineStore("contributions", {
     state: () => ({
         contributions: [] as Contribution[],
         initContributionLoad: false as boolean,
+        monthlyRevenue: [] as [],
+        transactions: [] as []
     }),
     
     actions: {
@@ -19,6 +21,20 @@ export const useContribustionsStore = defineStore("contributions", {
             let res = await api.get(`/contributions/${authStore.userProfile?._id}`)
             this.contributions = res.data.data
             this.initContributionLoad = true
+        },
+
+        async getMonthlyRevenue() {
+            const api = useApi()
+            
+            let res = await api.get('/wallet/revenue/monthly')
+            console.log(res)
+        },
+
+        async getTransactions() {
+            const api = useApi()
+            
+            let res = await api.get('/wallet/transactions')
+            console.log(res)
         }
     }
 });

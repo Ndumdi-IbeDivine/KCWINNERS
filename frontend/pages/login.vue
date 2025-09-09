@@ -95,8 +95,10 @@
 import { ref, inject } from "vue";
 import Cookies from "js-cookie";
 import { useAuthStore } from "~/store/useAuthStore";
+import { useContribustionsStore } from "~/store/useContributionsStore";
 
 const authStore = useAuthStore();
+const contributionsStore = useContribustionsStore()
 const router = useRouter();
 const api = useApi();
 
@@ -106,6 +108,17 @@ const loading = ref(false);
 const feedback = ref("");
 const isError = ref(false)
 
+async function retry(fn: () => Promise<any>, retries = 2, delay = 1000, errorMessage = 'Something went wrong. Let\'s give it another try.') {
+    try {
+        return await fn();
+    } catch (err) {
+        if (retries <= 1) {
+            throw err;
+        }
+        await new Promise(res => setTimeout(res, delay));
+        return retry(fn, retries - 1, delay, errorMessage);
+    }
+}
 
 async function handleLogin() {
     loading.value = true;
@@ -130,10 +143,24 @@ async function handleLogin() {
         
         if(res.data.success && res.data.data.user.isActivated) {
             Cookies.set('token', res.data.data.token, { expires: 7 });
-            router.push('/dashboard')
+
+            Promise.all([
+                retry(() => contributionsStore.getContributions()),
+                retry(() => contributionsStore.getMonthlyRevenue()),
+                retry(() => contributionsStore.getTransactions()),
+                router.push('/dashboard')
+            ])
+
         } else if (res.data.success && !res.data.data.user.isActivated) {
             Cookies.set('token', res.data.data.token, { expires: 7 });
-            router.push('/activate')
+
+            Promise.all([
+                retry(() => contributionsStore.getContributions()),
+                retry(() => contributionsStore.getMonthlyRevenue()),
+                retry(() => contributionsStore.getTransactions()),
+                router.push('/activate')
+            ])
+
         }
         
         authStore.setIsAuthenticated(true);

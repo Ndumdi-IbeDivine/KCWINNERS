@@ -50,7 +50,7 @@
                                                 <button class="px-3 lg:px-[21px] py-3 rounded-[31px] hover:bg-[#e4e4e4] border border-[#F5F6F7] transition ease-in text-[14px]" @click="open = false">
                                                     Cancel
                                                 </button>
-                                                <button :class="[loading ? 'bg-gray-400 cursor-not-allowed text-gray-500' : '', 'px-3 lg:px-[21px] py-3 lg:py-[13px] rounded-[31px] bg-black text-white hover:bg-gray-800 transition ease-in text-[14px]']" @click="handleContinue" :disabled="loading">
+                                                <button v-if="!showOnlyContinue" :class="[loading ? 'bg-gray-400 cursor-not-allowed text-gray-500' : '', 'px-3 lg:px-[21px] py-3 lg:py-[13px] rounded-[31px] bg-black text-white hover:bg-gray-800 transition ease-in text-[14px]']" @click="handleContinue" :disabled="loading">
                                                     {{ continueBtn }}
                                                 </button>
                                             </div>
@@ -82,6 +82,7 @@ withDefaults(
         modalTitle: string
         continueBtn?: string
         loading?: boolean
+        showOnlyContinue?: boolean
   }>(),
   {
     continueBtn: "Continue",

@@ -35,6 +35,8 @@ onMounted(async () => {
     if(authStore.isAuthenticated) {
         Promise.all([
             retry(() => contributionsStore.getContributions()),
+            retry(() => contributionsStore.getMonthlyRevenue()),
+            retry(() => contributionsStore.getTransactions()),
         ])
     }
 

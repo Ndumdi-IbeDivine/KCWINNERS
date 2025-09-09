@@ -72,7 +72,7 @@
                                         <div class="flex-1 text-[#ff0000]">Log out</div>
                                     </div>
                                         <hr class="border-[#63493E47]">
-                                        <NuxtLink to="/dashboard/profile" class="mt-[25px] flex gap-[13px]">
+                                        <NuxtLink to="/dashboard/profile" class="px-[13px] mt-[25px] flex gap-[13px]">
                                             <div class="h-[36px] w-[36px] flex items-center justify-center">
                                                 <svg width="100%" height="100%" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#fff"><path d="M7 18V17C7 14.2386 9.23858 12 12 12V12C14.7614 12 17 14.2386 17 17V18" stroke="#fff" stroke-width="1.5" stroke-linecap="round"></path><path d="M12 12C13.6569 12 15 10.6569 15 9C15 7.34315 13.6569 6 12 6C10.3431 6 9 7.34315 9 9C9 10.6569 10.3431 12 12 12Z" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="12" cy="12" r="10" stroke="#fff" stroke-width="1.5"></circle></svg>
                                             </div>
