@@ -132,21 +132,37 @@ const getUserTransactions = async (req, res, next) => {
     const limit = parseInt(req.query.limit) || 10;
     const skip = (page-1) * 0;
 
-    const [transactions, total] = await Promise.all([
-        Transaction.find({ userId})
+    const [successTxns, failedTxns, successTotal, failedTotal] = await Promise.all([
+        Transaction.find({ userId, status: "success" })
         .sort({ createdAt: -1 })
         .skip(skip)
         .limit(limit),
-        Transaction.countDocuments({ userId })
+        Transaction.find({ userId, status: "failed" })
+        .sort({ createdAt: -1 })
+        .skip(skip)
+        .limit(limit),
+        Transaction.countDocuments({ userId, status: "success" }),
+        Transaction.countDocuments({ userId, status: "failed" }),
     ])
     
     res.status(200).json({
         success: true,
-        currentPage: page,
-        totalPages: Math.ceil(total / limit),
-        totalTransactions: total,
-        count: transactions.length,
-        transactions,
+        page,
+        limit,
+        transactions: {
+            successful: {
+                total: successTotal,
+                totalPages: Math.ceil(successTotal / limit),
+                count: successTxns.length,
+                data: successTxns,
+            },
+            failed: {
+                total: failedTotal,
+                totalPages: Math.ceil(failedTotal / limit),
+                count: failedTxns.length,
+                data: failedTxns,
+            },
+        },
     });
   } catch (error) {
     next(error);
