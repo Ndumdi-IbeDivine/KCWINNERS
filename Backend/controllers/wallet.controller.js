@@ -41,7 +41,7 @@ const initiateFunding = async (req, res, next) => {
             status: "pending",
         });
 
-        const response = await axios.post("https://sandbox-api-d.squadco.com/transaction/initiate", payload, {
+        const response = await axios.post(SQUAD_INITIATE_URL, payload, {
         headers: {
             Authorization: `Bearer ${SQUAD_SECRET_KEY}`,
             "Content-Type": "application/json",
@@ -126,7 +126,7 @@ const squadWebhook = async (req, res, next) => {
 
 const getUserTransactions = async (req, res, next) => {
   try {
-    const transactions = await Transaction.find({ user: req.user._id }).sort({ createdAt: -1 });
+    const transactions = await Transaction.find({ userId: req.user._id }).sort({ createdAt: -1 });
     res.status(200).json({
       success: true,
       count: transactions.length,

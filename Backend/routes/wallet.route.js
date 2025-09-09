@@ -5,7 +5,7 @@ import { authorize } from '../middlewares/auth.middleware.js';
 const router = express.Router();
 
 router.post('/fund-initiate', authorize, initiateFunding); //to fund wallet
-router.get('/fund-verify', verifyFunding) //To verify succesfull funding
+router.get('/fund-verify', authorize, verifyFunding) //To verify succesfull funding
 router.post('/webhook', squadWebhook); //to integrate webhook for automatic wallet funded display
 router.get('/transactions', authorize, getUserTransactions);
 router.get('/revenue/monthly', authorize, getUserRevenue);
