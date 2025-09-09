@@ -145,7 +145,7 @@ const payDefaults = async (req, res, next) => {
         }
 
         const clearanceAmount = acc.defaults * 2000 * 2; // double penalty
-        const wallet = await WalletFund.findOne({ user: userId });
+        const wallet = await WalletFund.findOne({ userId });
         if (!wallet) {
         return res.status(404).json({ success: false, message: "Wallet not found" });
         }
