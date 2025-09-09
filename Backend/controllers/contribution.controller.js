@@ -182,26 +182,52 @@ const payDefaults = async (req, res, next) => {
 
 const payClearance = async (req, res, next) => {
     try {
-        const userId = req.user.id;
-        const acc = await ContributionAccount.findOne({ userId, status: "eligible_for_withdrawal" });
-        if (!acc) return res.status(404).json({ success: false, message: "Not eligible for clearance" });
+        const userId = req.user._id; // use _id for consistency
+        const { accountId } = req.params; // account ID comes from the URL
+
+        const acc = await ContributionAccount.findOne({
+        _id: accountId,
+        userId,
+        status: "eligible_for_withdrawal"
+        });
+
+        if (!acc) {
+        return res.status(400).json({ 
+            success: false, 
+            message: "Not eligible for clearance" 
+        });
+        }
 
         if (acc.defaults > 0) {
-            return res.status(400).json({ success: false, message: "Clear defaults before paying clearance fee" });
+        return res.status(400).json({ 
+            success: false, 
+            message: "Clear defaults before paying clearance fee" 
+        });
         }
 
         const wallet = await WalletFund.findOne({ userId });
-        if (wallet.balance < 2000) {
-        return res.status(400).json({ success: false, message: "Insufficient balance to pay clearance fee" });
+        if (!wallet) {
+        return res.status(404).json({ success: false, message: "Wallet not found" });
         }
 
+        if (wallet.balance < 2000) {
+        return res.status(400).json({ 
+            success: false, 
+            message: "Insufficient balance to pay clearance fee" 
+        });
+        }
+
+        // Deduct from wallet
         wallet.balance -= 2000;
+
+        // Mark account ready for payout
         acc.clearanceFeePaid = true;
-        acc.status = "eligible_for_payout"; // To mark as ready for payout
+        acc.status = "completed";
 
         await wallet.save();
         await acc.save();
 
+        // Log transaction
         await Transaction.create({
         userId,
         contributionAccountId: acc._id,
@@ -210,7 +236,18 @@ const payClearance = async (req, res, next) => {
         status: "success",
         });
 
-        res.status(200).json({ success: true, message: "Clearance fee paid successfully" });
+        console.log({
+            accountId,
+            userId,
+            acc: await ContributionAccount.findOne({ _id: accountId })
+        });
+
+        res.status(200).json({ 
+        success: true, 
+        message: "Clearance fee paid successfully",
+        newWalletBalance: wallet.balance,
+        clearedAccount: acc._id
+        });
     } catch (err) {
         next(err);
     }

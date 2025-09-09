@@ -10,7 +10,7 @@ router.post('/create', authorize, addContributionAccount);
 router.get('/:userId', authorize, getUserContributions);
 router.post('/detail/:id', authorize, getOneContribution);
 router.post('/clear-default/:accountId', authorize, payDefaults);
-router.post('/pay-clearance', authorize, payClearance);
+router.post('/pay-clearance/:accountId', authorize, payClearance);
 
 
 export default router;
