@@ -156,7 +156,7 @@ const payDefaults = async (req, res, next) => {
 
         // Deduct & update
         wallet.balance -= clearanceAmount;
-        acc.missedWeeks = 0;
+        acc.defaults = 0;
         acc.clearedDefaults = true;
 
         await wallet.save();
