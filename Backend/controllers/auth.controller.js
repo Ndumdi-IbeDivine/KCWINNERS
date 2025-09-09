@@ -6,6 +6,7 @@ import generateConCode from '../utils/generateConCode.js';
 import generateReferralCode from '../utils/generateReferralCode.js';
 import User from '../models/user.model.js'
 import ContributionAccount from '../models/contribution.model.js'
+import WalletFund from '../models/walletFunding.model.js';
 import { getFirstThursdayAfter, addWeeks} from '../utils/firstThursday.js'
 import { sendVerificationToken, verifyToken } from '../utils/termii.js';
 
@@ -199,12 +200,22 @@ const activateAccount = async (req, res, next) => {
         status: "active",
         });
 
+        //create wallet
+        let wallet = await WalletFund.findOne({ userId: updatedUser._id });
+        if (!wallet) {
+        wallet = await WalletFund.create({
+            userId: updatedUser._id,
+            balance: 0,
+        });
+        }   
+
         res.status(200).json({
         success: true,
         message: "Account activated and primary contribution account created",
         data: {
             user: updatedUser,
             contribution: newContribution,
+            wallet
         },
         });
     } catch (error) {
