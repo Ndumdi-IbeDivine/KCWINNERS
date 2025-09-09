@@ -140,12 +140,12 @@ const payDefaults = async (req, res, next) => {
             return res.status(404).json({ success: false, message: "Contribution account not found or inactive" });
         }
 
-        if (acc.missedWeeks === 0) {
+        if (acc.defaults === 0) {
         return res.status(400).json({ success: false, message: "No defaults to clear for this account" });
         }
 
-        const clearanceAmount = acc.missedWeeks * 2000 * 2; // double penalty
-        const wallet = await WalletFund.findOne({ userId });
+        const clearanceAmount = acc.defaults * 2000 * 2; // double penalty
+        const wallet = await WalletFund.findOne({ user: userId });
         if (!wallet) {
         return res.status(404).json({ success: false, message: "Wallet not found" });
         }
@@ -185,6 +185,10 @@ const payClearance = async (req, res, next) => {
         const userId = req.user.id;
         const acc = await ContributionAccount.findOne({ userId, status: "eligible_for_withdrawal" });
         if (!acc) return res.status(404).json({ success: false, message: "Not eligible for clearance" });
+
+        if (acc.defaults > 0) {
+            return res.status(400).json({ success: false, message: "Clear defaults before paying clearance fee" });
+        }
 
         const wallet = await WalletFund.findOne({ userId });
         if (wallet.balance < 2000) {
