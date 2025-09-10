@@ -109,7 +109,7 @@
             </div>
             <div class="mt-5 flex justify-center">
                 <NuxtLink to="/create-account">
-                    <button class="bg-[var(--kc-green)] ease-in transition hover:bg-[var(--kc-green-dark)] text-white rounded-[6px] px-[20px] py-[10px]">Sign up now</button>
+                    <button class="bg-[var(--kc-green)] ease-in transition hover:bg-[var(--kc-green-dark)] text-white rounded-[6px] px-[20px] py-[10px]">Sign Up Now</button>
                 </NuxtLink>
             </div>
         </div>
