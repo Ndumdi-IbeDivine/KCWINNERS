@@ -16,8 +16,8 @@
                 </div>
             </div>
 
-            <div class="hidden lg:flex justify-end my-10">
-                <img src="/images/hero.jpg" class="rounded-l-2xl" alt="">
+            <div class="lg:flex lg:justify-end px-5 lg:px-0 my-10">
+                <img src="/images/hero.jpg" class="rounded lg:rounded-l-2xl" alt="">
             </div>
         </div>
         
@@ -26,13 +26,27 @@
             data-aos-anchor-placement="top-bottom"
             class="px-5 lg:px-[50px] xl:px-[144px] grid lg:grid-cols-2 items-center gap-[72px]"
         >
-            <div>
+            <div class="hidden lg:flex">
                 <img src="/images/image-3.jpg" class="w-full rounded-lg" alt="">
             </div>
             <div>
                 <div class="semi-heading leading-[44.8px]">Mission</div>
                 <div class="font-bold">Empowering Families, Building Communities</div>
                 <p class="mt-[16px]">KCwinners is committed to providing Nigerians, both home and abroad, a trusted way to support their loved ones and achieve their financial goals. Our mission is to provide a trusted system where people can grow their money through steady weekly contributions, while enjoying meaningful rewards. <br> We believe in <b>community strength, shared growth, and family happiness.</b></p>
+            </div>
+        </div>
+
+        <div
+            data-aos="fade-up" 
+            data-aos-anchor-placement="top-bottom" 
+            class="px-5 lg:px-[50px] xl:px-[144px] grid lg:grid-cols-2 2xl:grid 2xl:grid-cols-2 gap-10 lg:gap-[153px] items-center"
+        >
+            <div class="lg:w-[436px] 2xl:w-full">
+                <div class="semi-heading leading-[44.8px]">Weekly Contribution</div>
+                <p class="mt-[16px]">Our <b>KCwinners Contribution Initiative</b> gives everyday people the chance to grow their money with ease. By contributing a fixed weekly amount for <b>7 months</b>, you get back your full contributions plus a <b>66.7% return</b>. On top of that, if you refer others, you also receive an additional <b>20% worth of foodstuffs</b>. It’s more than a contribution cycle — it’s a way to save, earn, and support your home.</p>
+            </div>
+            <div>
+                <img src="/images/image-2.jpg" class="rounded-lg  w-full" alt="">
             </div>
         </div>
 
@@ -64,7 +78,7 @@
             id="how-contribution-works"
         >
             <div class="text-center">
-                <div class="font-semibold text-[36px]">HOW CONTRIBUTING WORKS (3 SIMPLE STEPS)</div>
+                <div class="font-semibold text-[36px]">HOW TO START CONTRIBUTING</div>
             </div>
 
             <div class="grid md:grid-cols-3 gap-10 2xl:gap-[126px] mt-[16px]">
@@ -95,25 +109,10 @@
             </div>
             <div class="mt-5 flex justify-center">
                 <NuxtLink to="/create-account">
-                    <button class="bg-[var(--kc-green)] ease-in transition hover:bg-[var(--kc-green-dark)] text-white rounded-[6px] px-[20px] py-[10px]">Sign up for free</button>
+                    <button class="bg-[var(--kc-green)] ease-in transition hover:bg-[var(--kc-green-dark)] text-white rounded-[6px] px-[20px] py-[10px]">Sign up</button>
                 </NuxtLink>
             </div>
         </div>
-
-        <div
-            data-aos="fade-up" 
-            data-aos-anchor-placement="top-bottom" 
-            class="px-5 lg:px-[50px] xl:px-[144px] grid lg:grid-cols-2 2xl:grid 2xl:grid-cols-2 gap-10 lg:gap-[153px] items-center"
-        >
-            <div class="lg:w-[436px] 2xl:w-full">
-                <div class="semi-heading leading-[44.8px]">Weekly Contribution</div>
-                <p class="mt-[16px]">Our <b>KCwinners Contribution Initiative</b> gives everyday people the chance to grow their money with ease. By contributing a fixed weekly amount for <b>7 months</b>, you get back your full contributions plus a <b>66.7% return</b>. On top of that, if you refer others, you also receive an additional <b>20% worth of foodstuffs</b>. It’s more than a contribution cycle — it’s a way to save, earn, and support your home.</p>
-            </div>
-            <div>
-                <img src="/images/image-2.jpg" class="rounded-lg  w-full" alt="">
-            </div>
-        </div>
-
 
         <div 
             data-aos="fade-up" 

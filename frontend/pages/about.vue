@@ -9,7 +9,7 @@
                     <div class="font-semibold text-[48px] tracking-[-3px]">About Us</div>
                 </div>
                 <div class="grid lg:grid-cols-2 lg:h-[500px] w-full bg-slate-500 mt-[42px]">
-                    <img src="/images/image-5.jpg" class="lg:h-[500px] w-full" alt="">
+                    <img src="/images/image-3.jpg" class="lg:h-[500px] w-full" alt="">
                     <img src="/images/image-6.jpg" class="hidden lg:block lg:h-[500px] w-full" alt="">
                 </div>
             </div>
