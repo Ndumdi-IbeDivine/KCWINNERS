@@ -1,8 +1,8 @@
 <template>
     <div>
-        <BlackBtn @click="open = true">
+        <button :class="[customClass ? customClass : 'bg-black text-white px-8 py-2 rounded-lg hover:bg-gray-800 transition']" @click="open = true">
             {{ btnTitle }}
-        </BlackBtn>
+        </button>
         <TransitionRoot as="template" :show="open">
             <Dialog class="relative z-10" @close="open = false">
                 <TransitionChild
@@ -50,7 +50,7 @@
                                                 <button class="px-3 lg:px-[21px] py-3 rounded-[31px] hover:bg-[#e4e4e4] border border-[#F5F6F7] transition ease-in text-[14px]" @click="open = false">
                                                     Cancel
                                                 </button>
-                                                <button v-if="!showOnlyContinue" :class="[loading ? 'bg-gray-400 cursor-not-allowed text-gray-500' : '', 'px-3 lg:px-[21px] py-3 lg:py-[13px] rounded-[31px] bg-black text-white hover:bg-gray-800 transition ease-in text-[14px]']" @click="handleContinue" :disabled="loading">
+                                                <button v-if="!showOnlyCancel" :class="[loading ? 'bg-gray-400 cursor-not-allowed text-gray-500' : '', 'px-3 lg:px-[21px] py-3 lg:py-[13px] rounded-[31px] bg-black text-white hover:bg-gray-800 transition ease-in text-[14px]']" @click="handleContinue" :disabled="loading">
                                                     {{ continueBtn }}
                                                 </button>
                                             </div>
@@ -82,7 +82,8 @@ withDefaults(
         modalTitle: string
         continueBtn?: string
         loading?: boolean
-        showOnlyContinue?: boolean
+        showOnlyCancel?: boolean
+        customClass?: string
   }>(),
   {
     continueBtn: "Continue",

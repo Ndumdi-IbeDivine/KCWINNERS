@@ -6,7 +6,7 @@
                 Read our Terms & Condition, and Privacy Policy
             </div>
             <div class="flex md:justify-end">
-                <DashboardModal modal-title="Contact Us" btn-title="Contact Us" :showOnlyContinue="true" continue-btn="Close">
+                <DashboardModal modal-title="Contact Us" btn-title="Contact Us" :showOnlyCancel="true" continue-btn="Close">
                     <div class="my-[16px] text-[18px]">
                         Address: Suite 1, AP Filling Station Complex, Oke-Afa, Isolo, Lagos
                     </div>

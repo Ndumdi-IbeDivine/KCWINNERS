@@ -30,7 +30,7 @@
         </div>
 
         <div v-else>
-            loading...
+            <div class="flex justify-center items-center h-[100px]"><Loader /></div>
         </div>
     </div>
 </template>

@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import type { Contribution } from '../types/base'
+import type { Contribution, TransactionsResponse, Revenue } from '../types/base'
 import useApi from "../composables/useApi";
 import Cookies from "js-cookie";
 import { useAuthStore } from "./useAuthStore";
@@ -9,8 +9,9 @@ export const useContribustionsStore = defineStore("contributions", {
     state: () => ({
         contributions: [] as Contribution[],
         initContributionLoad: false as boolean,
-        monthlyRevenue: [] as [],
-        transactions: [] as []
+        monthlyRevenue: [] as Revenue[],
+        transactions: {} as TransactionsResponse,
+        transactionsLoad: false as boolean
     }),
     
     actions: {
@@ -27,14 +28,16 @@ export const useContribustionsStore = defineStore("contributions", {
             const api = useApi()
             
             let res = await api.get('/wallet/revenue/monthly')
-            console.log(res)
+            this.monthlyRevenue = res.data.data
         },
 
         async getTransactions() {
             const api = useApi()
             
             let res = await api.get('/wallet/transactions')
-            console.log(res)
+            console.log(res.data)
+            this.transactions = res.data
+            this.transactionsLoad = true
         }
     }
 });

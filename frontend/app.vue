@@ -31,7 +31,6 @@ async function retry(fn: () => Promise<any>, retries = 2, delay = 1000, errorMes
 onMounted(async () => {
     AOS.init();
 
-    
     if(authStore.isAuthenticated) {
         Promise.all([
             retry(() => contributionsStore.getContributions()),

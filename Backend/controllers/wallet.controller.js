@@ -126,48 +126,42 @@ const squadWebhook = async (req, res, next) => {
 
 const getUserTransactions = async (req, res, next) => {
   try {
-    const userId= req.user._id;
+    const userId = req.user._id;
+    const { status } = req.query; // "success" | "failed" | undefined
 
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;
-    const skip = (page-1) * 0;
+    const skip = (page - 1) * limit;
 
-    const [successTxns, failedTxns, successTotal, failedTotal] = await Promise.all([
-        Transaction.find({ userId, status: "success" })
+    // Build query condition
+    let query = { userId };
+    if (status === "success" || status === "failed") {
+      query.status = status;
+    }
+
+    // Fetch transactions
+    const [transactions, total] = await Promise.all([
+      Transaction.find(query)
         .sort({ createdAt: -1 })
         .skip(skip)
         .limit(limit),
-        Transaction.find({ userId, status: "failed" })
-        .sort({ createdAt: -1 })
-        .skip(skip)
-        .limit(limit),
-        Transaction.countDocuments({ userId, status: "success" }),
-        Transaction.countDocuments({ userId, status: "failed" }),
-    ])
-    
+      Transaction.countDocuments(query),
+    ]);
+
     res.status(200).json({
-        success: true,
-        page,
-        limit,
-        transactions: {
-            successful: {
-                total: successTotal,
-                totalPages: Math.ceil(successTotal / limit),
-                count: successTxns.length,
-                data: successTxns,
-            },
-            failed: {
-                total: failedTotal,
-                totalPages: Math.ceil(failedTotal / limit),
-                count: failedTxns.length,
-                data: failedTxns,
-            },
-        },
+      success: true,
+      page,
+      limit,
+      total,
+      totalPages: Math.ceil(total / limit),
+      count: transactions.length,
+      data: transactions,
     });
   } catch (error) {
     next(error);
   }
 };
+
 
 //get user revenue
 const getUserRevenue = async (req, res, next) => {
