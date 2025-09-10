@@ -56,7 +56,7 @@
             class="grid lg:grid-cols-2 px-5 gap-10 lg:gap-[95px] lg:px-[50px] xl:px-[144px] items-center"
         >
             <div>
-                <div class="semi-heading">What You Gain in the Weekly Contribution</div>
+                <div class="semi-heading">What you stand to gain contributing with us</div>
                 <p class="mt-[16px] leading-[20px] tracking-normal">When you join KCwinners weekly Contribution:</p>
                 <ul class="mt-5">
                     <li>You contribute a set amount every week for 7 months.</li>
@@ -109,7 +109,7 @@
             </div>
             <div class="mt-5 flex justify-center">
                 <NuxtLink to="/create-account">
-                    <button class="bg-[var(--kc-green)] ease-in transition hover:bg-[var(--kc-green-dark)] text-white rounded-[6px] px-[20px] py-[10px]">Sign up</button>
+                    <button class="bg-[var(--kc-green)] ease-in transition hover:bg-[var(--kc-green-dark)] text-white rounded-[6px] px-[20px] py-[10px]">Sign up now</button>
                 </NuxtLink>
             </div>
         </div>
