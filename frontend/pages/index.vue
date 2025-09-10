@@ -45,9 +45,9 @@
                 <div class="semi-heading leading-[44.8px]">Weekly Contribution</div>
                 <p class="mt-[16px]">Our <b>KCwinners Contribution Initiative</b> gives everyday people the chance to grow their money with ease. By contributing a fixed weekly amount for <b>7 months</b>, you get back your full contributions plus a <b>66.7% return</b>. On top of that, if you refer others, you also receive an additional <b>20% worth of foodstuffs</b>. It’s more than a contribution cycle — it’s a way to save, earn, and support your home.</p>
             </div>
-            <div>
+            <!-- <div>
                 <img src="/images/image-2.jpg" class="rounded-lg  w-full" alt="">
-            </div>
+            </div> -->
         </div>
 
         <div 
