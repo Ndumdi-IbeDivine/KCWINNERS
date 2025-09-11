@@ -46,14 +46,10 @@
                     />
                 </div>
 
-                <div class="grid grid-cols-2">
-                    <div>
-                        <input type="checkbox" id="remember" class="mr-2" />
-                        <label for="remember" class="text-sm cursor-pointer">Remember me</label>
-                    </div>
+                <div class="flex justify-end">
                     <NuxtLink
                         to="/forgot-password"
-                        class="flex justify-end s-p text-[var(--sp-blue)] hover:underline"
+                        class="w-fit s-p text-[var(--sp-blue)] hover:underline"
                     >
                         Forgot password?
                     </NuxtLink>
