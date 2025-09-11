@@ -1,12 +1,12 @@
 <template>
-    <div class="grid xl:grid-cols-2 min-h-screen lg:p-8">
+    <div class="grid px-4 md:max-w-2xl lg:max-w-4xl mx-auto min-h-screen">
         <div class="flex flex-col">
             <div class="p-3 w-fit">
                 <NuxtLink to="/">
                     <img src="/images/logo.svg" alt="" />
                 </NuxtLink>
             </div>
-            <div class="grid gap-4 pb-1 px-5 md:px-20 h-full content-center">
+            <div class="grid gap-4 pb-1 px-5 h-full content-center">
                 <div class="text-center mb-4">
                     <div class="text-[32px] font-semibold">Create your account</div>
                     <div class="font-[20px]">Start today for free</div>
@@ -123,13 +123,6 @@
                 </div>
 
             </div>
-        </div>
-        <div class="hidden xl:block">
-            <!-- <img
-                src="/images/auth-page-image.png"
-                class="rounded-lg h-full"
-                alt=""
-            /> -->
         </div>
     </div>
 </template>

@@ -1,12 +1,12 @@
 <template>
-    <div class="grid xl:grid-cols-2 min-h-screen lg:p-8">
-        <div class="flex flex-col">
+    <div class="grid px-4 md:max-w-2xl lg:max-w-5xl xl:px-[100px] mx-auto min-h-screen">
+        <div class="flex flex-col lg:p-8">
             <div class="p-3 w-fit">
                 <NuxtLink to="/">
                     <img src="/images/logo.svg" alt="" />
                 </NuxtLink>
             </div>
-            <div class="grid gap-4 py-4 px-5 md:px-20 h-full content-center">
+            <div class="grid gap-4 py-4 px-5 h-full content-center">
                 <div class="text-center mb-4">
                     <div class="text-[32px] font-semibold">Sign in</div>
                     <div class="lg:text-[20px]">Enter your details to login</div>
@@ -81,13 +81,13 @@
                 </div>
             </div>
         </div>
-        <div class="hidden xl:block">
-            <!-- <img
-                src="/images/auth-page-image.png"
-                class="rounded-lg h-full"
+        <!-- <div class="hidden xl:block lg:p-2 lg:flex justify-end w-full">
+            <img
+                src="/images/login-illu.png"
+                class="rounded-lg h-full "
                 alt=""
-            /> -->
-        </div>
+            />
+        </div> -->
     </div>
 </template>
 
