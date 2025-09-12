@@ -88,6 +88,30 @@ Update user profile
 }
 
 
+--- PATCH /api/v1/auth/update-profile
+
+# request body
+{
+    sex,
+    accountName,
+    accountNumber,
+    residentialAddress,
+    nextOfKinName,
+    nextOfKinPhone,
+    nextOfKinAddress,
+}
+
+
+--- PATCH /api/v1/auth/change-password
+
+# request body
+{
+    oldPassowrd
+    newPassword
+}
+
+
+
 
 
 👑 ADMIN ROUTES (/api/v1/admin)
@@ -205,10 +229,13 @@ It ensures payments are never lost if verifyFunding isn’t called.
 
 
 
-
 --- POST /api/v1/wallet/transactions 
 Handle webhook for automatic wallet funding
 
 --- POST /api/v1/wallet/revenue/monthly 
 Handle webhook for automatic wallet funding
 
+
+
+Contact Routes (/api/v1/contact)
+# sends the contact form to their hostinger mail and gmail account
