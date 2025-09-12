@@ -1,11 +1,65 @@
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+
+
 import User from '../models/user.model.js';
 import ContributionAccount from '../models/contribution.model.js'
 import Transaction from '../models/transaction.model.js'
 
 
+
+
+const adminLogin = async (req, res, next) => {
+  try {
+    const { phone, password } = req.body;
+
+    // Validate input
+    if (!phone || !password) {
+      return res.status(400).json({ message: "Phone number and password are required" });
+    }
+
+    // Find user
+    const user = await User.findOne({ phone });
+    if (!user) {
+      return res.status(401).json({ message: "Invalid phone or password" });
+    }
+
+    // Check if user is admin
+    if (user.role !== "admin") {
+      return res.status(403).json({ message: "Access denied. Not an admin" });
+    }
+
+    // Compare password
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(401).json({ message: "Invalid email or password" });
+    }
+
+    // Generate JWT
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "7d",
+    });
+
+    res.status(200).json({
+      success: true,
+      message: "Admin login successful",
+      token,
+      admin: {
+        name: user.name,
+        email: user.email,
+        role: user.role,
+      },
+    });
+
+  } catch (error) {
+    next(error);
+  };
+}
+  
+
 const getPendingRegistrations = async (req, res, next) => {
     try {
-        const users = await User.find({ isActivated: false })
+        const users = await User.find({ isVerified: false })
         .select('-password -resetPasswordToken -resetPasswordExpires')
         .sort({ createdAt: 1 });
 
@@ -22,7 +76,7 @@ const approveRegistration = async (req, res, next) => {
         const user = await User.findById(userId);
         if (!user) return res.status(404).json({ success: false, message: 'User not found' });
 
-        user.isRegistered = true;
+        user.isVerified = true;
         user.registrationApprovedAt = new Date();
         await user.save();
 
@@ -65,6 +119,7 @@ const getClearedUsers = async (req, res, next) => {
 
 
 export {
+    adminLogin,
     getPendingRegistrations,
     approveRegistration,
     getClearedUsers
