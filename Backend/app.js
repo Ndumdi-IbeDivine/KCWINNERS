@@ -12,6 +12,7 @@ import userRouter from './routes/user.route.js'
 import walletRouter from './routes/wallet.route.js'
 import contributionRouter from './routes/contribution.route.js'
 import adminRouter from './routes/admin.route.js'
+import contactRouter from './routes/contact.route.js'
 
 import './cron/weeklyEngine.js';
 import './cron/clearanceEngine.js'
@@ -37,7 +38,8 @@ app.use('/api/v1/admin', adminRouter);
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/wallet', walletRouter);
-app.use('/api/v1/contributions', contributionRouter)
+app.use('/api/v1/contributions', contributionRouter);
+app.use('/api/v1/contact', contactRouter)
 
 app.use(errorMiddleWare)
 
