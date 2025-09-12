@@ -31,7 +31,7 @@ const sendVerificationToken = async (phone) => {
             pin_length: 6,
             pin_placeholder: "< 123456 >",
             message_text: "Your KCWinners reset code is < 123456 >",
-            channel: "generic",
+            channel: "dnd",
             to: phone,
             from: "KCWinners"     // must match your approved Termii sender ID
         };
