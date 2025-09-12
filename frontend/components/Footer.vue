@@ -36,11 +36,7 @@
                 <div class="grid h-fit text-white">
                     <div class="text-white font-semibold mb-[24px] text-[20px]">Support</div>
                     <div class="grid gap-[12px]">
-                        <div>Help center</div>
-                        <div>Terms of service</div>
-                        <div>Legal</div>
-                        <div>Privacy policy</div>
-                        <div>Status</div>
+                        <NuxtLink to="/terms">Terms and Conditions</NuxtLink>
                     </div>
                 </div>
             </div>

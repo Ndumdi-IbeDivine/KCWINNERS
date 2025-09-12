@@ -4,8 +4,25 @@
         <div class="grid md:grid-cols-2 gap-3 md:gap-0 items-center">
             <div class="text-[#747474]">Edit your profile</div>
             <div class="flex md:justify-end">
-                <DashboardModal btn-title="Fund Wallet" modal-title="Ready to fund your wallet?">
-                    <input class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500" type="text" name="" id="">
+                <DashboardModal btn-title="Change password" modal-title="Change your password" @continue="changePassword" :loading="changePasswordLoading">
+                    <div class="grid gap-5">
+                        <div>
+                            <label for="curPass" class="font-bold text-sm">Current Password*</label>
+                            <input @keydown.enter="changePassword" v-model="password" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500" type="password" name="" id="curPass">
+                        </div>
+                        <div>
+                            <label for="newPass" class="font-bold text-sm">New Password*</label>
+                            <input @keydown.enter="changePassword" v-model="newPassword" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500" type="password" name="" id="newPass">
+                        </div>
+                        <div>
+                            <label for="confirmNewPass" class="font-bold text-sm">Confirm New Password*</label>
+                            <input @keydown.enter="changePassword" v-model="confirmNewPassword" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500" type="password" name="" id="confirmNewPass">
+                        </div>
+
+                        <div v-if="changePasswordFeedback" class="mt-5">
+                            <p :class="[changePasswordisError ? 'text-red-500' : 'text-green-500', 'text-[17px]']">{{ changePasswordFeedback }}</p>
+                        </div>
+                    </div>
                 </DashboardModal>
             </div>
         </div>
@@ -113,28 +130,6 @@
                         ></input>
                     </div>
 
-                    <!-- <div>
-                        <label for="referralCode" class="font-semibold text-[14px]">Referral Code (Optional)</label>
-                        <input
-                            id="referralCode"
-                            name="referralCode"
-                            type="text"
-                            placeholder="Enter referral code (if any)"
-                            class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500"
-                        />
-                    </div>
-
-                    <div>
-                        <label for="registrationFeeUrl" class="font-semibold text-[14px]">Registration Fee Receipt</label>
-                        <input
-                            id="registrationFeeUrl"
-                            name="registrationFeeUrl"
-                            type="file"
-                            accept="image/*,application/pdf"
-                            class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500"
-                        />
-                    </div> -->
-
                 </div>
 
                 <div v-if="feedback" class="mt-5">
@@ -168,9 +163,9 @@ const sex = ref(userProfile.value?.sex)
 const bankName = ref(userProfile.value?.bankName)
 const accountNumber = ref(userProfile.value?.accountNumber)
 const residentialAddress = ref(userProfile.value?.residentialAddress)
-const nextOfKinName = ref(userProfile.value?.nextOfKin.name)
-const nextOfKinPhone = ref(userProfile.value?.nextOfKin.phone)
-const nextOfKinAddress = ref(userProfile.value?.nextOfKin.address)
+const nextOfKinName = ref(userProfile.value?.nextOfKin?.name)
+const nextOfKinPhone = ref(userProfile.value?.nextOfKin?.phone)
+const nextOfKinAddress = ref(userProfile.value?.nextOfKin?.address)
 
 const feedback = ref('')
 const isError = ref(false)
@@ -224,6 +219,64 @@ async function updateProfile() {
         isError.value = true;
     } finally {
         loading.value = false
+    }
+}
+
+const changePasswordFeedback = ref('')
+const changePasswordisError = ref(false)
+const changePasswordLoading = ref(false)
+
+const password = ref('')
+const newPassword = ref('')
+const confirmNewPassword = ref('')
+
+async function changePassword() {
+    try {
+        changePasswordFeedback.value = ''
+        changePasswordLoading.value = true
+        changePasswordisError.value = false
+
+        if(!password.value.trim() || !newPassword.value.trim() || !confirmNewPassword.value.trim()) {
+            changePasswordisError.value = true;
+            changePasswordFeedback.value = "All input marked with asterisk (*) are required";
+            changePasswordLoading.value = false;
+
+            setTimeout(() => {
+                changePasswordFeedback.value = ''
+                changePasswordisError.value = false
+            }, 10000);
+            return;
+        }
+
+        if(newPassword.value != confirmNewPassword.value) {
+            changePasswordisError.value = true;
+            changePasswordFeedback.value = "Password and password confirmation must match";
+            changePasswordLoading.value = false;
+
+            setTimeout(() => {
+                changePasswordFeedback.value = ''
+                changePasswordisError.value = false
+            }, 10000);
+            return;
+        }
+
+        let res = await api.patch('auth/change-password', {
+            oldPassword: password.value,
+            newPassword: newPassword.value
+        })
+        
+        changePasswordFeedback.value = res.data.message
+    } catch (err: any) {
+        const msg = err.response?.data?.message || err.response?.data?.error || "Failed to update profile, try again later.";
+        changePasswordFeedback.value = msg
+        changePasswordisError.value = true;
+    } finally {
+        changePasswordLoading.value = false
+
+        setTimeout(() => {
+            changePasswordFeedback.value = ''
+            changePasswordisError.value = false
+        }, 4000);
     }
 }
 </script>

@@ -348,7 +348,7 @@ const changePassword = async (req, res, next) => {
 
     // ✅ Strong password validation (regex)
     const passwordRegex =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/
 
     if (!passwordRegex.test(newPassword)) {
       return res.status(400).json({
