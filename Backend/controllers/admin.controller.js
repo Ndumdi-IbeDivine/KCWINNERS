@@ -117,11 +117,11 @@ const markAccountAsPaid = async (req, res, next) => {
     const account = await ContributionAccount.findOne({
       _id: accountId,
       user: userId,
-      status: "cleared", // only cleared accounts can be paid
+      status: "eligible_for_withdrawal", // only eligible accounts can be paid
     });
 
     if (!account) {
-      return res.status(404).json({ message: "Cleared account not found" });
+      return res.status(404).json({ message: "Eligible account not found" });
     }
 
     // Update status to paid
