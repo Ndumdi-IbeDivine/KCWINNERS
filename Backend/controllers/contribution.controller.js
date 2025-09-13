@@ -188,7 +188,7 @@ const payClearance = async (req, res, next) => {
         const acc = await ContributionAccount.findOne({
         _id: accountId,
         userId,
-        status: "eligible_for_withdrawal"
+        status: "completed"
         });
 
         if (!acc) {
@@ -222,7 +222,7 @@ const payClearance = async (req, res, next) => {
 
         // Mark account ready for payout
         acc.clearanceFeePaid = true;
-        acc.status = "completed";
+        acc.status = "eligible_for_withdrawal";
 
         await wallet.save();
         await acc.save();

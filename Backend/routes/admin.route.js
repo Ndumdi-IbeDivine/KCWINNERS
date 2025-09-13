@@ -1,17 +1,15 @@
 import express from 'express'; 
 import { authorize, adminOnly } from '../middlewares/auth.middleware.js';
-import { getPendingRegistrations, approveRegistration, getClearedUsers, adminLogin } from '../controllers/admin.controller.js'
+import { getPendingRegistrations, approveRegistration, getClearedUsers, adminLogin, markAccountAsPaid } from '../controllers/admin.controller.js'
 
 const router = express.Router();
 
-router.use(authorize);
-router.use(adminOnly);
-
-router.post('/login', adminLogin)
+router.post('/login', adminLogin);
 router.get('/pending-registrations', authorize, adminOnly, getPendingRegistrations);
 router.post('/approve-registration', authorize, adminOnly, approveRegistration);
-router.get('/cleared-users', authorize, adminOnly, getClearedUsers)
-router.get("/dashboard", authorize, adminOnly, async (req, res) => {
+router.get('/cleared-users', authorize, adminOnly, getClearedUsers);
+router.post('/account-paid', authorize, adminOnly, markAccountAsPaid);
+router.get('/profile', authorize, adminOnly, async (req, res) => {
   try {
     // Here you can fetch statistics for admin (example)
     // E.g. total users, total contributions, etc.
