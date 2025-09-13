@@ -8,18 +8,17 @@ import Transaction from '../models/transaction.model.js'
 
 
 
-
 const adminLogin = async (req, res, next) => {
   try {
-    const { phone, password } = req.body;
+    const { email, password } = req.body;
 
     // Validate input
-    if (!phone || !password) {
+    if (!email || !password) {
       return res.status(400).json({ message: "Phone number and password are required" });
     }
 
     // Find user
-    const user = await User.findOne({ phone });
+    const user = await User.findOne({ email });
     if (!user) {
       return res.status(401).json({ message: "Invalid phone or password" });
     }
