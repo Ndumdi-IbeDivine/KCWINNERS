@@ -16,7 +16,7 @@ const authorize = async (req, res, next) => {
 
         console.log(decoded)
 
-        const user = await User.findById(decoded.userId);
+        const user = await User.findById(decoded.userId).select("-password");
 
         // remove password from user obj
         user.password = undefined
