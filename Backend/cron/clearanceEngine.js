@@ -16,12 +16,12 @@ cron.schedule("0 0 * * *", async () => {
         // Check if cycle is complete (30 weeks, or based on endDate)
         const weeksContributed = acc.weeksPaid || 0;
         if (weeksContributed >= 30) {
-            acc.status = "eligible_for_withdrawal";
+            acc.status = "completed";
             await acc.save();
-            console.log(`✅ Account ${acc._id} marked as eligible for withdrawal`);
+            console.log(`✅ Account ${acc._id} marked as completed`);
         }
         }
     } catch (err) {
-        console.error("❌ Error running withdrawal eligibility cron:", err);
+        console.error("❌ Error running clearance cron:", err);
     }
 });

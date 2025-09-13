@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 
 import User from '../models/user.model.js';
 import ContributionAccount from '../models/contribution.model.js'
-import Transaction from '../models/transaction.model.js'
+import { JWT_SECRET, JWT_EXPIRES_IN } from "../config/env.js";
 
 
 
@@ -12,15 +12,18 @@ const adminLogin = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
-    // Validate input
+    // Validate inputy
     if (!email || !password) {
-      return res.status(400).json({ message: "Phone number and password are required" });
+      return res.status(400).json({ message: "Email and password are required" });
     }
 
+    console.log("📩 Admin login attempt:", email);
+
     // Find user
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email: email.toLowerCase().trim() });
     if (!user) {
-      return res.status(401).json({ message: "Invalid phone or password" });
+      console.log("❌ No user found with that email");
+      return res.status(401).json({ message: "Invalid email or password" });
     }
 
     // Check if user is admin
@@ -30,13 +33,16 @@ const adminLogin = async (req, res, next) => {
 
     // Compare password
     const isMatch = await bcrypt.compare(password, user.password);
+    console.log("🔑 Password match:", isMatch);
     if (!isMatch) {
       return res.status(401).json({ message: "Invalid email or password" });
     }
 
+     console.log("🔑 Generating JWT for admin:", user.email);
+
     // Generate JWT
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "7d",
+    const token = jwt.sign({ userId: user._id }, JWT_SECRET, {
+      expiresIn: JWT_EXPIRES_IN,
     });
 
     res.status(200).json({
@@ -87,39 +93,56 @@ const approveRegistration = async (req, res, next) => {
 
 const getClearedUsers = async (req, res, next) => {
   try {
-    // Step 1: Find all users who have paid clearance fee
-    const clearanceTx = await Transaction.find({ 
-      type: "clearance_fee", 
-      status: "success" 
-    }).select("userId");
-
-    const clearedUserIds = clearanceTx.map(tx => tx.userId.toString());
-
-    // Step 2: From those, filter users who cleared defaults
-    const accounts = await ContributionAccount.find({
-      userId: { $in: clearedUserIds },
-      clearedDefaults: true,
-    }).populate("userId", "fullName phone email"); // bring user info
+    const clearedAccounts = await ContributionAccount.find({ status: "eligible_for_withdrawal" })
+      .populate("user", "name email phone accountNumber bankName");
 
     res.status(200).json({
       success: true,
-      message: "Users who cleared defaults and paid clearance fee",
-      data: accounts.map(acc => ({
-        user: acc.userId,
-        accountId: acc._id,
-        missedWeeks: acc.missedWeeks,
-        clearedDefaults: acc.clearedDefaults,
-      }))
+      data: clearedAccounts,
     });
-  } catch (err) {
-    next(err);
+  } catch (error) {
+    next(error);
   }
 };
 
+const markAccountAsPaid = async (req, res, next) => {
+  try {
+    const { userId, accountId } = req.body;
+
+    if (!userId || !accountId) {
+      return res.status(400).json({ message: "userId and accountId are required" });
+    }
+
+    // Find account
+    const account = await ContributionAccount.findOne({
+      _id: accountId,
+      user: userId,
+      status: "eligible_for_withdrawal", // only eligible accounts can be paid
+    });
+
+    if (!account) {
+      return res.status(404).json({ message: "Eligible account not found" });
+    }
+
+    // Update status to paid
+    account.status = "paid";
+    await account.save();
+
+    res.status(200).json({
+      success: true,
+      message: `Contribution account ${accountId} marked as paid.`,
+      account,
+    });
+  } catch (error) {
+    console.error("❌ Error marking account as paid:", error);
+    next(error);
+  }
+};
 
 export {
     adminLogin,
     getPendingRegistrations,
     approveRegistration,
-    getClearedUsers
+    getClearedUsers,
+    markAccountAsPaid
 }

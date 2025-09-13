@@ -32,7 +32,8 @@ app.use(cors({
 
 app.get('/', (req, res) => {
     res.send('Welcome to KCWINNERS CONTRIBUTION API')
-})
+});
+
 
 app.use('/api/v1/admin', adminRouter);
 app.use('/api/v1/auth', authRouter);

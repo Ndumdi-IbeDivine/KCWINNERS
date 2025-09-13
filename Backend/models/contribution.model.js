@@ -56,7 +56,7 @@ const contributionSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        enum: ["active", "completed", "eligible_for_withdrawal"],
+        enum: ["active", "completed", "eligible_for_withdrawal", "paid"],
         default: "active",
     },
     clearedDefaults: {
