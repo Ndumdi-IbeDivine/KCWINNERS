@@ -116,17 +116,45 @@ Update user profile
 
 👑 ADMIN ROUTES (/api/v1/admin)
 
-# Admin-only functions. {all routes are protected}
+# Admin-only functions. 
+
+--- POST /api/v1/admin/login
+Admin Login
+# request body
+{
+    email
+    password
+} = req.body
 
 --- GET /api/v1/admin/pending-registrations
 Get list of users awaiting approval.
 
+const users = await User.find({ isVerified: false })
+
 
 --- POST /api/v1/admin/approve-registration/:userId
 Approve a user’s registration.
-
+# request body
+{
+    userId
+} = req.params
 
 --- GET /api/v1/admin/cleared-users
+List of users who cleared defaults and paid clearance.
+
+const clearedAccounts = await ContributionAccount.find({ status: "eligible_for_withdrawal" })
+
+
+--- POST /api/v1/admin/account-paid
+Approve a user’s registration.
+# request body
+{
+    userId
+    accountId
+} = req.body
+
+
+--- GET /api/v1/admin/profile
 List of users who cleared defaults and paid clearance.
 
 
