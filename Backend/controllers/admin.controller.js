@@ -63,16 +63,33 @@ const adminLogin = async (req, res, next) => {
   
 
 const getPendingRegistrations = async (req, res, next) => {
-    try {
-        const users = await User.find({ isVerified: false })
-        .select('-password -resetPasswordToken -resetPasswordExpires')
-        .sort({ createdAt: 1 });
+  try {
+    // Get pagination params from query, set defaults
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
 
-        res.json({ success: true, count: users.length, users });
-    } catch (error) { 
-        next(error); 
-    };
-}
+    // Get total count for pagination metadata
+    const total = await User.countDocuments({ isVerified: false });
+
+    // Fetch users with pagination
+    const users = await User.find({ isVerified: false })
+      .select("-password -resetPasswordToken -resetPasswordExpires")
+      .sort({ createdAt: 1 })
+      .skip(skip)
+      .limit(limit);
+
+    res.json({
+      success: true,
+      count: users.length,
+      totalPages: Math.ceil(total / limit),
+      currentPage: page,
+      users,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
 
 const approveRegistration = async (req, res, next) => {
     try {
@@ -93,11 +110,26 @@ const approveRegistration = async (req, res, next) => {
 
 const getClearedUsers = async (req, res, next) => {
   try {
+    // Get pagination params from query, set defaults
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
+
+    // Get total count for pagination metadata
+    const total = await ContributionAccount.countDocuments({ status: "eligible_for_withdrawal" });
+
+    // Fetch accounts with pagination
     const clearedAccounts = await ContributionAccount.find({ status: "eligible_for_withdrawal" })
-      .populate("userId", "name email phone accountNumber bankName");
+      .populate("userId", "name email phone accountNumber bankName")
+      .skip(skip)
+      .limit(limit)
+      .sort({ createdAt: 1 });
 
     res.status(200).json({
       success: true,
+      count: clearedAccounts.length,
+      totalPages: Math.ceil(total / limit),
+      currentPage: page,
       data: clearedAccounts,
     });
   } catch (error) {
