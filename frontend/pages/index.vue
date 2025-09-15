@@ -59,7 +59,7 @@
                 <div class="semi-heading">What you stand to gain contributing with us</div>
                 <p class="mt-[16px] leading-[20px] tracking-normal">When you join KCwinners weekly Contribution:</p>
                 <ul class="mt-5">
-                    <li>You contribute a set amount every week for 7 months.</li>
+                    <li>You contribute a set amount every week for 30 weeks.</li>
                     <li>At the end of the cycle, you get back your full contribution <b>plus extra cash</b>.</li>
                     <li>If you refer others, you also receive <b>20% worth of foodstuffs</b> for your household.</li>
                     <li>You can even open multiple contribution accounts for bigger payouts.</li>
@@ -95,7 +95,7 @@
                         <img src="/images/card-two-icon.svg" alt="">
                     </div>
                     <div class="font-bold text-[28px] leading-[26px] mb-[8px]">Contribute Weekly</div>
-                    <div class="text-[14px]"> Every Thursday, you make your contribution. Missed a week? Clear it before continuing. Staying consistent guarantees your reward.</div>
+                    <div class="text-[14px]">Every Thursday, you make your contribution. Failure to pay your weekly contribution will automatically result to a default which attracts double payment, staying consistent is advised as your reward is guaranteed.</div>
                 </div>
 
                 <div class="box-card text-center">
@@ -103,7 +103,7 @@
                         <img src="/images/card-three-icon.svg" alt="">
                     </div>
                     <div class="font-bold text-[28px] leading-[26px] mb-[8px]">Cash Out and Enjoy</div>
-                    <div class="text-[14px]">At the end of 7 months, receive your full contribution plus  <b>66.7% profit</b>.  Creating more accounts and referring others allows you a bigger payout and <b>20% worth of foodstuff.</b></div>
+                    <div class="text-[14px]">At the end of 30 weeks, receive your full contribution plus <b>66.7% profit</b>. Creating more accounts and referring others allows you a bigger payout and  <b>20% worth of foodstuff.</b></div>
                 </div>
 
             </div>
@@ -119,18 +119,9 @@
             data-aos-anchor-placement="top-bottom" 
             class="bg-[#EEAD08] py-[84px]"
         >
-            <div class="px-5 lg:px-[50px] xl:px-[144px] grid lg:grid-cols-2">
-                <div class="lg:w-[408px]">
-                    <div class="font-bold text-[36px] leading-[44.8px]">Helping a local <span class="text-[var(--kc-green)]">business reinvent itself</span></div>
-                    <p class="mt-[16px] text-[#18191F]">We reached here with our hard work and dedication.</p>
-                </div>
-                <div class="grid grid-cols-2 gap-y-[40px] gap-x-[30px]">
-                    <div v-for="i in 4" class="w-fit">
-                        <div class="text-[#181920] font-bold text-[28px]">
-                            <MetricCounter :target="i * 250" :duration="2000" />
-                        </div>
-                        <div class="text-[#717171]">Members</div>
-                    </div>
+            <div class="px-5">
+                <div class="text-center">
+                    <div class="font-bold text-[36px] leading-[44.8px]">Trusted by <span class="text-[var(--kc-green)]">1000 families</span> accross Nigeria.</div>
                 </div>
             </div>
         </div>
@@ -140,7 +131,7 @@
             data-aos-anchor-placement="top-bottom" 
             class="px-5 lg:px-[50px] xl:px-[144px]"
         >
-            <Testimonials />
+            <Testimonials :testimonials="testimonials" />
         </div>
 
         <div 
@@ -156,6 +147,21 @@
 definePageMeta({
     layout: 'website-layout'
 });
+
+const testimonials = [
+    {
+        name: 'Chidinma E.',
+        message: ' “KC Winners all the way! I just received my first alert this morning. God bless KC Winners for keeping to their word. My first account just matured and I got my full ₦100,000. Forward ever, backward never!”'
+    },
+    {
+        name: 'Ahmed M.',
+        message: '“I’m so happy today! I am a living testimony – I just received my second payout. I opened 3 accounts and now I have collected ₦300,000 total. KC Winners, may you never go down!”'
+    },
+    {
+        name: 'Mr. & Mrs. Okafor',
+        message: ' “Grateful beyond words.” Thanks to KC Winners, my husband and I opened 5 accounts between us. Today we got ₦500,000 alert! We appreciate you so much for making us smile today. May God bless and keep KC Winners growing.”'
+    },
+]
 </script>
 
 <style scoped>

@@ -81,7 +81,7 @@
                         <strong>Referral Code:</strong> Your referral is tied to
                         your account. Either get a new person to register with
                         your referral code or open another account with your own
-                        code to meet the requirement.
+                        code to meet the requirement. Each account can only earn referral reward once. Want more? Open another account.
                     </li>
                     <li>
                         <strong>No Money Transfer Between Members:</strong> You
@@ -104,43 +104,6 @@
                         be given if you break any of these rules.
                     </li>
                 </ol>
-            </div>
-
-            <div class="mt-10">
-                <div class="font-bold text-[#292B32]">How to Activate Your Account and Start Contributing</div>
-                <ol>
-                    <li>
-                        <strong>Fill Form:</strong> Complete the activation form below with your details (name, address, account details, next of kin info).
-                    </li>
-                    <li>
-                        <strong>Pay & Upload Proof:</strong> Pay ₦3,500 to the official KC Winners bank account and upload the payment receipt in the form.
-                    </li>
-                    <li>
-                        <strong>Wait for Approval:</strong> The admin will verify your payment and activate your account.
-                    </li>
-                    <li>
-                        <strong>Wallet & Account Created:</strong> Your wallet and first contribution account will be set up automatically.
-                    </li>
-                    <li>
-                        <strong>Fund Your Wallet:</strong> Deposit money into your wallet so your contributions can be deducted.
-                    </li>
-                    <li>
-                        <strong>Start Contributions:</strong> Every Thursday, ₦2,000 will be deducted for 30 weeks.
-                    </li>
-                    <li>
-                        <strong>Share Your Referral Code:</strong> Make sure you get at least one referral within 3 months to qualify for foodstuff incentives.
-                    </li>
-                    <li>
-                        <strong>Clear Defaults:</strong> If you miss a week, pay up your missed weeks (double payment) to receive payout.
-                    </li>
-                    <li>
-                        <strong>Pay Clearance Fee:</strong> After your 30 weeks are done, pay ₦2,000 clearance fee from your wallet.
-                    </li>
-                    <li>
-                        <strong>Get Paid:</strong> Withdraw ₦100,000 and receive your foodstuff incentives (if referral condition was met).
-                    </li>
-                </ol>
-
             </div>
         </div>
     </div>

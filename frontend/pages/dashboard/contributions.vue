@@ -2,12 +2,12 @@
     <div>
         <div class="font-bold text-[33px]">Contribution Accounts</div>
         <div class="grid md:grid-cols-2 items-center gap-3">
-            <div class="text-[#747474]">Your wallet update for today</div>
+            <div class="text-[#747474]">Your accounts update for today</div>
             <div class="flex md:justify-end">
                 <DashboardModal modal-title="Add contribution accounts" btn-title="Add Account" :continue-btn="loading ? 'Creating account...' : 'Create account'" :loading="loading" @continue="addAccount">
                     <label for="refCode" class="font-semibold">Enter referral code*</label>
                     <input v-model="refCode" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500" type="text" name="" id="refCode" placeholder="Enter referral code">
-                    <!-- <p class="text-[#7A8699] text-[14px] mt-[6px]">Max.: 10 accounts. <span class="text-green-500">9 left</span></p> -->
+                    <p class="text-[#7A8699] text-[14px] mt-[6px]">Opening another account? Use the referral code of the last one you opened to link them together</p>
 
                     <div v-if="feedback" class="mt-5">
                         <p :class="[isError ? 'text-red-500' : 'text-green-500', 'text-[17px]']">{{ feedback }}</p>
