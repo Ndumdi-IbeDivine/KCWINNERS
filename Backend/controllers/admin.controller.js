@@ -74,7 +74,7 @@ const getPendingRegistrations = async (req, res, next) => {
 
     // Fetch users with pagination
     const users = await User.find({ isVerified: false })
-      .select("-password -resetPasswordToken -resetPasswordExpires")
+      .select("name email phone registrationProofUrl createdAt isActivated")
       .sort({ createdAt: 1 })
       .skip(skip)
       .limit(limit);
@@ -106,6 +106,39 @@ const approveRegistration = async (req, res, next) => {
     } catch (error) { 
         next(error); 
     };
+}
+
+
+const getAllUsers = async (req, res, next) => {
+  try {
+    // Get pagination params from query, set defaults
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
+
+    // Get total number of users
+    const total = await User.countDocuments();
+
+    // Fetch paginated users
+    const users = await User.find()
+      .select("-password -resetPasswordToken -resetPasswordExpires")
+      .sort({ createdAt: -1 }) // newest users first
+      .skip(skip)
+      .limit(limit);
+
+    res.status(200).json({
+      success: true,
+      count: users.length,
+      total,
+      totalPages: Math.ceil(total / limit),
+      currentPage: page,
+      hasNextPage: page * limit < total,
+      hasPrevPage: page > 1,
+      users,
+    });
+  } catch (error) {
+    next(error);
+  }
 }
 
 const getClearedUsers = async (req, res, next) => {
@@ -175,6 +208,7 @@ export {
     adminLogin,
     getPendingRegistrations,
     approveRegistration,
+    getAllUsers,
     getClearedUsers,
     markAccountAsPaid
 }
