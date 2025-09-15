@@ -139,6 +139,10 @@ Approve a user’s registration.
     userId
 } = req.params
 
+
+--- GET /api/v1/admin/users
+to get list of all users,
+
 --- GET /api/v1/admin/cleared-users
 List of users who cleared defaults and paid clearance.
 
