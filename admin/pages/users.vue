@@ -1,20 +1,6 @@
 <template>
     <div>
-        <div class="text-[33px] font-bold">Welcome Admin! 👋</div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-            <div class="px-8 py-[21px] bg-white rounded-lg mt-10">
-                <div class="flex gap-2.5 text-[#747474] font-[16px]">
-                    Total users
-                </div>
-                <div class="text-[33px] font-bold">{{ users ? users.total : '...' }}</div>
-            </div>
-            <div class="px-8 py-[21px] bg-white rounded-lg mt-10">
-                <div class="flex gap-2.5 text-[#747474] font-[16px]">
-                    Pending registrations
-                </div>
-                <div class="text-[33px] font-bold">{{ pendingRegistrations ? pendingRegistrations.count : '...' }}</div>
-            </div>
-        </div>
+        <div class="text-[33px] font-bold">Users</div>
 
         <div class="mt-10">
             <div class="mt-[31px]">
@@ -25,7 +11,7 @@
                         <button
                             class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm"
                         >
-                            Awaiting verification
+                            Users
                         </button>
                     </nav>
                 </div>
@@ -33,32 +19,39 @@
                 <!-- Tab Content -->
                 <div v-if="isInitLoaded" class="mt-[30px] rounded-lg bg-white">
                     <div class="md:p-4 rounded">
-                        <div v-if="pendingRegistrations && pendingRegistrations.count > 0" class="overflow-x-auto">
+                        <div v-if="users">
                             <div class="overflow-x-auto">
                                 <table class="w-full text-left text-gray-500 border-collapse">
                                     <thead class="text-sm text-[#072635] bg-white">
                                     <tr>
                                         <th scope="col" class="px-6 py-3 sticky left-0 bg-white">Account</th>
-                                        <th scope="col" class="px-6 py-3">Amount</th>
+                                        <th scope="col" class="px-6 py-3">Phone</th>
+                                        <th scope="col" class="px-6 py-3">Email</th>
+                                        <th scope="col" class="px-6 py-3">Address</th>
+                                        <th scope="col" class="px-6 py-3">Is verified</th>
                                         <th scope="col" class="px-6 py-3">Date created</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr v-for="user in pendingRegistrations.users" class=" bg-white border-b border-gray-200 text-[14px] text-[#072635] hover:bg-[#F6F7F8]">
+                                    <tr v-for="user in users.users" class="bg-white border-b border-gray-200 text-[14px] text-[#072635] hover:bg-[#F6F7F8]">
                                         <td class="px-6 py-4 sticky left-0 bg-white z-10">
                                             {{ user.name }}
                                         </td>
                                         <td class="px-6 py-4">{{ user.phone }}</td>
-                                        <td class="px-6 py-4">{{ new Date(user.createdAt).toDateString() }}</td>
-                                        <td class="py-2">
-                                            <PrimaryBtnAsync>Verify</PrimaryBtnAsync>
+                                        <td class="px-6 py-4">{{ user.email }}</td>
+                                        <td class="px-6 py-4">{{ user.residentialAddress }}</td>
+                                        <td class="px-6 py-4">
+                                        <div :class="[user.isVerified ? 'text-[#27B060] bg-[#ECFFF4]' : 'bg-red-100 text-red-400', 'flex items-center text-[10px] rounded-[10px] py-0.5 px-2.5 w-fit']">
+                                            {{ user?.isVerified ? 'Verified' : 'Not verified' }}
+                                        </div>
                                         </td>
+                                        <td class="px-6 py-4">{{ new Date(user.createdAt).toDateString() }}</td>
                                     </tr>
                                     </tbody>
                                 </table>
                             </div>
-
-                            <!-- <div class="mt-3">
+<!-- 
+                            <div class="mt-3">
                                  <nav class="w-full grid grid-cols-3 gap-x-1" aria-label="Pagination">
                                     <div>
                                         <button
@@ -111,7 +104,7 @@
                         </div>
                         <!-- <div v-else-if="successError" class="mt-5 mx-5">Something went wrong, try refreshing page</div> -->
                         <div v-else class="mt-5 mx-5">
-                            No transactions to show
+                            No user to show
                         </div>
 
                     </div>
@@ -126,16 +119,18 @@
 </template>
 
 <script setup lang="ts">
-import { useAdminStore } from "~/store/useAdminStore";
+import { useAdminStore } from '~/store/useAdminStore';
 
 const adminStore = useAdminStore();
-const { users, pendingRegistrations, isInitLoaded } = storeToRefs(adminStore)
+const { users, isInitLoaded } = storeToRefs(adminStore)
 
 definePageMeta({
-    layout: 'dashboard-layout'
+    layout: "dashboard-layout"
 })
 
 onMounted(() => {
-    // adminStore.init();
+    if(!isInitLoaded.value){
+        adminStore.init()
+    }
 })
 </script>

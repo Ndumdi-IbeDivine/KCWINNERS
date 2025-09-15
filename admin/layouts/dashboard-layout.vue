@@ -39,39 +39,16 @@
                                                     <div class="flex-1">{{ item.label }}</div>
                                                     <img src="/images/chevron-right.svg" alt="">
                                                 </NuxtLink>
-                                                <!-- <NuxtLink to="/dashboard/contributions" @click="open = false" :class="[$route.path == '/dashboard/contributions' || $route.path == '/dashboard/contributions/' ? 'active-dashbord-link' : '', 'flex gap-[13px] px-[13px] py-[15px] text-white items-center rounded-[8px] cursor-pointer']">
-                                                    <img src="/images/shop.svg" alt="">
-                                                    <div class="flex-1">Contributions</div>
-                                                    <img src="/images/chevron-right.svg" alt="">
-                                                </NuxtLink>
-                                                <NuxtLink to="/dashboard/transactions" @click="open = false" :class="[$route.path == '/dashboard/transactions' || $route.path == '/dashboard/transactions/' ? 'active-dashbord-link' : '', 'flex gap-[13px] px-[13px] py-[15px] text-white items-center rounded-[8px] cursor-pointer']">
-                                                    <img src="/images/wallet.svg" alt="">
-                                                    <div class="flex-1">Transactions</div>
-                                                    <img src="/images/chevron-right.svg" alt="">
-                                                </NuxtLink>
-                                                <NuxtLink to="/dashboard/support" @click="open = false" :class="[$route.path == '/dashboard/support' || $route.path == '/dashboard/support/' ? 'active-dashbord-link' : '', 'flex gap-[13px] px-[13px] py-[15px] text-white items-center rounded-[8px] cursor-pointer']">
-                                                    <img src="/images/envelope.svg" alt="">
-                                                    <div class="flex-1">Support</div>
-                                                    <img src="/images/chevron-right.svg" alt="">
-                                                </NuxtLink>
-                                                <NuxtLink to="/dashboard/profile" @click="open = false" :class="[$route.path == '/dashboard/profile' || $route.path == '/dashboard/profile/' ? 'active-dashbord-link' : '', 'flex gap-[13px] px-[13px] py-[15px] text-white items-center rounded-[8px] cursor-pointer']">
-                                                    <img src="/images/profile.svg" alt="">
-                                                    <div class="flex-1">Profile</div>
-                                                    <img src="/images/chevron-right.svg" alt="">
-                                                </NuxtLink> -->
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div class="px-4 sm:px-6">
-                                        <hr class="border-[#63493E47]">
-                                        <div class="mt-[25px] flex gap-[13px]">
-                                            <div class="h-[36px] w-[36px] rounded-full bg-zinc-400"></div>
-                                            <div class="text-white">
-                                                <div class="font-semibold text-[16px]">Divine Ndumdi-ibe</div>
-                                                <div class="text-[10px]">divinendumdiibe@gmail.com</div>
-                                            </div>
-                                        </div>
+                                    <div
+                                        @click="logout"
+                                        class="flex items-center gap-[13px] px-[13px] py-[15px] rounded-[8px] cursor-pointer hover:bg-red-50"
+                                    >
+                                        <svg width="24px" height="24px" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#ff0000"><path d="M12 12H19M19 12L16 15M19 12L16 9" stroke="#ff0000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M19 6V5C19 3.89543 18.1046 3 17 3H7C5.89543 3 5 3.89543 5 5V19C5 20.1046 5.89543 21 7 21H17C18.1046 21 19 20.1046 19 19V18" stroke="#ff0000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                                        <div v-if="!isCollapsed" class="flex-1 text-[#ff0000]">Log out</div>
                                     </div>
                                 </div>
                             </DialogPanel>
@@ -124,61 +101,16 @@
                         </div>
                         <img v-if="!isCollapsed" src="/images/chevron-right.svg" alt="">
                     </NuxtLink>
-                    
-                    <!-- <NuxtLink
-                        to="/dashboard"
-                        :class="[$route.path == '/dashboard' || $route.path == '/dashboard/' ? 'active-dashbord-link' : '', 'flex items-center gap-[13px] px-[13px] py-[15px] text-white rounded-[8px] cursor-pointer relative']"
-                    >
-                        <img src="/images/home.svg" alt="">
-                        <div v-if="!isCollapsed" class="flex-1">Dashboard</div>
-                        <img v-if="!isCollapsed" src="/images/chevron-right.svg" alt="">
-                    </NuxtLink>
-
-                    <NuxtLink
-                        to="/dashboard/contributions"
-                        :class="[$route.path == '/dashboard/contributions' || $route.path == '/dashboard/contributions/' ? 'active-dashbord-link' : '', 'flex items-center gap-[13px] px-[13px] py-[15px] text-white rounded-[8px] cursor-pointer']"
-                    >
-                        <img src="/images/shop.svg" alt="">
-                        <div v-if="!isCollapsed" class="flex-1">Contributions</div>
-                        <img v-if="!isCollapsed" src="/images/chevron-right.svg" alt="">
-                    </NuxtLink>
-
-                    <NuxtLink
-                        to="/dashboard/transactions"
-                        :class="[$route.path == '/dashboard/transactions' || $route.path == '/dashboard/transactions/' ? 'active-dashbord-link' : '', 'flex items-center gap-[13px] px-[13px] py-[15px] text-white rounded-[8px] cursor-pointer']"
-                    >
-                        <img src="/images/wallet.svg" alt="">
-                        <div v-if="!isCollapsed" class="flex-1">Transactions</div>
-                        <img v-if="!isCollapsed" src="/images/chevron-right.svg" alt="">
-                    </NuxtLink>
-
-                    <NuxtLink
-                        to="/dashboard/support"
-                        :class="[$route.path == '/dashboard/support' || $route.path == '/dashboard/support/' ? 'active-dashbord-link' : '', 'flex items-center gap-[13px] px-[13px] py-[15px] text-white rounded-[8px] cursor-pointer']"
-                    >
-                        <img src="/images/envelope.svg" alt="">
-                        <div v-if="!isCollapsed" class="flex-1">Support</div>
-                        <img v-if="!isCollapsed" src="/images/chevron-right.svg" alt="">
-                    </NuxtLink>
-
-                    <NuxtLink
-                        to="/dashboard/profile"
-                        :class="[$route.path == '/dashboard/profile' || $route.path == '/dashboard/profile/' ? 'active-dashbord-link' : '', 'flex items-center gap-[13px] px-[13px] py-[15px] text-white rounded-[8px] cursor-pointer']"
-                    >
-                        <img src="/images/profile.svg" alt="">
-                        <div v-if="!isCollapsed" class="flex-1">Profile</div>
-                        <img v-if="!isCollapsed" src="/images/chevron-right.svg" alt="">
-                    </NuxtLink> -->
                 </div>
 
                 <div>
                 <hr class="border-[#63493E47]">
-                    <div class="mt-[25px] flex gap-[13px] justify-center">
-                        <div class="h-[36px] w-[36px] rounded-full bg-zinc-400"></div>
-                        <div v-if="!isCollapsed" class="text-white">
-                            <div class="font-semibold text-[16px]">Divine Ndumdi-ibe</div>
-                            <div class="text-[10px]">divinendumdiibe@gmail.com</div>
-                        </div>
+                    <div
+                        @click="logout"
+                        class="flex items-center gap-[13px] px-[13px] py-[15px] rounded-[8px] cursor-pointer hover:bg-red-50"
+                    >
+                        <svg width="24px" height="24px" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#ff0000"><path d="M12 12H19M19 12L16 15M19 12L16 9" stroke="#ff0000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M19 6V5C19 3.89543 18.1046 3 17 3H7C5.89543 3 5 3.89543 5 5V19C5 20.1046 5.89543 21 7 21H17C18.1046 21 19 20.1046 19 19V18" stroke="#ff0000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                        <div v-if="!isCollapsed" class="flex-1 text-[#ff0000]">Log out</div>
                     </div>
                 </div>
             </div>
@@ -196,13 +128,19 @@
 
 <script setup lang="ts">
 import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
+import { useAuthStore } from '~/store/useAuthStore'
 
+const authStore = useAuthStore()
+const router = useRouter()
 const open = ref(false)
 
 const isCollapsed = ref(false)
 
 const navLinks= [
     { to: '/dashboard', label: 'Dashboard', icon: '/images/home.svg' },
+    { to: '/users', label: 'Users', icon: '/images/team.svg' },
+    { to: '/cleared-users', label: 'Cleared Users', icon: '/images/user-badge-check.svg' },
+    // admin/cleared-users
 ]
 
 const toggleSidebar = () => {
@@ -215,6 +153,11 @@ const checkScreen = () => {
   } else {
     isCollapsed.value = false
   }
+}
+
+function logout() {
+    authStore.logout()
+    router.push('/')
 }
 
 onMounted(() => {
