@@ -1,12 +1,13 @@
 import express from 'express'; 
 import { authorize, adminOnly } from '../middlewares/auth.middleware.js';
-import { getPendingRegistrations, approveRegistration, getClearedUsers, adminLogin, markAccountAsPaid } from '../controllers/admin.controller.js'
+import { getPendingRegistrations, approveRegistration, getAllUsers, getClearedUsers, adminLogin, markAccountAsPaid } from '../controllers/admin.controller.js'
 
 const router = express.Router();
 
 router.post('/login', adminLogin);
 router.get('/pending-registrations', authorize, adminOnly, getPendingRegistrations);
 router.post('/approve-registration', authorize, adminOnly, approveRegistration);
+router.get('/users', authorize, adminOnly, getAllUsers);
 router.get('/cleared-users', authorize, adminOnly, getClearedUsers);
 router.post('/account-paid', authorize, adminOnly, markAccountAsPaid);
 router.get('/profile', authorize, adminOnly, async (req, res) => {
