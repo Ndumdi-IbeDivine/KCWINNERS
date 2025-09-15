@@ -94,7 +94,7 @@ const approveRegistration = async (req, res, next) => {
 const getClearedUsers = async (req, res, next) => {
   try {
     const clearedAccounts = await ContributionAccount.find({ status: "eligible_for_withdrawal" })
-      .populate("user", "name email phone accountNumber bankName");
+      .populate("userId", "name email phone accountNumber bankName");
 
     res.status(200).json({
       success: true,
