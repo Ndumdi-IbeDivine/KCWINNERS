@@ -18,7 +18,7 @@
 
                 <!-- Tab Content -->
                 <div v-if="isInitLoaded" class="mt-[30px] rounded-lg bg-white">
-                    <div class="md:p-4 rounded">
+                    <div class="md:p-4 rounded relative">
                         <div v-if="users">
                             <div class="overflow-x-auto">
                                 <table class="w-full text-left text-gray-500 border-collapse">
@@ -141,8 +141,36 @@
                                             </button>
                                         </div>
                                     </nav>
-                                </div>
                             </div>
+                            <div
+                            v-if="loading"
+                            class="absolute inset-0 bg-white/70 flex items-center justify-center z-20"
+                        >
+                            <div class="flex flex-col items-center">
+                                <svg
+                                    class="animate-spin h-6 w-6 text-[#072635]"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <circle
+                                    class="opacity-25"
+                                    cx="12"
+                                    cy="12"
+                                    r="10"
+                                    stroke="currentColor"
+                                    stroke-width="4"
+                                    ></circle>
+                                    <path
+                                    class="opacity-75"
+                                    fill="currentColor"
+                                    d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                                    ></path>
+                                </svg>
+                                <span class="mt-2 text-sm text-gray-700">Loading...</span>
+                            </div>
+                        </div>
+                        </div>
 
                             <div v-else class="mt-5 mx-5">No user to show</div>
                         </div>
@@ -169,8 +197,12 @@ definePageMeta({
     layout: "dashboard-layout",
 });
 
-const goToPage = (page: number) => {
-  adminStore.getUsers(page)
+const loading = ref(false);
+
+const goToPage = async (page: number) => {
+    loading.value = true;
+    await adminStore.getUsers(page)
+    loading.value = false;
 }
 
 onMounted(() => {

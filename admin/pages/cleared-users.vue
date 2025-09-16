@@ -18,7 +18,7 @@
 
                 <!-- Tab Content -->
                 <div v-if="isInitLoaded" class="mt-[30px] rounded-lg bg-white">
-                    <div class="md:p-4 rounded">
+                    <div class="md:p-4 rounded relative">
                         <div v-if="clearedUsers">
                             <div class="overflow-x-auto">
                                 <table class="w-full text-left text-gray-500 border-collapse">
@@ -42,7 +42,35 @@
                                         <td class="px-6 py-4">{{ user.userId.bankName }} <br>{{ user.userId.accountNumber }}</td>
                                         <td><PrimaryBtnAsync @click="pay(user._id, user.userId._id)">Paid</PrimaryBtnAsync></td>
                                     </tr>
-                                    </tbody>
+                                </tbody>
+                                <div
+                                    v-if="loadingUserId"
+                                    class="absolute inset-0 bg-white/70 flex items-center justify-center z-20"
+                                >
+                                    <div class="flex flex-col items-center">
+                                        <svg
+                                            class="animate-spin h-6 w-6 text-[#072635]"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                        >
+                                            <circle
+                                            class="opacity-25"
+                                            cx="12"
+                                            cy="12"
+                                            r="10"
+                                            stroke="currentColor"
+                                            stroke-width="4"
+                                            ></circle>
+                                            <path
+                                            class="opacity-75"
+                                            fill="currentColor"
+                                            d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                                            ></path>
+                                        </svg>
+                                        <span class="mt-2 text-sm text-gray-700">Loading...</span>
+                                    </div>
+                                </div>
                                 </table>
                             </div>
 
@@ -125,17 +153,25 @@ definePageMeta({
     layout: "dashboard-layout"
 })
 
-const goToPage = (page: number) => {
-  adminStore.getUsers(page)
+const currPage = ref(1);
+
+const goToPage = async (page: number) => {
+    await adminStore.getClearedUsers(page)
+    currPage.value = page;
 }
 
+const loadingUserId = ref<string | null>(null);
 async function pay(accountId: string, userId: string) {
     try {
         console.log({ accountId, userId })
+        loadingUserId.value = userId;
         let res = await api.post('/admin/account-paid', { accountId, userId })
+        adminStore.getClearedUsers(currPage.value);
         console.log(res);
     } catch (error) {
         console.log(error);
+    } finally {
+        loadingUserId.value = null;
     }
 }
 </script>
