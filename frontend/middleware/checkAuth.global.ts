@@ -28,10 +28,6 @@ export default defineNuxtRouteMiddleware((to) => {
   const isActivated = authStore.userProfile?.isActivated ?? false;
   const isVerified = authStore.userProfile?.isVerified ?? false;
 
-  console.log("isAuth", isAuth);
-  console.log("isActivated", isActivated);
-  console.log("isVerified", isVerified);
-
   if (isAuth && matchesRoute(authRoutes, to.path)) {
     return navigateTo("/dashboard");
   }

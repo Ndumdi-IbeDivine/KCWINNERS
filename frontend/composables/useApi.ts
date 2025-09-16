@@ -3,9 +3,7 @@ import Cookies from "js-cookie";
 
 export default function useApi() {
     let config = useRuntimeConfig();
-    console.log(config.public);
     
-
     const api = axios.create({
         baseURL: config.public.apiBaseUrl, // Use the API base URL from the runtime config
         headers: {

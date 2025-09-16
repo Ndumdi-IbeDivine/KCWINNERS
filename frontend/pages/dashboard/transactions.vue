@@ -353,7 +353,6 @@ async function getSuccessfulTransactions(page: number = 1) {
         loading.value = true
         let res = await api.get(`/wallet/transactions?status=success&page=${page}`)
         successfulTransactions.value = res.data
-        console.log(res.data)
     } catch (error: any) {
         successError.value = true
     } finally {
@@ -367,7 +366,6 @@ async function getFailedTransactions(page: number = 1) {
 
         let res = await api.get(`/wallet/transactions?status=failed&page=${page}`)
         failedTransactions.value = res.data
-        console.log(res.data)
     } catch (error) {
         failedError.value = true
     } finally {

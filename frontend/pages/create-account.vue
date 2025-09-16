@@ -172,17 +172,13 @@ async function handleCreateAccount() {
             password: password.value,
         });
 
-        console.log(res.data)
-
-        // toast?.value?.showToast(res.data.message, res.data.success);
-
         if(res.data.success) {
-            feedback.value = "account created successfully, taking you to the login page"
+            feedback.value = "Account created successfully, taking you to the login page"
             // Cookies.set('token', res.data.token, { expires: 7 });
             // authStore.setIsAuthenticated(true);
             // authStore.setUserProfile(res.data.user);
 
-            // console.log(authStore.userProfile);
+
             setTimeout(() => {
                 router.push('/login')
             }, 2000)

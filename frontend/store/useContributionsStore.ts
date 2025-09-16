@@ -35,7 +35,6 @@ export const useContribustionsStore = defineStore("contributions", {
             const api = useApi()
             
             let res = await api.get('/wallet/transactions')
-            console.log(res.data)
             this.transactions = res.data
             this.transactionsLoad = true
         }

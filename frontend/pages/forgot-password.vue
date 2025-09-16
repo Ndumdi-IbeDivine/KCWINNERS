@@ -139,7 +139,6 @@ async function handleForgotPassword() {
             phone: normalizePhone(phone.value),
         });
         
-        console.log(res)
     } catch (err: any) {
         feedback.value = "Failed to send OTP, try again later"
 

@@ -357,8 +357,7 @@ async function activateAccount() {
                 'Authorization': `Brearer ${token}`
             }
         })
-    
-        console.log(res)
+
         if(res.status == 200) {
             authStore.setUserProfile(res.data.data.user)
             router.push('/dashboard')

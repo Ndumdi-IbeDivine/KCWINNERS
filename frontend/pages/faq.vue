@@ -60,9 +60,7 @@ definePageMeta({
 const activeFaq = ref<null | number>(null);
 
 const toggleFaq = (index: number) => {
-    console.log(index)
     activeFaq.value = activeFaq.value === index ? null : index;
-    console.log(activeFaq.value)
 };
 
 

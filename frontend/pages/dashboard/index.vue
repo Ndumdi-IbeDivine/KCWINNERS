@@ -346,7 +346,6 @@ async function fundWallet() {
         })
 
         window.location = res.data.checkoutUrl
-        console.log(res.data)
     } catch (err: any) {
         const msg = err.response?.data?.message || err.response?.data?.error || "Login failed";
         fundWalletFeedback.value = msg;

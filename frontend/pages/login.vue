@@ -161,8 +161,6 @@ async function handleLogin() {
         
         authStore.setIsAuthenticated(true);
         authStore.setUserProfile(res.data.data.user);
-
-        console.log(authStore.userProfile);
     } catch (err: any) {
         const msg = err.response?.data?.message || err.response?.data?.error || "Login failed";
 
