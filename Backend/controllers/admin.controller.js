@@ -93,7 +93,7 @@ const getPendingRegistrations = async (req, res, next) => {
 
 const approveRegistration = async (req, res, next) => {
     try {
-        const { userId } = req.params;
+        const { userId } = req.query;
 
         const user = await User.findById(userId);
         if (!user) return res.status(404).json({ success: false, message: 'User not found' });
@@ -173,7 +173,7 @@ const getClearedUsers = async (req, res, next) => {
 const markAccountAsPaid = async (req, res, next) => {
   try {
     const { userId, accountId } = req.query;
-
+    
     if (!userId || !accountId) {
       return res.status(400).json({ message: "userId and accountId are required" });
     }

@@ -23,9 +23,10 @@
                 Our work is rooted in excellence, integrity, and community impact — values that guide everything we do.</p>
 
                 <div class="semi-heading mt-10">What we do</div>
+                <p class="mt-5">At KCwinners our services delivery is redefined with the aim of a seamless path to guaranteed investment while attending to other family needs. Our property arm is ever ready to simplify the problem of property sourcing, sales and management. There is also opportunity to help clients in need of financial assistance to own property of their choice, whether it is land, homes or real estate projects to secure investment for future benefit.</p>
                 <ul class="mt-5">
                     <li><b>Real Estate & Property Sales:</b> KCwinners provides reliable access to properties — from affordable housing to investment opportunities. Whether it’s land, homes, or estate projects, we connect people with secure investments for the future.</li>
-                    <li><b>Building Materials Distribution:</b>  We supply high-quality blocks, bricks, and interlocking stones used in constructing homes, estates, and even roads. Our distribution arm ensures durability and affordability for builders and developers alike.</li>
+                    <li><b>Building Materials Distribution:</b>   We supply high-quality blocks, bricks, and interlocking stones used in constructing homes, estates, and even roads. Our distribution arm ensures durability and affordability of materials and goods meet with international approved standards.</li>
                     <li><b>Wealth Contribution Initiative:</b> As part of our community-focused drive, KCwinners also runs a weekly contribution program that allows members to contribute consistently for a set period and enjoy rewards in both cash and food items. This initiative has already gained the trust of over 100 families, making it a practical way for many to meet their financial goals.</li>
                 </ul>
             </div>
@@ -40,7 +41,7 @@
                 </div>
                 <div>
                     <div class="semi-heading leading-[44.8px]">Mission</div>
-                    <div class="font-bold">Empowering Growth, Rewarding Commitment.</div>
+                    <div class="font-bold">Rendering Services that transform lives and create wealth.</div>
                     <p class="mt-[16px]">KCwinners exists to provide opportunities that make life better for families and communities. From real estate and property sales to material distribution and financial initiatives, we are committed to ensuring that consistency and commitment are always rewarded.</p>
                 </div>
             </div>
@@ -73,7 +74,7 @@
                 data-aos-anchor-placement="top-bottom"
                 class="mt-[80px]"
             >
-                <Testimonials />
+                <Testimonials :testimonials="testimonials" />
             </div>
         </div>
 
@@ -93,4 +94,19 @@
 definePageMeta({
     layout: 'website-layout'
 });
+
+const testimonials = [
+    {
+        name: 'Blessing I.',
+        message: ' “Consistency pays.” I missed some contributions at first but cleared my defaults and stayed committed. Today, I received ₦100,000 plus foodstuff. I’m telling everyone, if you stay faithful, you will surely collect. God bless KC Winners!”'
+    },
+    {
+        name: 'Tolu A.',
+        message: '“Family project.” I opened 2 accounts for myself and 1 each for my brother and cousin. Today, all four accounts matured and I have collected ₦400,000! We even used part of it to buy new furniture for our parents. KC Winners is a blessing.”'
+    },
+    {
+        name: 'Emeka N.',
+        message: '“From doubt to joy.” Honestly, I was skeptical at first, but after my first ₦100k alert dropped, I quickly opened another account. KC Winners is legit – they really pay. I’m already on my second cycle.”'
+    },
+]
 </script>

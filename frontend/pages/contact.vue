@@ -15,24 +15,35 @@
                 class="px-5 lg:px-[244px] mt-[40px] grid gap-[30px]"
             >
                 <div>
-                    <label for="full_name" class="block mb-2 text-sm font-medium text-gray-900">Full Name</label>
-                    <input type="text" id="full_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="eg: Micheal Chisom" required />
+                    <label for="full_name" class="block mb-2 text-sm font-medium text-gray-900">Full Name*</label>
+                    <input v-model="name" type="text" id="full_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="eg: Micheal Chisom" required />
                 </div>
                 <div>
-                    <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Email</label>
-                    <input type="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="eg: michaelchisom@gmail.com" required />
+                    <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Email*</label>
+                    <input v-model="email" type="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="eg: michaelchisom@gmail.com" required />
+                </div>
+                
+                <div>
+                    <label for="subject" class="block mb-2 text-sm font-medium text-gray-900">Subject*</label>
+                    <input v-model="subject" type="text" id="subject" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Subject" required />
                 </div>
                 <div>
-                    <label for="tel" class="block mb-2 text-sm font-medium text-gray-900">Phone Number</label>
-                    <input type="tel" id="tel" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="eg: 08012345678" required />
+                    <label for="tel" class="block mb-2 text-sm font-medium text-gray-900">Phone Number*</label>
+                    <input v-model="phone" type="tel" id="tel" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="eg: 08012345678" required />
                 </div>
                 <div>
-                    <label for="message" class="block mb-2 text-sm font-medium text-gray-900">Message</label>
-                    <textarea rows="10" type="text" id="message" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required></textarea>
+                    <label for="message" class="block mb-2 text-sm font-medium text-gray-900">Message*</label>
+                    <textarea v-model="message" rows="10" type="text" id="message" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required></textarea>
+                </div>
+
+                <div v-if="feedback">
+                    <p :class="[isError ? 'text-red-500' : 'text-green-500', 'text-[17px]']">{{ feedback }}</p>
                 </div>
 
                 <div>
-                    <PrimaryBtn>Send Message</PrimaryBtn>
+                    <PrimaryBtnAsync @click="sendMessage" :is-disabled="loading">
+                        {{ loading ? 'Sending Message...' : 'Send Message' }}
+                    </PrimaryBtnAsync>
                 </div>
             </div>
 
@@ -81,4 +92,59 @@
 definePageMeta({
     layout: 'website-layout'
 });
+
+const api = useApi()
+
+const name = ref('')
+const email = ref('')
+const phone = ref('')
+const message = ref('')
+const subject = ref('')
+
+const loading = ref(false)
+const isError = ref(false)
+const feedback = ref('')
+
+async function sendMessage() {
+    try {
+        loading.value = true
+        isError.value = false
+        feedback.value = ""
+
+        if (
+            !name.value?.trim() ||
+            !email.value?.trim() ||
+            !phone.value?.trim() ||
+            !message.value?.trim() ||
+            !subject.value?.trim()
+        ) {
+            isError.value = true;
+            feedback.value = "All input marked with asterisk (*) are required";
+            loading.value = false;
+            return;
+        }
+
+        const body = {
+            name: name.value,
+            email: email.value,
+            phone: phone.value,
+            message: message.value,
+            subject: subject.value
+        }
+        
+        let res = await api.post('/contact', body)
+        feedback.value = res.data.message
+    } catch (err: any) {
+        const msg = err.response?.data?.message || err.response?.data?.error || "Something went wrong, try again later.";
+        feedback.value = msg
+        isError.value = true;
+    } finally {
+        loading.value = false
+
+        setTimeout(() => {
+            isError.value = false
+            feedback.value = ''
+        }, 10000);
+    }
+}
 </script>

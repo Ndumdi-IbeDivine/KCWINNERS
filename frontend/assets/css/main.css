@@ -59,6 +59,11 @@ ul li {
   list-style: disc;
 }
 
+ol li {
+  margin-left: 40px;
+  list-style: decimal;
+}
+
 .semi-heading {
   font-weight: bold;
   font-size: 36px;
