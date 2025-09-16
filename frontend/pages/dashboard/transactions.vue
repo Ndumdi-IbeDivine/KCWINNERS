@@ -270,7 +270,7 @@ async function retry(fn: () => Promise<any>, retries = 3, delay = 1000, errorMes
 
 const goToPage = (page: number, type: string) => {
     if(type == 'success') {
-        if (page > 0 && page <= successfulTransactions.value.totalPages) {
+        if (page > 0 && page <= successfulTransactions.value?.totalPages) {
             getSuccessfulTransactions(page)
         }
     } else {

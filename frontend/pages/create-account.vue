@@ -111,7 +111,7 @@
                     </PrimaryBtnAsync>
                 </div>
 
-                <div class="text-center text-[14px]">By signing up, you agree to the <NuxtLink to="/terms-of-service" class="underline cursor-pointer">Terms of Service</NuxtLink> and <u class="cursor-pointer">Privacy Policy</u>.</div>
+                <div class="text-center text-[14px]">By signing up, you agree to the <NuxtLink to="/terms" class="underline cursor-pointer">Terms of Service</NuxtLink>.</div>
 
                 <div class="text-center">
                     Already have an account?
