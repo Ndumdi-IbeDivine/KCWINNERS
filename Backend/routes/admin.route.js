@@ -9,7 +9,7 @@ router.get('/pending-registrations', authorize, adminOnly, getPendingRegistratio
 router.post('/approve-registration', authorize, adminOnly, approveRegistration);
 router.get('/users', authorize, adminOnly, getAllUsers);
 router.get('/cleared-users', authorize, adminOnly, getClearedUsers);
-router.post('/account-paid', authorize, adminOnly, markAccountAsPaid);
+router.put('/account-paid', authorize, adminOnly, markAccountAsPaid);
 router.get('/profile', authorize, adminOnly, async (req, res) => {
   try {
     // Here you can fetch statistics for admin (example)
