@@ -40,7 +40,7 @@
                                         <td class="px-6 py-4">{{ user.userId.email }}</td>
                                         <td class="px-6 py-4">{{ user.code }}</td>
                                         <td class="px-6 py-4">{{ user.userId.bankName }} <br>{{ user.userId.accountNumber }}</td>
-                                        <!-- <td><PrimaryBtnAsync @click="pay(user.userId)">Paid</PrimaryBtnAsync></td> -->
+                                        <td><PrimaryBtnAsync @click="pay(user._id, user.userId._id)">Paid</PrimaryBtnAsync></td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -131,6 +131,7 @@ const goToPage = (page: number) => {
 
 async function pay(accountId: string, userId: string) {
     try {
+        console.log({ accountId, userId })
         let res = await api.post('/admin/account-paid', { accountId, userId })
         console.log(res);
     } catch (error) {
