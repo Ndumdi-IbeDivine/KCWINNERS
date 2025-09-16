@@ -139,7 +139,7 @@ const isCollapsed = ref(false)
 const navLinks= [
     { to: '/dashboard', label: 'Dashboard', icon: '/images/home.svg' },
     { to: '/users', label: 'Users', icon: '/images/team.svg' },
-    { to: '/cleared-users', label: 'Cleared Users', icon: '/images/user-badge-check.svg' },
+    { to: '/cleared-users', label: 'Clearance', icon: '/images/user-badge-check.svg' },
     // admin/cleared-users
 ]
 

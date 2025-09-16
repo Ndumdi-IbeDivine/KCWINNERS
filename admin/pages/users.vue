@@ -50,87 +50,132 @@
                                     </tbody>
                                 </table>
                             </div>
-<!-- 
                             <div class="mt-3">
-                                 <nav class="w-full grid grid-cols-3 gap-x-1" aria-label="Pagination">
-                                    <div>
-                                        <button
-                                            type="button"
-                                            class="min-h-9.5 min-w-9.5 py-2 px-3.5 inline-flex justify-center items-center gap-x-2 text-sm rounded-full text-gray-800 bg-white border border-[#0000001A] focus:outline-hidden focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none transition-all duration-500 hover:transition-all hover:duration-300 cursor-pointer"
-                                            :disabled="successfulTransactions.page === 1"
-                                            aria-label="Next"
-                                            @click="goToPage(successfulTransactions.page - 1, 'success')"
-                                        >
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-5 h-5">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m7-7l-7 7 7 7" />
-                                            </svg>
-                                            <span aria-hidden="true" class="hidden sm:block">Previous</span>
-                                        </button>
-                                    </div>
+                                    <nav
+                                        class="w-full grid grid-cols-3 gap-x-1"
+                                        aria-label="Pagination"
+                                    >
+                                        <div>
+                                            <button
+                                                type="button"
+                                                class="min-h-9.5 min-w-9.5 py-2 px-3.5 inline-flex justify-center items-center gap-x-2 text-sm rounded-full text-gray-800 bg-white border border-[#0000001A] focus:outline-hidden focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none transition-all duration-500 hover:transition-all hover:duration-300 cursor-pointer"
+                                                :disabled="!users.hasPrevPage"
+                                                @click="
+                                                    goToPage(
+                                                        users.currentPage - 1
+                                                    )
+                                                "
+                                            >
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    fill="none"
+                                                    viewBox="0 0 24 24"
+                                                    stroke="currentColor"
+                                                    class="w-5 h-5"
+                                                >
+                                                    <path
+                                                        stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M19 12H5m7-7l-7 7 7 7"
+                                                    />
+                                                </svg>
+                                                <span
+                                                    aria-hidden="true"
+                                                    class="hidden sm:block"
+                                                    >Previous</span
+                                                >
+                                            </button>
+                                        </div>
 
-                                    <div class="flex justify-center gap-x-1">
-                                        <button
-                                            v-for="(pageNum, index) in successfulPageNumbers"
-                                            :key="index"
-                                            type="button"
-                                            class="min-h-9.5 min-w-9.5 flex justify-center items-center py-2 px-3 text-sm rounded-full transition-all duration-300"
-                                            :class="[
-                                            successfulTransactions.page === pageNum
-                                                ? 'bg-zinc-100'
-                                                : 'bg-white border border-[#0000001A] text-gray-800 hover:bg-gray-100'
-                                            ]"
-                                            @click="goToPage(pageNum as number, 'success')"
+                                        <div
+                                            class="flex justify-center gap-x-1"
                                         >
-                                            {{ pageNum }}
-                                        </button>
-                                    </div>
+                                            <button
+                                                v-for="pageNum in users.totalPages"
+                                                :key="pageNum"
+                                                type="button"
+                                                class="min-h-9.5 min-w-9.5 flex justify-center items-center py-2 px-3 text-sm rounded-full transition-all duration-300"
+                                                :class="[
+                                                    users.currentPage ===
+                                                    pageNum
+                                                        ? 'bg-zinc-100'
+                                                        : 'bg-white border border-[#0000001A] text-gray-800 hover:bg-gray-100',
+                                                ]"
+                                                @click="goToPage(pageNum)"
+                                            >
+                                                {{ pageNum }}
+                                            </button>
+                                        </div>
 
-                                    <div class="flex justify-end">
-                                        <button
-                                            type="button"
-                                            class="min-h-9.5 min-w-9.5 py-2 px-3.5 inline-flex justify-center items-center gap-x-2 text-sm rounded-full text-gray-800 bg-white border border-[#0000001A] focus:outline-hidden focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none transition-all duration-500 hover:transition-all hover:duration-300 cursor-pointer"
-                                            :disabled="successfulTransactions.page === successfulTransactions.totalPages"
-                                            aria-label="Next"
-                                            @click="goToPage(successfulTransactions.page + 1, 'success')"
-                                        >
-                                            <span aria-hidden="true" class="hidden sm:block">Next</span>
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-5 h-5">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M13 5l7 7-7 7" />
-                                            </svg>
-                                        </button>
-                                    </div>
-                                </nav>
-                            </div> -->
+                                        <div class="flex justify-end">
+                                            <button
+                                                type="button"
+                                                class="min-h-9.5 min-w-9.5 py-2 px-3.5 inline-flex justify-center items-center gap-x-2 text-sm rounded-full text-gray-800 bg-white border border-[#0000001A] focus:outline-hidden focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none transition-all duration-500 hover:transition-all hover:duration-300 cursor-pointer"
+                                                :disabled="!users.hasNextPage"
+                                                @click="
+                                                    goToPage(
+                                                        users.currentPage + 1
+                                                    )
+                                                "
+                                            >
+                                                <span
+                                                    aria-hidden="true"
+                                                    class="hidden sm:block"
+                                                    >Next</span
+                                                >
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    fill="none"
+                                                    viewBox="0 0 24 24"
+                                                    stroke="currentColor"
+                                                    class="w-5 h-5"
+                                                >
+                                                    <path
+                                                        stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M5 12h14M13 5l7 7-7 7"
+                                                    />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </nav>
+                                </div>
+                            </div>
+
+                            <div v-else class="mt-5 mx-5">No user to show</div>
                         </div>
-                        <!-- <div v-else-if="successError" class="mt-5 mx-5">Something went wrong, try refreshing page</div> -->
-                        <div v-else class="mt-5 mx-5">
-                            No user to show
-                        </div>
+                    </div>
 
+                    <div v-else>
+                        <div class="flex justify-center items-center h-[100px]">
+                            <Loader />
+                        </div>
                     </div>
                 </div>
-                <div v-else>
-                    <div class="flex justify-center items-center h-[100px]"><Loader /></div>
-                </div>
             </div>
-        </div>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import { useAdminStore } from '~/store/useAdminStore';
+import { useAdminStore } from "~/store/useAdminStore";
 
 const adminStore = useAdminStore();
-const { users, isInitLoaded } = storeToRefs(adminStore)
+const { users, isInitLoaded } = storeToRefs(adminStore);
 
 definePageMeta({
-    layout: "dashboard-layout"
-})
+    layout: "dashboard-layout",
+});
+
+const goToPage = (page: number) => {
+  adminStore.getUsers(page)
+}
 
 onMounted(() => {
-    if(!isInitLoaded.value){
-        adminStore.init()
+    if (!isInitLoaded.value) {
+        adminStore.init();
     }
-})
+});
 </script>

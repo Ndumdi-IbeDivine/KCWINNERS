@@ -1,5 +1,6 @@
 export interface User {
     _id: string;
+    isVerified: boolean;
     activatedAt: string | null;
     createdAt: string;
     email: string;

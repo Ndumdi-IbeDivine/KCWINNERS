@@ -1,39 +1,47 @@
 import { defineStore } from "pinia";
-import type { User } from '../types/base'
+import type { User } from "../types/base";
 import useApi from "../composables/useApi";
 import Cookies from "js-cookie";
 
 export const useAdminStore = defineStore("admin", {
-    
     state: () => ({
         isInitLoaded: false,
-        users: null as null | User[],
+        users: null as null | {
+            count: number;
+            currentPage: number;
+            hasNextPage: boolean;
+            hasPrevPage: boolean;
+            success: boolean;
+            total: number;
+            totalPages: number;
+            users: User[];
+        },
         pendingRegistrations: null as null | any,
         clearedUsers: null as null | any,
     }),
-    
+
     actions: {
         async init() {
             await this.getPendingRegistrations();
             await this.getClearedUsers();
             await this.getUsers();
 
-            this.isInitLoaded = true
+            this.isInitLoaded = true;
         },
-        async getPendingRegistrations(){
+        async getPendingRegistrations() {
             const api = useApi();
-            const token = Cookies.get('token')
+            const token = Cookies.get("token");
 
             try {
                 const res = await api.get("/admin/pending-registrations", {
                     headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
+                        Authorization: `Bearer ${token}`,
+                    },
                 });
 
-                console.log(res)
-                this.pendingRegistrations = res.data
-                this.isInitLoaded = true
+                console.log(res);
+                this.pendingRegistrations = res.data;
+                this.isInitLoaded = true;
                 // this.setIsAuthenticated(res.data.success);
                 // if (res.data.success) {
                 //     this.setUserProfile(res.data.user);
@@ -46,36 +54,36 @@ export const useAdminStore = defineStore("admin", {
             }
         },
 
-        async getClearedUsers(){
+        async getClearedUsers(page = 1) {
             const api = useApi();
-            const token = Cookies.get('token')
+            const token = Cookies.get("token");
 
             try {
-                const res = await api.get("/admin/cleared-users", {
+                const res = await api.get(`/admin/cleared-users?page=${page}`, {
                     headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
+                        Authorization: `Bearer ${token}`,
+                    },
                 });
-                this.clearedUsers = res.data
-                console.log(res)
+                this.clearedUsers = res.data;
+                console.log(res);
             } catch (error) {
                 // this.setIsAuthenticated(false);
                 // this.setUserProfile(null);
             }
         },
 
-        async getUsers(){
+        async getUsers(page = 1) {
             const api = useApi();
-            const token = Cookies.get('token')
+            const token = Cookies.get("token");
 
             try {
-                const res = await api.get("/admin/users", {
+                const res = await api.get(`/admin/users?page=${page}`, {
                     headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
+                        Authorization: `Bearer ${token}`,
+                    },
                 });
-                this.users = res.data
-                console.log(res)
+                this.users = res.data;
+                console.log(res);
             } catch (error) {
                 // this.setIsAuthenticated(false);
                 // this.setUserProfile(null);
@@ -83,18 +91,18 @@ export const useAdminStore = defineStore("admin", {
         },
         // async getProfile() {
         //     const api = useApi()
-            
+
         //     try {
         //         const res = await api.get(`users/${this.userProfile?._id}`)
         //         this.userProfile = res.data.data
         //     } catch (error) {
-                
+
         //     }
         // },
-        // logout() {            
+        // logout() {
         //     Cookies.remove('token');
         //     this.setUserProfile(null);
         //     this.setIsAuthenticated(false);
         // }
-    }
+    },
 });

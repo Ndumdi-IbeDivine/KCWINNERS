@@ -14,6 +14,12 @@
                 </div>
                 <div class="text-[33px] font-bold">{{ pendingRegistrations ? pendingRegistrations.count : '...' }}</div>
             </div>
+            <div class="px-8 py-[21px] bg-white rounded-lg mt-10">
+                <div class="flex gap-2.5 text-[#747474] font-[16px]">
+                    Pending Clearance
+                </div>
+                <div class="text-[33px] font-bold">{{ clearedUsers ? clearedUsers.count : '...' }}</div>
+            </div>
         </div>
 
         <div class="mt-10">
@@ -41,6 +47,7 @@
                                         <th scope="col" class="px-6 py-3 sticky left-0 bg-white">Account</th>
                                         <th scope="col" class="px-6 py-3">Amount</th>
                                         <th scope="col" class="px-6 py-3">Date created</th>
+                                        <th scope="col" class="px-6 py-3">Registration proof</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -50,6 +57,9 @@
                                         </td>
                                         <td class="px-6 py-4">{{ user.phone }}</td>
                                         <td class="px-6 py-4">{{ new Date(user.createdAt).toDateString() }}</td>
+                                        <td class="px-6 py-4 underline">
+                                            <a v-if="user.registrationProofUrl" target="_blank" :href="user.registrationProofUrl">View payment proof</a>
+                                        </td>
                                         <td class="py-2">
                                             <PrimaryBtnAsync>Verify</PrimaryBtnAsync>
                                         </td>
@@ -129,7 +139,7 @@
 import { useAdminStore } from "~/store/useAdminStore";
 
 const adminStore = useAdminStore();
-const { users, pendingRegistrations, isInitLoaded } = storeToRefs(adminStore)
+const { users, pendingRegistrations, isInitLoaded, clearedUsers } = storeToRefs(adminStore)
 
 definePageMeta({
     layout: 'dashboard-layout'
