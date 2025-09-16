@@ -172,7 +172,7 @@ const getClearedUsers = async (req, res, next) => {
 
 const markAccountAsPaid = async (req, res, next) => {
   try {
-    const { userId, accountId } = req.body;
+    const { userId, accountId } = req.query;
 
     if (!userId || !accountId) {
       return res.status(400).json({ message: "userId and accountId are required" });
@@ -181,7 +181,7 @@ const markAccountAsPaid = async (req, res, next) => {
     // Find account
     const account = await ContributionAccount.findOne({
       _id: accountId,
-      user: userId,
+      userId: userId,
       status: "eligible_for_withdrawal", // only eligible accounts can be paid
     });
 
