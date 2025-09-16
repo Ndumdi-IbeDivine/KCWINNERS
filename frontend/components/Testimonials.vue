@@ -5,7 +5,7 @@
             <div class="text-[#717171] mt-[8px]">What are our clients saying?</div>
         </div>
 
-        <div class="grid md:grid-cols-3 gap-[47px] mt-[35px]">
+        <div class="grid lg:grid-cols-3 gap-[47px] mt-[35px]">
             <div v-for="t in testimonials" class="bg-[#F8F8F8] p-[32px] rounded-lg">
                 <div>
                     <img src="/images/user-placeholder.png" class="rounded-full h-16 w-16" alt="">
