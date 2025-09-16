@@ -4,6 +4,7 @@ export interface User {
     createdAt: string;
     email: string;
     isActivated: boolean;
+    isVerified: boolean;
     name: string;
     phone: string;
     role: "user" | "admin";
