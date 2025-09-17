@@ -111,7 +111,6 @@ async function handleLogin() {
             authStore.setIsAuthenticated(true);
             authStore.setUserProfile(res.data.user);
 
-            console.log(authStore.userProfile);
             router.push('/dashboard')
 
             await adminStore.init()

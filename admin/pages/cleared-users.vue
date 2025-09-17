@@ -125,6 +125,9 @@
                                     </div>
                                 </nav>
                             </div>
+                            <div v-if="feedback" class="mt-5">
+                                <p :class="[isError ? 'text-red-500' : 'text-green-500', 'text-[17px]']">{{ feedback }}</p>
+                            </div>
                         </div>
                         <!-- <div v-else-if="successError" class="mt-5 mx-5">Something went wrong, try refreshing page</div> -->
                         <div v-else class="mt-5 mx-5">
@@ -161,17 +164,25 @@ const goToPage = async (page: number) => {
 }
 
 const loadingUserId = ref<string | null>(null);
+const feedback = ref("");
+const isError = ref(false);
+
 async function pay(accountId: string, userId: string) {
     try {
-        console.log({ accountId, userId })
         loadingUserId.value = userId;
         let res = await api.post('/admin/account-paid', { accountId, userId })
         adminStore.getClearedUsers(currPage.value);
-        console.log(res);
-    } catch (error) {
-        console.log(error);
+    } catch (err: any) {
+        const msg = err.response?.data?.message || err.response?.data?.error || "Failed to mark as paid, try again later.";
+        feedback.value = msg
+        isError.value = true;
     } finally {
         loadingUserId.value = null;
+
+        setTimeout(() => {
+            feedback.value = ''
+            isError.value = false
+        }, 4000);
     }
 }
 </script>
