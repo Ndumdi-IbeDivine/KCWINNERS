@@ -1,10 +1,8 @@
 import { useAuthStore } from "~/store/useAuthStore";
-import Cookies from "js-cookie";
 
 export default defineNuxtPlugin(async () => {
-    if(Cookies.get('token')) {
-        const authStore = useAuthStore();
+    const authStore = useAuthStore();
+    if (!authStore.isAuthenticated) {
         await authStore.checkAuth();
     }
-
 });

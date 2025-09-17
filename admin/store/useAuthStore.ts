@@ -1,31 +1,31 @@
 import { defineStore } from "pinia";
-import type { User } from '../types/base'
+import type { User } from "../types/base";
 import useApi from "../composables/useApi";
 import Cookies from "js-cookie";
 
 export const useAuthStore = defineStore("auth", {
-    
     state: () => ({
         isAuthenticated: false as boolean,
         userProfile: null as null | User,
+        isAuthChecked: false as boolean,
     }),
-    
+
     actions: {
         setIsAuthenticated(isAuth: boolean) {
-            this.isAuthenticated = isAuth
+            this.isAuthenticated = isAuth;
         },
         setUserProfile(user: null | User) {
-            this.userProfile = user
+            this.userProfile = user;
         },
-        async checkAuth(){
+        async checkAuth() {
             const api = useApi();
-            const token = Cookies.get('token')
+            const token = Cookies.get("token");
 
             try {
                 const res = await api.get("/auth/check", {
                     headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
+                        Authorization: `Bearer ${token}`,
+                    },
                 });
 
                 this.setIsAuthenticated(res.data.success);
@@ -37,23 +37,23 @@ export const useAuthStore = defineStore("auth", {
             } catch (error) {
                 this.setIsAuthenticated(false);
                 this.setUserProfile(null);
+            } finally {
+                this.isAuthChecked = true;
             }
         },
         async getProfile() {
-            const api = useApi()
-            
+            const api = useApi();
             try {
-                const res = await api.get(`admin/profile`)
-                this.userProfile = res.data.data
-                console.log(res.data.data)
-            } catch (error) {
-                
-            }
+                const res = await api.get(`admin/profile`);
+                this.userProfile = res.data.data;
+                console.log(res.data.data);
+            } catch (error) {}
         },
-        logout() {            
-            Cookies.remove('token');
+        logout() {
+            Cookies.remove("token");
             this.setUserProfile(null);
             this.setIsAuthenticated(false);
-        }
-    }
+            this.isAuthChecked = true;
+        },
+    },
 });

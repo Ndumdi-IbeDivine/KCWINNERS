@@ -2,7 +2,7 @@
     <div class="grid min-h-screen lg:p-8">
         <div>
             <NuxtLink to="/">
-                <img src="/images/logo.svg" class="mb-10" alt="" />
+                <img src="/images/logo.svg" class="px-5 pt-2" alt="" />
             </NuxtLink>
             <div class="flex justify-center w-full h-full">
                 <div class="grid gap-4 py-4 px-5 md:px-20 h-full content-center w-full lg:w-[580px]">
@@ -98,6 +98,7 @@ async function handleLogin() {
     if(!email.value || !password.value) {
         isError.value = true
         feedback.value = "Email and password are required.";
+        loading.value = false;
         return;
     }
 

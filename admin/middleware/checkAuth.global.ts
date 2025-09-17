@@ -1,38 +1,35 @@
 import { useAuthStore } from "~/store/useAuthStore";
-import { useAdminStore } from "~/store/useAdminStore";
 
-export default defineNuxtRouteMiddleware((to) => {
-  const authStore = useAuthStore();
-  const adminStore = useAdminStore();
+export default defineNuxtRouteMiddleware(async (to) => {
+    const authStore = useAuthStore();
 
-  const authRoutes = [
-    "/",
-    "/create-account",
-    "/forgot-password",
-    "/reset-password/*",
-  ];
+    if (!authStore.isAuthChecked) {
+        await authStore.checkAuth();
+    }
 
-  function matchesRoute(routeList: string[], path: string): boolean {
-    return routeList.some((route) => {
-      const pattern = new RegExp(
-        "^" +
-          route
-            .replace(/:[^/]+/g, "[^/]+") // dynamic params
-            .replace("*", ".*") + // wildcard
-          "$"
-      );
-      return pattern.test(path);
-    });
-  }
+    const authRoutes = [
+        "/",
+        "/create-account",
+        "/forgot-password",
+        "/reset-password/*",
+    ];
 
-  const isAuth = authStore.isAuthenticated;
+    function matchesRoute(routeList: string[], path: string): boolean {
+        return routeList.some((route) => {
+            const pattern = new RegExp(
+                "^" + route.replace(/:[^/]+/g, "[^/]+").replace("*", ".*") + "$"
+            );
+            return pattern.test(path);
+        });
+    }
 
+    const isAuth = authStore.isAuthenticated;
 
-  if (isAuth && matchesRoute(authRoutes, to.path)) {
-    return navigateTo("/dashboard");
-  }
+    if (isAuth && matchesRoute(authRoutes, to.path)) {
+        return navigateTo('/dashboard');
+    }
 
-  if (!isAuth && !matchesRoute(authRoutes, to.path)) {
-    return navigateTo("/");
-  }
+    if (!isAuth && !matchesRoute(authRoutes, to.path)) {
+        return navigateTo("/");
+    }
 });
