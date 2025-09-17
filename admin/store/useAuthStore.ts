@@ -43,8 +43,9 @@ export const useAuthStore = defineStore("auth", {
             const api = useApi()
             
             try {
-                const res = await api.get(`users/${this.userProfile?._id}`)
+                const res = await api.get(`admin/profile`)
                 this.userProfile = res.data.data
+                console.log(res.data.data)
             } catch (error) {
                 
             }

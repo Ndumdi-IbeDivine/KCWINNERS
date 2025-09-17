@@ -77,8 +77,9 @@
 import { ref, inject } from "vue";
 import Cookies from "js-cookie";
 import { useAuthStore } from "~/store/useAuthStore";
+import { useAdminStore } from "~/store/useAdminStore";
 
-// const init = useInit()
+const adminStore = useAdminStore();
 const authStore = useAuthStore();
 const router = useRouter();
 const api = useApi();
@@ -113,6 +114,7 @@ async function handleLogin() {
             console.log(authStore.userProfile);
             router.push('/dashboard')
 
+            await adminStore.init()
         }
         // Redirect or store token logic here
     } catch (err: any) {

@@ -22,7 +22,7 @@ router.get('/profile', authorize, adminOnly, async (req, res) => {
       data: {
         email: req.user.email,
         role: req.user.role,
-
+        _id: req.user._id
       },
     });
   } catch (error) {
