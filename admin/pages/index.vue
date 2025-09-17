@@ -45,14 +45,14 @@
                         />
                     </div>
     
-                    <div class="flex justify-end">
+                    <!-- <div class="flex justify-end">
                         <NuxtLink
                             to="/forgot-password"
                             class="w-fit s-p text-[var(--sp-blue)] hover:underline"
                         >
                             Forgot password?
                         </NuxtLink>
-                    </div>
+                    </div> -->
 
                     <div v-if="feedback">
                         <p :class="[isError ? 'text-red-500' : 'text-green-500', 'text-[17px]']">{{ feedback }}</p>
